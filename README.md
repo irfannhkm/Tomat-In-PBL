@@ -1,6 +1,7 @@
-# Tomat-In
+# Tomat-In 
+`Grow beyond`
 
-**Tomat-In** adalah aplikasi berbasis web dan mobile untuk identifikasi penyakit dan monitoring kondisi daun tomat secara otomatis, untuk meningkatkan efisiensi pertanian baik di tingkat petani maupun rumah tangga. Proyek ini menggunakan teknologi **Laravel** (PHP) dan **FastAPI** (Python) sebagai backend, serta **Flutter** untuk frontend mobile.
+**Tomat-In** adalah aplikasi berbasis web dan mobile untuk identifikasi penyakit dan monitoring kondisi daun tomat secara otomatis, untuk meningkatkan efisiensi pertanian baik di tingkat petani maupun rumah tangga. Proyek ini menggunakan teknologi **Laravel** (PHP) dan **FastAPI** (Python) sebagai backend, serta **Flutter** untuk frontend mobile. 
 
 ## 🚀 Fitur Utama
 - **Identifikasi Penyakit Daun Tomat** menggunakan teknik machine learning dan computer vision.
