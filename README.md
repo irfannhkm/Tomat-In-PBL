@@ -9,7 +9,7 @@
 
 ## 📂 Struktur Folder
 Berikut adalah struktur folder dalam proyek ini:
-
+```
 tomat-in/
 ├── backend/
 │   ├── laravel/
@@ -17,7 +17,7 @@ tomat-in/
 ├── mobile/
 │   └── flutter-app/
 └── README.md
-
+```
 
 ## 🛠️ Teknologi yang Digunakan
 - **Backend Web/API**: [Laravel](https://laravel.com/) (PHP), [Filament Admin](https://filamentphp.com/)
@@ -34,6 +34,69 @@ Clone repositori ini ke komputer lokal Anda:
 git clone https://github.com/irfannhkm/tomat-in-pbl.git
 cd tomat-in
 ```
+### 2. Backend Laravel Setup
+Masuk ke folder backend Laravel:
+```bash
+cd backend/laravel
+```
+
+Install dependencies Laravel menggunakan Composer:
+```bash
+composer install
+```
+Salin file .env dan konfigurasi environment Anda:
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+Jalankan migrasi database:
+```bash
+php artisan migrate
+```
+Jalankan server Laravel:
+```bash
+php artisan serve
+```
+### 3. Backend FastAPI Setup
+Masuk ke folder backend FastAPI:
+```bash
+cd backend/fastapi
+```
+Buat virtual environment dan aktifkan:
+```bash
+python3 -m venv venv
+source venv/bin/activate   # Linux/Mac
+venv\Scripts\activate      # Windows
+```
+Install dependencies FastAPI:
+```bash
+pip install -r requirements.txt
+Jalankan FastAPI server:
+```
+```bash
+uvicorn main:app --reload
+```
+### 4. Mobile Frontend Flutter Setup
+Masuk ke folder aplikasi Flutter:
+```bash
+cd mobile/flutter-app/flutter_app
+```
+Jalankan aplikasi Flutter:
+```bash
+flutter pub get
+flutter run
+```
+## 🧑‍💻 Kontribusi
+Kami sangat menghargai kontribusi dari semua pihak. Untuk berkontribusi:
+
+1. Fork repositori ini.
+2. Buat branch baru untuk fitur atau perbaikan (git checkout -b feature-branch).
+3. Commit perubahan Anda (git commit -m "Menambahkan fitur X").
+4. Push ke branch (git push origin feature-branch).
+5. Buat Pull Request (PR) dan jelaskan perubahan yang Anda lakukan.
+   
+## 📝 Lisensi
+Proyek ini menggunakan lisensi MIT. Lihat file LICENSE untuk informasi lebih lanjut.
 
 ## 📧 Kontak Tim
 Jika Anda memiliki pertanyaan atau saran, silakan hubungi kami:
@@ -43,19 +106,8 @@ Jika Anda memiliki pertanyaan atau saran, silakan hubungi kami:
 * Mochammad Nizar Mahi        | (Network Admin, Mobile Developer)
 * Mochammad Zakaro Al Fajri   | (Pengolahan Citra dan Computer Vision)
 * Muhammad Irfan Nur Hakim    | (Backend Developer Web & API)
-
-
 ---
 
-### **Penjelasan Isi README.md**
-- **Deskripsi Proyek**: Menjelaskan secara singkat tujuan dan fitur utama aplikasi.
-- **Struktur Folder**: Menjelaskan bagaimana proyek diorganisir, termasuk bagian backend dan frontend.
-- **Teknologi yang Digunakan**: Memperkenalkan teknologi utama yang digunakan, seperti Laravel, FastAPI, dan Flutter.
-- **Instalasi dan Pengaturan**: Instruksi langkah demi langkah untuk setup setiap komponen proyek di lokal.
-- **Kontribusi**: Panduan bagaimana berkontribusi untuk memfasilitasi kolaborasi tim.
-- **Lisensi dan Kontak**: Informasi lisensi dan cara menghubungi tim pengembang.
-
-Dengan README.md ini, pengguna atau pengembang lain akan mudah memahami proyek, mengatur lingkungan pengembangan, dan berkolaborasi dengan baik.
 
 
 
