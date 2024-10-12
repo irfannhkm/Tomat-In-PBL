@@ -16,7 +16,7 @@ tomat-in/
 │   ├── laravel/
 │   └── fastapi/
 ├── mobile/
-│   └── flutter-app/
+│   └── flutter_app/
 └── README.md
 ```
 
