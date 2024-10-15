@@ -1,5 +1,7 @@
 <?php
 
+use App\Filament\Admin\Themes\Awesome;
+
 return [
 
     /*
