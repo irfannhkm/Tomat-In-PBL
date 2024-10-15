@@ -27,9 +27,16 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->registration()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Slate,
             ])
+            ->brandLogo(
+                asset('images/logo_tomatin_upscayl.png') 
+            )
+            ->brandLogoHeight(50)
+            ->brandName('Tomat-in')
+            ->favicon(asset('images/favicon.png'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -53,6 +60,19 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+                
+            ])
+            ->middleware([
+                \Hasnayeen\Themes\Http\Middleware\SetTheme::class
+            ])
+            // or in `tenantMiddleware` if you're using multi-tenancy
+            ->tenantMiddleware([
+                \Hasnayeen\Themes\Http\Middleware\SetTheme::class
+            ])
+            ->plugin(
+                \Hasnayeen\Themes\ThemesPlugin::make()
+            );
+            
+            
     }
 }

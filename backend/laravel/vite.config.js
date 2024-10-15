@@ -8,4 +8,8 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    input: [
+        'resources/css/awesome.css',  // Add this line
+        // other input files
+    ],
 });
