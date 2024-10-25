@@ -3,6 +3,7 @@ import 'package:flutter_app/pages/home_page.dart';
 import 'package:flutter_app/pages/login_screen.dart';
 import 'package:flutter_app/pages/main_screen.dart';
 import 'package:flutter_app/pages/signup_screen.dart';
+import 'package:flutter_app/pages/scan_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_app/pages/reminder_setting.dart';
 

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final Function(int)
+      onNavigate; // Callback function to navigate using MainScreen
+
+  const HomePage({super.key, required this.onNavigate});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -17,6 +20,7 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
+              // Top row for weather and location
               Row(
                 children: [
                   const Column(
@@ -107,17 +111,34 @@ class _HomePageState extends State<HomePage> {
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
                   children: [
-                    _buildGridItem(Icons.local_florist, 'Koleksi',
-                        'Ketuk untuk melihat koleksi', const Color(0xFF8EB69B)),
                     _buildGridItem(
-                        Icons.camera_alt_rounded,
-                        'Identifikasi Penyakit',
-                        'Ketuk untuk mengenali tanaman',
-                        const Color(0xFF235347)),
-                    _buildGridItem(Icons.person, 'Profile', 'Mengatur Profil',
-                        const Color(0xFF163832)),
-                    _buildGridItem(Icons.article, 'Artikel',
-                        'Eksplorasi Artikel', const Color(0xFF0B2B26)),
+                      Icons.local_florist,
+                      'Koleksi',
+                      'Ketuk untuk melihat koleksi',
+                      const Color(0xFF8EB69B),
+                      1,
+                    ),
+                    _buildGridItem(
+                      Icons.camera_alt_rounded,
+                      'Identifikasi Penyakit',
+                      'Ketuk untuk mengenali tanaman',
+                      const Color(0xFF235347),
+                      0,
+                    ),
+                    _buildGridItem(
+                      Icons.person,
+                      'Profile',
+                      'Mengatur Profil',
+                      const Color(0xFF163832),
+                      3,
+                    ),
+                    _buildGridItem(
+                      Icons.article,
+                      'Artikel',
+                      'Eksplorasi Artikel',
+                      const Color(0xFF0B2B26),
+                      2,
+                    ),
                   ],
                 ),
               ),
@@ -128,30 +149,38 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildGridItem(
-      IconData icon, String title, String subtitle, Color color) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, size: 40, color: Colors.white),
-          const SizedBox(height: 10),
-          Text(
-            title,
-            style: const TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            subtitle,
-            style: const TextStyle(fontSize: 14, color: Colors.white54),
-          ),
-        ],
+  Widget _buildGridItem(IconData icon, String title, String subtitle,
+      Color color, int pageIndex) {
+    return GestureDetector(
+      onTap: () {
+        widget.onNavigate(
+            pageIndex); // Use callback to change the selected index in MainScreen
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(icon, size: 40, color: Colors.white),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              subtitle,
+              style: const TextStyle(fontSize: 14, color: Colors.white54),
+            ),
+          ],
+        ),
       ),
     );
   }
