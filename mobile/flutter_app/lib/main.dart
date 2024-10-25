@@ -4,6 +4,7 @@ import 'package:flutter_app/pages/login_screen.dart';
 import 'package:flutter_app/pages/main_screen.dart';
 import 'package:flutter_app/pages/signup_screen.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_app/pages/reminder_setting.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());
@@ -39,6 +40,12 @@ final GoRouter _router = GoRouter(
           path: '/home',
           builder: (BuildContext context, GoRouterState state) {
             return const MainScreen();
+          },
+        ),
+        GoRoute(
+          path: '/reminder',
+          builder: (BuildContext context, GoRouterState state) {
+            return ReminderSetting(); // Halaman pengingat
           },
         ),
       ],
