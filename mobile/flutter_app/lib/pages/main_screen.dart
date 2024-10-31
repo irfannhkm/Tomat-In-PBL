@@ -3,6 +3,7 @@ import 'package:flutter_app/pages/article_screen.dart';
 import 'package:flutter_app/pages/home_page.dart';
 import 'package:flutter_app/pages/plantcollection_screen.dart';
 import 'package:flutter_app/pages/profile_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -14,12 +15,18 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [
-    const HomePage(),
-    const PlantCollectionScreen(),
-    const ArticleScreen(),
-    const ProfileScreen(),
-  ];
+  final List<Widget> _pages = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _pages.addAll([
+      HomePage(onNavigate: _onItemTapped),
+      const PlantCollectionScreen(),
+      const ArticleScreen(),
+      const ProfileScreen(),
+    ]);
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -33,13 +40,15 @@ class _MainScreenState extends State<MainScreen> {
       backgroundColor: const Color(0xFF191d26),
       body: _pages[_selectedIndex],
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          GoRouter.of(context).go('/scan');
+        },
         backgroundColor: Colors.green,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
-        child: const Icon(
-          Icons.fit_screen_sharp,
+        child: ImageIcon(
+          AssetImage('assets/scan_square.png'),
           size: 35,
         ),
       ),

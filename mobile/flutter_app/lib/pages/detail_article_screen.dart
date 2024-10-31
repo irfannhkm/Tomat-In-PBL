@@ -17,7 +17,7 @@ class DetailArticleScreen extends StatelessWidget {
                   height: 265,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/detail_image.png'),
+                      image: AssetImage('assets/watering_rectangle.png'),
                       fit: BoxFit.cover,
                     ),
                   ),

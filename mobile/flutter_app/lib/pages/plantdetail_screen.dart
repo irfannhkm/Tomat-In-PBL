@@ -4,7 +4,8 @@ class PlantDetailScreen extends StatefulWidget {
   final String plantName;
   final String status;
 
-  const PlantDetailScreen({super.key, required this.plantName, required this.status});
+  const PlantDetailScreen(
+      {super.key, required this.plantName, required this.status});
 
   @override
   _PlantDetailScreenState createState() => _PlantDetailScreenState();
@@ -38,12 +39,16 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
                     const SizedBox(height: 10),
 
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(30), // Atur radius sesuai keinginan
+                      borderRadius: BorderRadius.circular(
+                          30), // Atur radius sesuai keinginan
                       child: Image.asset(
-                        'assets/tomato.png', // Pastikan path sesuai dengan lokasi gambar Anda
-                        fit: BoxFit.cover,   // Gambar menyesuaikan container dengan mengisi ruang
-                        width: MediaQuery.of(context).size.width * 0.9, // Lebar gambar
-                        height: MediaQuery.of(context).size.height * 0.4, // Tinggi gambar
+                        'assets/hand_touch_tomato.png', // Pastikan path sesuai dengan lokasi gambar Anda
+                        fit: BoxFit
+                            .cover, // Gambar menyesuaikan container dengan mengisi ruang
+                        width: MediaQuery.of(context).size.width *
+                            0.9, // Lebar gambar
+                        height: MediaQuery.of(context).size.height *
+                            0.4, // Tinggi gambar
                       ),
                     ),
 
@@ -104,7 +109,9 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
               const Text(
                 'Saran perawatan',
                 style: TextStyle(
-                    color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
               _buildExpandableTile(
@@ -126,7 +133,6 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
               ),
               const SizedBox(height: 10),
               _buildDetailTile('Kelembapan', 'Batas kelembapan: -'),
-
             ],
           ),
         ),
@@ -221,12 +227,14 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
       ),
     );
   }
+
   // Fungsi untuk membuat toggle switch
   Widget _buildToggleSwitch(String label) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: const TextStyle(color: Colors.white70, fontSize: 16)),
+        Text(label,
+            style: const TextStyle(color: Colors.white70, fontSize: 16)),
         Switch(value: true, onChanged: (value) {}),
       ],
     );
@@ -240,12 +248,14 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
         borderRadius: BorderRadius.circular(12),
       ),
       child: ExpansionTile(
-        title: Text(title, style: const TextStyle(color: Colors.white, fontSize: 16)),
+        title: Text(title,
+            style: const TextStyle(color: Colors.white, fontSize: 16)),
         subtitle: Text(subtitle, style: const TextStyle(color: Colors.white70)),
         iconColor: Colors.white,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Text(content, style: const TextStyle(color: Colors.white70)),
           ),
         ],
@@ -261,8 +271,10 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
         borderRadius: BorderRadius.circular(12),
       ),
       child: ListTile(
-        title: Text(title, style: const TextStyle(color: Colors.white, fontSize: 16)),
-        subtitle: Text(description, style: const TextStyle(color: Colors.white70)),
+        title: Text(title,
+            style: const TextStyle(color: Colors.white, fontSize: 16)),
+        subtitle:
+            Text(description, style: const TextStyle(color: Colors.white70)),
       ),
     );
   }
