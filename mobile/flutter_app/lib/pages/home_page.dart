@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final Function(int)
+      onNavigate; // Callback function to navigate using MainScreen
+
+  const HomePage({super.key, required this.onNavigate});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -17,6 +20,7 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
+              // Top row for weather and location
               Row(
                 children: [
                   const Column(
@@ -25,13 +29,14 @@ class _HomePageState extends State<HomePage> {
                       Text(
                         '30°C',
                         style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 30,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF8EB69B)),
                       ),
                       Text(
                         'min 18C;max 31C',
-                        style: TextStyle(fontSize: 8, color: Color(0xFF8EB69B)),
+                        style:
+                            TextStyle(fontSize: 11, color: Color(0xFF8EB69B)),
                       ),
                     ],
                   ),
@@ -39,17 +44,17 @@ class _HomePageState extends State<HomePage> {
                   const ImageIcon(
                     AssetImage('assets/loc_icon.png'),
                     size: 10,
-                    color: Color(0xFF8EB69B),
+                    color: Color(0xFF7AAB8D),
                   ),
                   const SizedBox(width: 5),
                   const Text(
                     'Kecamatan Tumpang',
-                    style: TextStyle(fontSize: 14, color: Color(0xFF8EB69B)),
+                    style: TextStyle(fontSize: 14, color: Color(0xFF7AAB8D)),
                   ),
                   const Spacer(),
                   Image.asset(
                     'assets/sunny_cloud.png',
-                    width: 50,
+                    width: 70,
                   ),
                 ],
               ),
@@ -60,25 +65,25 @@ class _HomePageState extends State<HomePage> {
                   ImageIcon(
                     AssetImage('assets/person_circle.png'),
                     size: 50,
-                    color: Color(0xFF8EB69B),
+                    color: Color(0xFFC6D7D1),
                   ),
                   SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Good Afternoon,',
+                        'Selamat Siang,',
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
-                            color: Colors.white),
+                            color: Color(0xFFD9DADA)),
                       ),
                       Text(
                         'tomato lover!',
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
-                            color: Colors.white),
+                            color: Color(0xFFD9DADA)),
                       ),
                     ],
                   ),
@@ -107,17 +112,34 @@ class _HomePageState extends State<HomePage> {
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
                   children: [
-                    _buildGridItem(Icons.local_florist, 'Koleksi',
-                        'Ketuk untuk melihat koleksi', const Color(0xFF8EB69B)),
                     _buildGridItem(
-                        Icons.camera_alt_rounded,
-                        'Identifikasi Penyakit',
-                        'Ketuk untuk mengenali tanaman',
-                        const Color(0xFF235347)),
-                    _buildGridItem(Icons.person, 'Profile', 'Mengatur Profil',
-                        const Color(0xFF163832)),
-                    _buildGridItem(Icons.article, 'Artikel',
-                        'Eksplorasi Artikel', const Color(0xFF0B2B26)),
+                      'pot',
+                      'Koleksi',
+                      'Ketuk untuk melihat koleksi',
+                      const Color(0xFF8EB69B),
+                      1,
+                    ),
+                    _buildGridItem(
+                      'camera_leaf',
+                      'Identifikasi Penyakit',
+                      'Ketuk untuk mengenali tanaman',
+                      const Color(0xFF235347),
+                      0,
+                    ),
+                    _buildGridItem(
+                      'user',
+                      'Profile',
+                      'Mengatur Profil',
+                      const Color(0xFF163832),
+                      3,
+                    ),
+                    _buildGridItem(
+                      'article',
+                      'Artikel',
+                      'Eksplorasi Artikel',
+                      const Color(0xFF0B2B26),
+                      2,
+                    ),
                   ],
                 ),
               ),
@@ -129,29 +151,41 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildGridItem(
-      IconData icon, String title, String subtitle, Color color) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, size: 40, color: Colors.white),
-          const SizedBox(height: 10),
-          Text(
-            title,
-            style: const TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            subtitle,
-            style: const TextStyle(fontSize: 14, color: Colors.white54),
-          ),
-        ],
+      String icon, String title, String subtitle, Color color, int pageIndex) {
+    return GestureDetector(
+      onTap: () {
+        widget.onNavigate(
+            pageIndex); // Use callback to change the selected index in MainScreen
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ImageIcon(
+              AssetImage('assets/$icon.png'),
+              size: 45,
+              color: Color(0xFFC6D7D1),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              subtitle,
+              style: const TextStyle(fontSize: 14, color: Colors.white54),
+            ),
+          ],
+        ),
       ),
     );
   }

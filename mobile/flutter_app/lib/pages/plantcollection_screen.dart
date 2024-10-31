@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'plantdetail_screen.dart'; // Import halaman detail
 
 class PlantCollectionScreen extends StatelessWidget {
   const PlantCollectionScreen({super.key});
@@ -6,7 +7,7 @@ class PlantCollectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF191d26),
+      backgroundColor: const Color(0x191D26),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -38,16 +39,38 @@ class PlantCollectionScreen extends StatelessWidget {
               const SizedBox(height: 20),
               Expanded(
                 child: ListView(
-                  children: const [
+                  children: [
                     PlantCard(
                       plantName: 'Tomat 1',
                       status: 'Sehat',
-                      color: Color(0xFF0B2B26),
+                      color: const Color(0xFF0B2B26),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PlantDetailScreen(
+                              plantName: 'Tomat 1',
+                              status: 'Sehat',
+                            ),
+                          ),
+                        );
+                      },
                     ),
                     PlantCard(
                       plantName: 'Tomat 2',
                       status: 'Tidak Sehat',
-                      color: Color(0x745E1C1C),
+                      color: const Color(0x745E1C1C),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PlantDetailScreen(
+                              plantName: 'Tomat 2',
+                              status: 'Tidak Sehat',
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -104,41 +127,47 @@ class PlantCard extends StatelessWidget {
   final String plantName;
   final String status;
   final Color color;
+  final VoidCallback onTap;
 
-  const PlantCard(
-      {super.key,
-      required this.plantName,
-      required this.status,
-      required this.color});
+  const PlantCard({
+    super.key,
+    required this.plantName,
+    required this.status,
+    required this.color,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: color,
-      margin: const EdgeInsets.all(8.0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5.0),
-        child: ListTile(
-          leading: const ImageIcon(
-            AssetImage('assets/pot.png'),
-            size: 35,
-            color: Color(0xFFDADADA),
-          ),
-          title: Text(
-            plantName,
-            style: const TextStyle(color: Colors.white),
-          ),
-          subtitle: Text(
-            'Status: $status',
-            style: const TextStyle(color: Colors.white70),
-          ),
-          trailing: const Icon(
-            Icons.arrow_right_outlined,
-            color: Colors.white,
-            size: 35,
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        color: color,
+        margin: const EdgeInsets.all(8.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5.0),
+          child: ListTile(
+            leading: const ImageIcon(
+              AssetImage('assets/pot.png'),
+              size: 35,
+              color: Color(0xFFDADADA),
+            ),
+            title: Text(
+              plantName,
+              style: const TextStyle(color: Colors.white),
+            ),
+            subtitle: Text(
+              'Status: $status',
+              style: const TextStyle(color: Colors.white70),
+            ),
+            trailing: const Icon(
+              Icons.arrow_right_outlined,
+              color: Colors.white,
+              size: 35,
+            ),
           ),
         ),
       ),

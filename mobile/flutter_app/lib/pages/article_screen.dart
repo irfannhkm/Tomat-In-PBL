@@ -45,7 +45,7 @@ class ArticleScreen extends StatelessWidget {
                     const ArticleCard(
                       title: '5 cara mudah untuk merawat tanaman tomat',
                       category: 'Panduan Perawatan',
-                      imagePath: 'assets/panduan_perawatan.png', // Gambar tomat
+                      imagePath: 'assets/tomato_article.png', // Gambar tomat
                     ),
                     const SizedBox(height: 16),
                     InkWell(
@@ -65,7 +65,7 @@ class ArticleScreen extends StatelessWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Image.asset('assets/teknik_penyiraman.png',
+                            Image.asset('assets/watering_circle.png',
                                 fit: BoxFit.cover),
                             const Padding(
                               padding: EdgeInsets.all(8.0),
