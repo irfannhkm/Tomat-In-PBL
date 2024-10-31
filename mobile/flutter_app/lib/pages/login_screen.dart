@@ -36,7 +36,7 @@ class LoginScreen extends StatelessWidget {
 
               // Logo
               Image.asset(
-                'assets/logo-only.png',
+                'assets/logo_only.png',
                 height: 80,
               ),
               const SizedBox(height: 20),
@@ -153,7 +153,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   child: Center(
                     child: Image.asset(
-                      'assets/google-logo.png',
+                      'assets/google_logo.png',
                       height: 24,
                     ),
                   ),

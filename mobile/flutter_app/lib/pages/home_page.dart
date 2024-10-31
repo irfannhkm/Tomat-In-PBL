@@ -29,13 +29,14 @@ class _HomePageState extends State<HomePage> {
                       Text(
                         '30°C',
                         style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 30,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF8EB69B)),
                       ),
                       Text(
                         'min 18C;max 31C',
-                        style: TextStyle(fontSize: 8, color: Color(0xFF8EB69B)),
+                        style:
+                            TextStyle(fontSize: 11, color: Color(0xFF8EB69B)),
                       ),
                     ],
                   ),
@@ -43,17 +44,17 @@ class _HomePageState extends State<HomePage> {
                   const ImageIcon(
                     AssetImage('assets/loc_icon.png'),
                     size: 10,
-                    color: Color(0xFF8EB69B),
+                    color: Color(0xFF7AAB8D),
                   ),
                   const SizedBox(width: 5),
                   const Text(
                     'Kecamatan Tumpang',
-                    style: TextStyle(fontSize: 14, color: Color(0xFF8EB69B)),
+                    style: TextStyle(fontSize: 14, color: Color(0xFF7AAB8D)),
                   ),
                   const Spacer(),
                   Image.asset(
                     'assets/sunny_cloud.png',
-                    width: 50,
+                    width: 70,
                   ),
                 ],
               ),
@@ -64,25 +65,25 @@ class _HomePageState extends State<HomePage> {
                   ImageIcon(
                     AssetImage('assets/person_circle.png'),
                     size: 50,
-                    color: Color(0xFF8EB69B),
+                    color: Color(0xFFC6D7D1),
                   ),
                   SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Good Afternoon,',
+                        'Selamat Siang,',
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
-                            color: Colors.white),
+                            color: Color(0xFFD9DADA)),
                       ),
                       Text(
                         'tomato lover!',
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
-                            color: Colors.white),
+                            color: Color(0xFFD9DADA)),
                       ),
                     ],
                   ),
@@ -112,28 +113,28 @@ class _HomePageState extends State<HomePage> {
                   crossAxisSpacing: 10,
                   children: [
                     _buildGridItem(
-                      Icons.local_florist,
+                      'pot',
                       'Koleksi',
                       'Ketuk untuk melihat koleksi',
                       const Color(0xFF8EB69B),
                       1,
                     ),
                     _buildGridItem(
-                      Icons.camera_alt_rounded,
+                      'camera_leaf',
                       'Identifikasi Penyakit',
                       'Ketuk untuk mengenali tanaman',
                       const Color(0xFF235347),
                       0,
                     ),
                     _buildGridItem(
-                      Icons.person,
+                      'user',
                       'Profile',
                       'Mengatur Profil',
                       const Color(0xFF163832),
                       3,
                     ),
                     _buildGridItem(
-                      Icons.article,
+                      'article',
                       'Artikel',
                       'Eksplorasi Artikel',
                       const Color(0xFF0B2B26),
@@ -149,8 +150,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildGridItem(IconData icon, String title, String subtitle,
-      Color color, int pageIndex) {
+  Widget _buildGridItem(
+      String icon, String title, String subtitle, Color color, int pageIndex) {
     return GestureDetector(
       onTap: () {
         widget.onNavigate(
@@ -165,7 +166,11 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, size: 40, color: Colors.white),
+            ImageIcon(
+              AssetImage('assets/$icon.png'),
+              size: 45,
+              color: Color(0xFFC6D7D1),
+            ),
             const SizedBox(height: 10),
             Text(
               title,
