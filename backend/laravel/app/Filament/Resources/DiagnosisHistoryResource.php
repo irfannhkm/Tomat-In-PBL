@@ -19,14 +19,25 @@ class DiagnosisHistoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
     protected static ?string $navigationLabel = 'Diagnosis History';
-    protected static ?string $navigationGroup = 'Plants Management';
+    protected static ?string $navigationGroup = 'User Management';
     protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('user_id') 
+                    ->label('User ID')
+                    ->required(),
+                Forms\Components\Select::make('disease_id')
+                    ->label('Disease ID')
+                    ->required(),
+                Forms\Components\FileUpload::make('image')
+                    ->label('Image')
+                    ->required(),
+                Forms\Components\DatePicker::make('diagnosis_date')
+                    ->label('Diagnosis Date')
+                    ->required(),
             ]);
     }
 
@@ -34,7 +45,33 @@ class DiagnosisHistoryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('user_id')
+                    ->relationship('AppUser', 'name')
+                    ->preload()
+                    ->searchable()
+                    ->label('User ID')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('disease_id')
+                    ->relationship('disease', 'disease_name')
+                    ->preload()
+                    ->label('Disease ID')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('image')
+                    ->label('Image')
+                    ->searchable()
+                    ->circular()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('diagnosis_date')
+                    ->label('Diagnosis Date')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable(),        
             ])
             ->filters([
                 //

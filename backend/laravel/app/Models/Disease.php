@@ -13,9 +13,10 @@ class Disease extends Model
     protected $primaryKey = 'id'; // Primary key adalah disease_id
     protected $fillable = [
         'disease_name',
+        'image',
+        'description',
         'symptoms',
         'prevention',
-        'description',
         'cause',
     ];
 

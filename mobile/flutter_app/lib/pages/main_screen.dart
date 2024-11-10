@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/pages/article_screen.dart';
-import 'package:flutter_app/pages/home_page.dart';
-import 'package:flutter_app/pages/plantcollection_screen.dart';
-import 'package:flutter_app/pages/profile_screen.dart';
+import 'package:tomatin/pages/article_screen.dart';
+import 'package:tomatin/pages/home_page.dart';
+import 'package:tomatin/pages/plantcollection_screen.dart';
+import 'package:tomatin/pages/profile_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class MainScreen extends StatefulWidget {

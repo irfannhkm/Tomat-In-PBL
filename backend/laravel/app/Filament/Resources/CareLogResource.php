@@ -19,7 +19,7 @@ class CareLogResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationLabel = 'Care Log';
-    protected static ?string $navigationGroup = 'Plants Management';
+    protected static ?string $navigationGroup = 'User Management';
     protected static ?int $navigationSort = 7;
 
 

@@ -9,7 +9,15 @@ class DiagnosisHistory extends Model
 {
     use HasFactory;
 
-    protected $table = 'diagnosis_history'; // Mengacu ke tabel diagnosis_history
+    protected $table = 'diagnosis_history';
+
+    protected $fillable = [
+        'id',
+        'user_id',
+        'disease_id',
+        'image',
+        'diagnosis_date',
+    ];
 
     // Relasi satu DiagnosisHistory dimiliki oleh satu AppUser
     public function appUser()

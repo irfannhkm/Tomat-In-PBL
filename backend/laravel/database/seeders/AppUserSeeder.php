@@ -16,16 +16,16 @@ class AppUserSeeder extends Seeder
     {
         AppUser::create([
             'name' => 'admin',
+            'username' => 'admin_tomatin',
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin'), // Menggunakan Hash::make
-            'role_id' => 1, // Jika Anda menggunakan role_id
+            'password' => Hash::make('admin123.'), // Menggunakan Hash::make
         ]);
 
         AppUser::create([
             'name' => 'user',
+            'username' => 'user_tomatin',
             'email' => 'user@gmail.com',
-            'password' => Hash::make('user'), // Menggunakan Hash::make
-            'role_id' => 2, // Jika Anda menggunakan role_id
+            'password' => Hash::make('user12345.'), // Menggunakan Hash::make
         ]);
     }
 }

@@ -1,14 +1,13 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/pages/home_page.dart';
-import 'package:flutter_app/pages/login_screen.dart';
-import 'package:flutter_app/pages/main_screen.dart';
-import 'package:flutter_app/pages/onboarding_screen.dart';
-import 'package:flutter_app/pages/scan_screen.dart';
-import 'package:flutter_app/pages/signup_screen.dart';
-// import 'package:flutter_app/pages/scan_screen.dart';
+import 'package:tomatin/pages/login_screen.dart';
+import 'package:tomatin/pages/main_screen.dart';
+import 'package:tomatin/pages/onboarding_screen.dart';
+import 'package:tomatin/pages/scan_screen.dart';
+import 'package:tomatin/pages/signup_screen.dart';
+// import 'package:tomatin/pages/scan_screen.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_app/pages/reminder_setting.dart';
+import 'package:tomatin/pages/reminder_setting.dart';
 // import 'package:firebase_core/firebase_core.dart';
 
 List<CameraDescription> _cameras = <CameraDescription>[];
@@ -73,13 +72,15 @@ final GoRouter _router = GoRouter(
             return ReminderSetting(); // Halaman pengingat
           },
         ),
-        GoRoute(path: '/scan', builder: (BuildContext context, GoRouterState state) {
-          return MaterialApp(
-            title: 'Camera Scanner',
-            theme: ThemeData.dark(),
-            home: CameraScanScreen(camera: _cameras.last),
-          );
-        }),
+        GoRoute(
+            path: '/scan',
+            builder: (BuildContext context, GoRouterState state) {
+              return MaterialApp(
+                title: 'Camera Scanner',
+                theme: ThemeData.dark(),
+                home: CameraScanScreen(camera: _cameras.first),
+              );
+            }),
       ],
     ),
   ],

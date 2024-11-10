@@ -23,10 +23,15 @@ class ArticleResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
+                Forms\Components\TextInput::make('article_title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('content')
+                Forms\Components\Textarea::make('article_content')
+                    ->required(),
+                Forms\Components\TextInput::make('article_url')
+                    ->required(),
+                Forms\Components\Select::make('disease_id')
+                    ->relationship('disease', 'disease_name')
                     ->required(),
                 Forms\Components\DateTimePicker::make('published_at')
                     ->label('Publish Date')
@@ -38,10 +43,17 @@ class ArticleResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
+                Tables\Columns\TextColumn::make('article_title')
                     ->searchable()
                     ->sortable()
                     ->label('Title'),
+                Tables\Columns\TextColumn::make('article_content')
+                    ->searchable()
+                    ->label('Content'),
+                Tables\Columns\TextColumn::make('article_url')
+                    ->searchable()
+                    ->label('URL'),
+                Tables\Columns\TextColumn::make('disease.disease_name'),
                 Tables\Columns\TextColumn::make('published_at')
                     ->dateTime()
                     ->sortable()
