@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/pages/detail_article_screen.dart';
-import 'package:flutter_app/pages/videoplayer_screen.dart';
+import 'package:tomatin/pages/detail_article_screen.dart';
+import 'package:tomatin/pages/videoplayer_screen.dart';
 
 class ArticleScreen extends StatelessWidget {
   const ArticleScreen({super.key});
