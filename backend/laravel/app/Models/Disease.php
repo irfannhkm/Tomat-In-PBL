@@ -31,5 +31,9 @@ class Disease extends Model
     {
         return $this->hasMany(Article::class, 'disease_id');
     }
+    public function youTubeVideos()
+    {
+        return $this->hasMany(YouTubeVideo::class, 'disease_id');
+    }
 }
 

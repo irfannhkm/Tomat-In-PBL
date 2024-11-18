@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('diagnosis_history', function (Blueprint $table) {
             $table->id(); // Primary key for diagnosis history
-            $table->foreignId('user_id')->constrained('app_users')->onDelete('cascade'); // Correct foreign key reference
-            $table->foreignId('disease_id')->constrained('diseases')->onDelete('cascade');  // Mengacu pada tabel diseases
+            $table->foreignId('user_id')->constrained('app_users')->onDelete('cascade');
+            $table->foreignId('disease_id')->constrained('diseases')->onDelete('cascade'); 
             $table->string('image');
             $table->date('diagnosis_date');
             $table->timestamps();

@@ -16,6 +16,7 @@ class Article extends Model
         'article_content',
         'article_url',
         'disease_id',
+        'image_cover'
     ];
 
     // Relasi satu Article dimiliki oleh satu Disease

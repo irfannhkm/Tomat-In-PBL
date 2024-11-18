@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TreatmentLog extends Model
+class TreatmentLogs extends Model
 {
     use HasFactory;
 
@@ -14,24 +14,19 @@ class TreatmentLog extends Model
 
     // Kolom-kolom yang dapat diisi secara massal
     protected $fillable = [
-        'diagnosis_id',
-        'user_id',
+        'diagnosis_history_id',
         'treatment_type',
-        'description',
-        'date',
+        'treatment_date',
+        'notes',
     ];
 
     /**
      * Relasi ke model DiagnosisHistory
      */
-    public function diagnosis()
+    public function diagnosis_history()
     {
-        return $this->belongsTo(DiagnosisHistory::class, 'diagnosis_id');
+        return $this->belongsTo(DiagnosisHistory::class, 'diagnosis_history_id');
     }
-
-    /**
-     * Relasi ke model AppUser
-     */
     public function user()
     {
         return $this->belongsTo(AppUser::class, 'user_id');

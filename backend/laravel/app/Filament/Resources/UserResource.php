@@ -11,6 +11,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserResource extends Resource
 {
@@ -33,16 +34,17 @@ class UserResource extends Resource
                                 Forms\Components\TextInput::make('name')
                                     ->required()
                                     ->label('Full Name')
-                                    ->maxLength(30),
+                                    ->placeholder('John Doe'),
                                 Forms\Components\TextInput::make('username')
-                                    // ->required()
                                     ->label('Username (Unique)')
-                                    ->unique(AppUser::class, 'username')
-                                    ->maxLength(30),
+                                    ->unique(AppUser::class, 'username', ignoreRecord: true)    
+                                    ->placeholder('john_doe')
+                                    ->required(fn (string $context): bool => $context === 'create'),
                                 Forms\Components\TextInput::make('email')
                                     ->email()
                                     ->required()
-                                    ->maxLength(30),
+                                    ->Label('Email')
+                                    ->placeholder('johndoe@example.com'),
                             ]),
                     ]),
                 Forms\Components\Group::make()
@@ -52,12 +54,16 @@ class UserResource extends Resource
                                 // Forms\Components\DateTimePicker::make('email_verified_at')
                                 //     ->label('Email Verified At'),
                                 Forms\Components\Select::make('roles')
+                                    ->required()
                                     ->relationship('roles', 'name')
                                     ->preload()
+                                    ->label('Role')
+                                    ->options(Role::all()->pluck('name', 'id')) // Menampilkan semua role yang tersedia
                                     ->searchable(),
                                 Forms\Components\TextInput::make('password')
                                     ->password()
-                                    ->maxLength(255)
+                                    ->label('Password')
+                                    ->placeholder('********')
                                     ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                                     ->dehydrated(fn ($state) => filled($state))
                                     ->required(fn (string $context): bool => $context === 'create'),
@@ -134,6 +140,7 @@ class UserResource extends Resource
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
+            'view' => Pages\ViewUser::route('/{record}'),
         ];
     }
 }

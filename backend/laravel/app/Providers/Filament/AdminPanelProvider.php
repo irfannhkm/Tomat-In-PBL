@@ -37,7 +37,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(
                 asset('images/logo_tomatin_upscayl.png'),
             )
-            ->brandLogoHeight(30)
+            ->brandLogoHeight('3rem')
             ->brandName('Tomat-in')
             ->favicon(asset('images/favicon.png'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
@@ -46,10 +46,7 @@ class AdminPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
-            ])
+            ->widgets([])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -65,7 +62,6 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,          
             ])
-            // or in `tenantMiddleware` if you're using multi-tenancy
             ->tenantMiddleware([
                 \Hasnayeen\Themes\Http\Middleware\SetTheme::class
             ])

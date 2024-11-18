@@ -16,8 +16,7 @@ return new class extends Migration
             $table->foreignId('diagnosis_history_id')->constrained('diagnosis_history')->onDelete('cascade');
             $table->string('treatment_type', 20);
             $table->timestamp('treatment_date');
-            $table->string('notes', 100);
-            $table->timestamps();
+            $table->string('notes', 200);
         });
     }
 
