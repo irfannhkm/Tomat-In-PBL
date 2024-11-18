@@ -62,9 +62,6 @@ class DiseaseResource extends Resource
     {
         return $table
             ->columns([
-                // Tables\Columns\TextColumn::make('id') // Menambahkan kolom ID
-                //     ->sortable()
-                //     ->label('No'),
                 Tables\Columns\TextColumn::make('disease_name')
                     ->searchable()
                     ->sortable()
@@ -73,17 +70,20 @@ class DiseaseResource extends Resource
                     ->label('Image')
                     ->circular(),
                 Tables\Columns\TextColumn::make('description')
-                    ->limit(80)
+                    ->limit(60)
                     ->label('Description'),
-                // Tables\Columns\TextColumn::make('symptoms')
-                //     ->limit(25)
-                //     ->label('Gejala'),
-                // Tables\Columns\TextColumn::make('cause')
-                //     ->limit(25)
-                //     ->label('Penyebab'),
-                // Tables\Columns\TextColumn::make('prevention')
-                //     ->limit(25)
-                //     ->label('Pencegahan'),
+                Tables\Columns\TextColumn::make('symptoms')
+                    ->limit(25)
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label('Gejala'),
+                Tables\Columns\TextColumn::make('cause')
+                    ->limit(25)
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label('Penyebab'),
+                Tables\Columns\TextColumn::make('prevention')
+                    ->limit(25)
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label('Pencegahan'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -99,7 +99,9 @@ class DiseaseResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

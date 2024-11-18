@@ -4,17 +4,16 @@ namespace App\Filament\Resources\DiseaseResource\Pages;
 
 use App\Filament\Resources\DiseaseResource;
 use Filament\Actions;
-use Filament\Resources\Pages\EditRecord;
+use Filament\Resources\Pages\ViewRecord;
 
-class EditDisease extends EditRecord
+class ViewDisease extends ViewRecord
 {
     protected static string $resource = DiseaseResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\ViewAction::make(),
-            Actions\DeleteAction::make(),
+            Actions\EditAction::make(),
         ];
     }
 }

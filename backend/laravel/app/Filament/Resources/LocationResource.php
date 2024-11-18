@@ -38,7 +38,6 @@ class LocationResource extends Resource
                                 ->relationship('AppUser', 'name')
                                 ->label('User ID')
                                 ->required()
-                                ->searchable()
                                 ->placeholder('Select User ID'),
                             Forms\Components\Group::make()
                                 ->schema([
@@ -125,6 +124,7 @@ class LocationResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
