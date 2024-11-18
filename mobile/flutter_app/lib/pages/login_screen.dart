@@ -22,11 +22,19 @@ class LoginScreen extends StatelessWidget {
                     IconButton(
                       icon: const Icon(Icons.arrow_back,
                           color: Color(0xFF2A8F79)),
-                      onPressed: () {},
+                      onPressed: () {
+                        GoRouter.of(context).go(
+                          '/',
+                        );
+                      },
                     ),
                     IconButton(
                       icon: const Icon(Icons.close, color: Color(0xFF2A8F79)),
-                      onPressed: () {},
+                      onPressed: () {
+                        GoRouter.of(context).go(
+                          '/',
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -139,7 +147,6 @@ class LoginScreen extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              // Google login button
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 145.0),
                 child: ElevatedButton(
