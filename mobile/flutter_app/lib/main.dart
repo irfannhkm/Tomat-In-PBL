@@ -1,14 +1,15 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:tomatin/pages/login_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tomatin/bloc/auth/auth_bloc.dart';
+import 'package:tomatin/data/repository/auth_repository.dart';
 import 'package:tomatin/pages/main_screen.dart';
 import 'package:tomatin/pages/onboarding_screen.dart';
 import 'package:tomatin/pages/scan_screen.dart';
 import 'package:tomatin/pages/signup_screen.dart';
-// import 'package:tomatin/pages/scan_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tomatin/pages/reminder_setting.dart';
-// import 'package:firebase_core/firebase_core.dart';
+import 'package:tomatin/ui/login_screen.dart';
 
 List<CameraDescription> _cameras = <CameraDescription>[];
 
@@ -20,7 +21,6 @@ void _logError(String code, String? message) {
 Future<void> main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
-    // await Firebase.initializeApp();
     _cameras = await availableCameras();
   } on CameraException catch (e) {
     _logError(e.code, e.description);
@@ -33,9 +33,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      routerConfig: _router,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(authRepository: AuthRepository()),
+        ),
+      ],
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        routerConfig: _router,
+      ),
     );
   }
 }
@@ -51,7 +58,7 @@ final GoRouter _router = GoRouter(
         GoRoute(
           path: '/login',
           builder: (BuildContext context, GoRouterState state) {
-            return const LoginScreen();
+            return LoginScreen();
           },
         ),
         GoRoute(

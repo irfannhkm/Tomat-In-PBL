@@ -22,11 +22,19 @@ class SignUpScreen extends StatelessWidget {
                     IconButton(
                       icon: const Icon(Icons.arrow_back,
                           color: Color(0xFF2A8F79)),
-                      onPressed: () {},
+                      onPressed: () {
+                        GoRouter.of(context).go(
+                          '/login',
+                        );
+                      },
                     ),
                     IconButton(
                       icon: const Icon(Icons.close, color: Color(0xFF2A8F79)),
-                      onPressed: () {},
+                      onPressed: () {
+                        GoRouter.of(context).go(
+                          '/',
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -201,7 +209,11 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: 5),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      GoRouter.of(context).go(
+                        '/login',
+                      );
+                    },
                     child: const Text(
                       'Login',
                       style: TextStyle(color: Color(0xFF2A8F79)),

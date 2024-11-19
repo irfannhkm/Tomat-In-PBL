@@ -1,4 +1,4 @@
-package com.example.flutter_app
+package com.kelompok4.tomatin
 
 import io.flutter.embedding.android.FlutterActivity
 

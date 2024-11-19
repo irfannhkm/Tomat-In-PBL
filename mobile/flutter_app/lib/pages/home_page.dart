@@ -168,21 +168,21 @@ class _HomePageState extends State<HomePage> {
           children: [
             ImageIcon(
               AssetImage('assets/$icon.png'),
-              size: 45,
+              size: 35,
               color: Color(0xFFC6D7D1),
             ),
             const SizedBox(height: 10),
             Text(
               title,
               style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: 17,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
             ),
             const SizedBox(height: 5),
             Text(
               subtitle,
-              style: const TextStyle(fontSize: 14, color: Colors.white54),
+              style: const TextStyle(fontSize: 13, color: Colors.white54),
             ),
           ],
         ),
