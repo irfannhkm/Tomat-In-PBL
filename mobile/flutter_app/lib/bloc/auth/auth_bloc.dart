@@ -9,11 +9,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required this.authRepository}) : super(AuthInitial()) {
     on<LoginRequested>((event, emit) async {
       emit(AuthLoading());
+
       try {
-        await authRepository.login(event.email, event.password);
-        emit(AuthSuccess());
+        final response =
+            await authRepository.login(event.email, event.password);
+        if (response.success && response.user != null) {
+          emit(AuthSuccess(response.user!));
+        } else {
+          emit(AuthFailure(response.message));
+        }
       } catch (error) {
-        emit(AuthFailure(error.toString()));
+        emit(AuthFailure('Terjadi kesalahan: ${error.toString()}'));
       }
     });
   }

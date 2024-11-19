@@ -58,7 +58,7 @@ final GoRouter _router = GoRouter(
         GoRoute(
           path: '/login',
           builder: (BuildContext context, GoRouterState state) {
-            return LoginScreen(authRepository: AuthRepository(),);
+            return LoginScreen();
           },
         ),
         GoRoute(

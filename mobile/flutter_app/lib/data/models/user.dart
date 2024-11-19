@@ -1,24 +1,27 @@
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
-  final String id;
+  final int id;
   final String name;
   final String email;
-  final String? profilePicture;
+  final String createdAt;
+  final String updatedAt;
 
   const User({
     required this.id,
     required this.name,
     required this.email,
-    this.profilePicture,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      email: json['email'] as String,
-      profilePicture: json['profile_picture'] as String?,
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
     );
   }
 
@@ -27,10 +30,11 @@ class User extends Equatable {
       'id': id,
       'name': name,
       'email': email,
-      'profile_picture': profilePicture,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
     };
   }
 
   @override
-  List<Object?> get props => [id, name, email, profilePicture];
+  List<Object?> get props => [id, name, email, createdAt, updatedAt];
 }
