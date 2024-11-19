@@ -17,18 +17,22 @@ class ScanDetection extends Page
     public function detect()
     {
         $this->validate([
-            'image' => 'required|image|max:2048', // Validasi gambar
+            'image' => 'required|image|max:2048', // Validasi ukuran dan tipe file
         ]);
 
-        // Kirim gambar ke FastAPI
-        $response = Http::attach(
-            'file', file_get_contents($this->image->getRealPath()), $this->image->getClientOriginalName()
-        )->post('http://127.0.0.1:8001/detect/');
+        try {
+            // Kirim gambar ke FastAPI
+            $response = Http::attach(
+                'file', file_get_contents($this->image->getRealPath()), $this->image->getClientOriginalName()
+            )->post('http://127.0.0.1:8001/detect/');
 
-        if ($response->successful()) {
-            $this->result = $response->json()['classifications'][0] ?? null; // Ambil hasil top-1
-        } else {
-            $this->result = ['error' => 'Detection failed.'];
+            if ($response->successful()) {
+                $this->result = $response->json()['classifications'][0] ?? ['error' => 'Tidak ada deteksi ditemukan.']; // Ambil hasil top-1
+            } else {
+                $this->result = ['error' => 'Deteksi gagal dilakukan.'];
+            }
+        } catch (\Exception $e) {
+            $this->result = ['error' => 'Terjadi kesalahan: ' . $e->getMessage()];
         }
     }
 }
