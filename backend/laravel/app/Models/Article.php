@@ -11,6 +11,14 @@ class Article extends Model
 
     protected $table = 'articles'; // Mengacu ke tabel articles
 
+    protected $fillable = [
+        'article_title',
+        'article_content',
+        'article_url',
+        'disease_id',
+        'image_cover'
+    ];
+
     // Relasi satu Article dimiliki oleh satu Disease
     public function disease()
     {

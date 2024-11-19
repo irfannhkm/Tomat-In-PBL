@@ -14,18 +14,15 @@ class AppUserSeeder extends Seeder
      */
     public function run(): void
     {
-        AppUser::create([
+        
+        $super_admin = AppUser::create([
             'name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin'), // Menggunakan Hash::make
-            'role_id' => 1, // Jika Anda menggunakan role_id
+            'username' => 'admin_tomatin',
+            'email' => 'leafinrowbeyond@gmail.com',
+            'password' => bcrypt('admin123'), // Menggunakan Hash::make
         ]);
 
-        AppUser::create([
-            'name' => 'user',
-            'email' => 'user@gmail.com',
-            'password' => Hash::make('user'), // Menggunakan Hash::make
-            'role_id' => 2, // Jika Anda menggunakan role_id
-        ]);
+        $super_admin->assignRole('super_admin');
+
     }
 }

@@ -9,7 +9,18 @@ class DiagnosisHistory extends Model
 {
     use HasFactory;
 
-    protected $table = 'diagnosis_history'; // Mengacu ke tabel diagnosis_history
+    protected $table = 'diagnosis_history';
+
+    protected $fillable = [
+        'id',
+        'user_id',
+        'disease_id',
+        'image',
+        'media_type',
+        'media_size',
+        'diagnosis_date',
+        'name_plant',
+    ];
 
     // Relasi satu DiagnosisHistory dimiliki oleh satu AppUser
     public function appUser()
@@ -21,5 +32,9 @@ class DiagnosisHistory extends Model
     public function disease()
     {
         return $this->belongsTo(Disease::class, 'disease_id');
+    }
+    public function treatment_logs()
+    {
+        return $this->hasMany(TreatmentLogs::class, 'diagnosis_history_id');
     }
 }

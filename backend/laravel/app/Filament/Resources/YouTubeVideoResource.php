@@ -10,6 +10,7 @@ use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 
+
 class YouTubeVideoResource extends Resource
 {
     protected static ?string $model = YouTubeVideo::class;
@@ -24,49 +25,53 @@ class YouTubeVideoResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
+                Forms\Components\TextInput::make('video_title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('url')
+                Forms\Components\TextInput::make('video_url')
                     ->required()
                     ->url()
                     ->maxLength(255)
                     ->label('Video URL'),
-                Forms\Components\Textarea::make('description')
-                    ->nullable()
-                    ->maxLength(500),
-                Forms\Components\DateTimePicker::make('published_at')
-                    ->label('Publish Date')
+                Forms\Components\Select::make('disease_id')
+                    ->relationship('disease', 'disease_name')
                     ->nullable(),
             ]);
     }
 
+    
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
+                Tables\Columns\TextColumn::make('video_title')
                     ->searchable()
                     ->sortable()
-                    ->label('Title'),
-                Tables\Columns\TextColumn::make('url')
+                    ->label('Title/Judul'),
+                Tables\Columns\TextColumn::make('video_url')
                     ->limit(50)
                     ->url(fn ($record) => $record->url, true)
-                    ->label('URL'),
-                Tables\Columns\TextColumn::make('published_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->label('Published At'),
+                    ->label('Link URL Youtube'),
+                Tables\Columns\TextColumn::make('disease.disease_name')
+                    ->searchable()
+                    ->label('Jenis Penyakit Tanaman'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->label('Created At'),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label('Updated At')
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),  
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

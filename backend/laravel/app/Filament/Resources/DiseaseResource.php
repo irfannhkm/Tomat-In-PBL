@@ -16,35 +16,45 @@ class DiseaseResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-exclamation-circle';
     protected static ?string $navigationLabel = 'Diseases';
-    protected static ?string $navigationGroup = 'Plants Management';
+    protected static ?string $navigationGroup = 'Content Management';
     protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('Disease Name')
-                    ->required()
-                    ->maxLength(100)
-                    ->placeholder('Enter the disease name'),
-                Forms\Components\Textarea::make('description')
-                    ->label('Description')
-                    ->required()
-                    ->maxLength(500)
-                    ->placeholder('Enter the description of the disease'),
-                Forms\Components\TextInput::make('symptoms')
-                    ->label('Symptoms')
-                    ->maxLength(255)
-                    ->placeholder('List common symptoms'),
-                Forms\Components\TextInput::make('cause')
-                    ->label('Cause')
-                    ->maxLength(255)
-                    ->placeholder('Specify the cause of the disease'),
-                Forms\Components\TextInput::make('prevention')
-                    ->label('Prevention')
-                    ->maxLength(255)
-                    ->placeholder('Suggest preventive measures (optional)'),
+                Forms\Components\Group::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('disease_name')
+                            ->label('Disease Name')
+                            ->required()
+                            ->maxLength(100)
+                            ->placeholder('Enter the disease name'),
+                        
+                        Forms\Components\Textarea::make('symptoms')
+                            ->label('Symptoms (Gejala)')
+                            ->maxLength(255)
+                            ->placeholder('List common symptoms'),
+                        Forms\Components\Textarea::make('cause')
+                            ->label('Cause (Penyebab)')
+                            ->maxLength(255)
+                            ->placeholder('Specify the cause of the disease'),
+                        Forms\Components\Textarea::make('prevention')
+                            ->label('Prevention (Pencegahan)')
+                            ->maxLength(255)
+                            ->placeholder('Suggest preventive measures (optional)'), 
+                    ]),
+                Forms\Components\Group::make()
+                    ->schema([
+                        Forms\Components\MarkdownEditor::make('description')
+                            ->label('Description')
+                            ->required()
+                            ->maxLength(500)
+                            ->placeholder('Enter the description of the disease'),
+                        Forms\Components\FileUpload::make('image')
+                        ->label('Image')
+                        ->image(),
+                    ])
             ]);
     }
 
@@ -52,25 +62,28 @@ class DiseaseResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id') // Menambahkan kolom ID
-                    ->sortable()
-                    ->label('No'),
                 Tables\Columns\TextColumn::make('disease_name')
                     ->searchable()
                     ->sortable()
                     ->label('Disease Name'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Image')
+                    ->circular(),
                 Tables\Columns\TextColumn::make('description')
-                    ->limit(30)
+                    ->limit(60)
                     ->label('Description'),
                 Tables\Columns\TextColumn::make('symptoms')
                     ->limit(25)
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->label('Gejala'),
-                // Tables\Columns\TextColumn::make('cause')
-                //     ->limit(25)
-                //     ->label('Penyebab'),
-                // Tables\Columns\TextColumn::make('prevention')
-                //     ->limit(25)
-                //     ->label('Pencegahan'),
+                Tables\Columns\TextColumn::make('cause')
+                    ->limit(25)
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label('Penyebab'),
+                Tables\Columns\TextColumn::make('prevention')
+                    ->limit(25)
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label('Pencegahan'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -86,7 +99,9 @@ class DiseaseResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

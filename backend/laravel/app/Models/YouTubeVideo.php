@@ -14,16 +14,14 @@ class YouTubeVideo extends Model
 
     // Kolom-kolom yang dapat diisi secara massal
     protected $fillable = [
-        'title',
-        'url',
-        'description',
-        'published_at',
+        'video_title',
+        'video_url',
+        'disease_id'       
     ];
 
-    /**
-     * Aturan casting untuk tipe data pada kolom tertentu
-     */
-    protected $casts = [
-        'published_at' => 'datetime',
-    ];
+    // Relasi satu YouTubeVideo memiliki satu Disease
+    public function disease()
+    {
+        return $this->belongsTo(Disease::class);
+    }
 }

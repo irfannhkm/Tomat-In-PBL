@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         $this->call([
-            RolesTableSeeder::class,
             AppUserSeeder::class,
+            // ShieldGenerateSeeder::class,
             DiseasesTableSeeder::class,
-            // Seeder lainnya yang ingin dijalankan
+
         ]);
     }
 }

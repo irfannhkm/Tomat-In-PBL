@@ -1,121 +1,160 @@
 import 'package:flutter/material.dart';
-import 'plantdetail_screen.dart'; // Import halaman detail
 
 class PlantCollectionScreen extends StatelessWidget {
   const PlantCollectionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0x191D26),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Koleksi Tanaman',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28,
-                  )),
-              const SizedBox(height: 20),
-              TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  prefixIcon: const Icon(Icons.search, color: Colors.grey),
-                  hintText: 'Cari Tomatmu',
-                  hintStyle: const TextStyle(color: Colors.grey),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide.none,
+    return DefaultTabController(
+      length: 3, // Jumlah tab
+      child: Scaffold(
+        backgroundColor: const Color(0xFF191D26),
+        appBar: AppBar(
+          leadingWidth: 0,
+          backgroundColor: const Color(0xFF191D26),
+          elevation: 0,
+          title: const Text(
+            'Koleksi Tanaman',
+            style: TextStyle(color: Colors.white, fontSize: 28),
+          ),
+          bottom: PreferredSize(
+            preferredSize:
+                const Size.fromHeight(120), // Tinggi kolom pencarian + TabBar
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                      hintText: 'Cari Tomatmu',
+                      hintStyle: const TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              const TabBarSection(),
-              const SizedBox(height: 20),
-              Expanded(
-                child: ListView(
-                  children: [
-                    PlantCard(
-                      plantName: 'Tomat 1',
-                      status: 'Sehat',
-                      color: const Color(0xFF0B2B26),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PlantDetailScreen(
-                              plantName: 'Tomat 1',
-                              status: 'Sehat',
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    PlantCard(
-                      plantName: 'Tomat 2',
-                      status: 'Tidak Sehat',
-                      color: const Color(0x745E1C1C),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PlantDetailScreen(
-                              plantName: 'Tomat 2',
-                              status: 'Tidak Sehat',
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                const TabBar(
+                  indicatorSize: TabBarIndicatorSize.label,
+                  labelStyle:
+                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.grey,
+                  indicatorColor: Colors.green,
+                  tabs: [
+                    Tab(text: 'Tanaman'),
+                    Tab(text: 'Riwayat'),
+                    Tab(text: 'Pengingat'),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
+        body: const TabBarView(
+          children: [
+            PlantTab(), // Halaman Tanaman
+            HistoryTab(), // Halaman Riwayat
+            ReminderTab(), // Halaman Pengingat
+          ],
         ),
-        label: const Text('Tambah',
-            style: TextStyle(color: Colors.white, fontSize: 15)),
-        icon: const Icon(Icons.add, color: Colors.white, size: 24),
-        extendedPadding: const EdgeInsets.symmetric(horizontal: 25),
-        backgroundColor: const Color(0xFFB77813),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {},
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+          ),
+          label: const Text('Tambah',
+              style: TextStyle(color: Colors.white, fontSize: 15)),
+          icon: const Icon(Icons.add, color: Colors.white, size: 24),
+          extendedPadding: const EdgeInsets.symmetric(horizontal: 25),
+          backgroundColor: const Color(0xFFB77813),
+        ),
       ),
     );
   }
 }
 
-class TabBarSection extends StatelessWidget {
-  const TabBarSection({super.key});
+class PlantTab extends StatelessWidget {
+  const PlantTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const DefaultTabController(
-      length: 3,
-      child: Column(
+    return ListView(
+      padding: const EdgeInsets.all(20.0),
+      children: const [
+        PlantCard(
+          plantName: 'Tomat 1',
+          status: 'Sehat',
+          color: Color(0xFF0B2B26),
+          onTap: null,
+        ),
+        PlantCard(
+          plantName: 'Tomat 2',
+          status: 'Tidak Sehat',
+          color: Color(0x745E1C1C),
+          onTap: null,
+        ),
+      ],
+    );
+  }
+}
+
+class HistoryTab extends StatelessWidget {
+  const HistoryTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(20.0),
+      children: const [
+        PlantCard(
+          plantName: 'Diagnosis 1',
+          status: 'Sehat',
+          color: Color(0xFF0B2B26),
+          onTap: null,
+        ),
+        PlantCard(
+          plantName: 'Diagnosis 2',
+          status: 'Tidak Sehat',
+          color: Color(0x745E1C1C),
+          onTap: null,
+        ),
+      ],
+    );
+  }
+}
+
+class ReminderTab extends StatelessWidget {
+  const ReminderTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: ListView(
         children: [
-          TabBar(
-            indicatorSize: TabBarIndicatorSize.label,
-            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.grey,
-            indicatorColor: Colors.green,
-            tabs: [
-              Tab(
-                text: 'Tanaman',
-              ),
-              Tab(text: 'Riwayat'),
-              Tab(text: 'Pengingat'),
-            ],
+          const SectionTitle(title: 'Hari ini - 01 Oktober 2024'),
+          ReminderCard(
+            title: 'Tomat 1',
+            subtitle: 'Penyiraman',
+            color: const Color(0xFF0B2B26),
+            icon: Icons.arrow_right_outlined,
+            iconColor: Colors.white,
+            onTap: () {},
+          ),
+          const SizedBox(height: 16),
+          const SectionTitle(title: 'Besok - 02 Oktober 2024'),
+          ReminderCard(
+            title: 'Tomat 2',
+            subtitle: '',
+            color: const Color(0xFF5E1C1C),
+            icon: Icons.arrow_right_outlined,
+            iconColor: Colors.white,
+            onTap: () {},
           ),
         ],
       ),
@@ -127,13 +166,90 @@ class PlantCard extends StatelessWidget {
   final String plantName;
   final String status;
   final Color color;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const PlantCard({
     super.key,
     required this.plantName,
     required this.status,
     required this.color,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        color: color,
+        margin: const EdgeInsets.all(8.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5.0),
+          child: ListTile(
+            leading: const Icon(
+              Icons.local_florist,
+              size: 35,
+              color: Color(0xFFDADADA),
+            ),
+            title: Text(
+              plantName,
+              style: const TextStyle(color: Colors.white),
+            ),
+            subtitle: Text(
+              'Status: $status',
+              style: const TextStyle(color: Colors.white70),
+            ),
+            trailing: const Icon(
+              Icons.arrow_right_outlined,
+              color: Colors.white,
+              size: 35,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SectionTitle extends StatelessWidget {
+  final String title;
+
+  const SectionTitle({super.key, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Text(
+        title,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+}
+
+class ReminderCard extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final Color color;
+  final IconData icon;
+  final Color iconColor;
+  final VoidCallback onTap;
+
+  const ReminderCard({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.color,
+    required this.icon,
+    required this.iconColor,
     required this.onTap,
   });
 
@@ -150,23 +266,25 @@ class PlantCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0),
           child: ListTile(
-            leading: const ImageIcon(
-              AssetImage('assets/pot.png'),
+            leading: Icon(
+              Icons.local_florist,
               size: 35,
               color: Color(0xFFDADADA),
             ),
             title: Text(
-              plantName,
+              title,
               style: const TextStyle(color: Colors.white),
             ),
-            subtitle: Text(
-              'Status: $status',
-              style: const TextStyle(color: Colors.white70),
-            ),
-            trailing: const Icon(
-              Icons.arrow_right_outlined,
-              color: Colors.white,
+            subtitle: subtitle.isNotEmpty
+                ? Text(
+                    subtitle,
+                    style: const TextStyle(color: Colors.white70),
+                  )
+                : null,
+            trailing: Icon(
+              icon,
               size: 35,
+              color: iconColor,
             ),
           ),
         ),

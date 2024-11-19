@@ -11,6 +11,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserResource extends Resource
 {
@@ -32,34 +33,50 @@ class UserResource extends Resource
                             ->schema([
                                 Forms\Components\TextInput::make('name')
                                     ->required()
-                                    ->maxLength(30),
+                                    ->label('Full Name')
+                                    ->placeholder('John Doe'),
+                                Forms\Components\TextInput::make('username')
+                                    ->label('Username (Unique)')
+                                    ->unique(AppUser::class, 'username', ignoreRecord: true)    
+                                    ->placeholder('john_doe')
+                                    ->required(fn (string $context): bool => $context === 'create'),
                                 Forms\Components\TextInput::make('email')
                                     ->email()
                                     ->required()
-                                    ->maxLength(30),
-                                Forms\Components\Select::make('role_id')
-                                    ->relationship('role', 'role_name') // Menghubungkan ke tabel roles
-                                    ->preload()
-                                    ->searchable()
-                                    ->required(),
-                                Forms\Components\FileUpload::make('avatar')
-                                    ->label('Avatar')
-                                    ->image()
-                                    ->maxSize(1024),
+                                    ->Label('Email')
+                                    ->placeholder('johndoe@example.com'),
                             ]),
                     ]),
                 Forms\Components\Group::make()
                     ->schema([
                         Forms\Components\Section::make('Authentication')
                             ->schema([
-                                Forms\Components\DateTimePicker::make('email_verified_at')
-                                    ->label('Email Verified At'),
+                                // Forms\Components\DateTimePicker::make('email_verified_at')
+                                //     ->label('Email Verified At'),
+                                Forms\Components\Select::make('roles')
+                                    ->required()
+                                    ->relationship('roles', 'name')
+                                    ->preload()
+                                    ->label('Role')
+                                    ->options(Role::all()->pluck('name', 'id')) // Menampilkan semua role yang tersedia
+                                    ->searchable(),
                                 Forms\Components\TextInput::make('password')
                                     ->password()
-                                    ->maxLength(255)
+                                    ->label('Password')
+                                    ->placeholder('********')
                                     ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                                     ->dehydrated(fn ($state) => filled($state))
                                     ->required(fn (string $context): bool => $context === 'create'),
+                            ])
+                    ]),
+                Forms\Components\Group::make()
+                    ->schema([
+                        Forms\Components\Section::make('Profile')
+                            ->schema([
+                                Forms\Components\FileUpload::make('avatar')
+                                    ->label('Image Profile (Avatar)')
+                                    ->image()
+                                    ->maxSize(1024),
                             ])
                     ])
             ]);
@@ -69,37 +86,33 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id') // Menambahkan kolom ID
-                    ->sortable()
-                    ->label('No'),
                 Tables\Columns\ImageColumn::make('avatar')
                     ->circular()
-                    ->label('Avatar'),
+                    ->label('Image Profile'),
+                Tables\Columns\TextColumn::make('username')
+                    ->sortable()
+                    ->searchable()
+                    ->label('Username'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable()
-                    ->label('Name'),
+                    ->label('Full Name'),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable()
                     ->label('Email'),
-                Tables\Columns\TextColumn::make('role.role_name') // Menampilkan nama role
+                Tables\Columns\TextColumn::make('roles.name') // Menampilkan nama role
                     ->searchable()
                     ->sortable()
+                    ->badge()
                     ->label('Role'),
-                // Tables\Columns\TextColumn::make('email_verified_at')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->label('Email Verified At'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->label('Created At'),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->label('Updated At'),
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -127,6 +140,7 @@ class UserResource extends Resource
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
+            'view' => Pages\ViewUser::route('/{record}'),
         ];
     }
 }

@@ -13,9 +13,10 @@ class Disease extends Model
     protected $primaryKey = 'id'; // Primary key adalah disease_id
     protected $fillable = [
         'disease_name',
+        'image',
+        'description',
         'symptoms',
         'prevention',
-        'description',
         'cause',
     ];
 
@@ -29,6 +30,10 @@ class Disease extends Model
     public function articles()
     {
         return $this->hasMany(Article::class, 'disease_id');
+    }
+    public function youTubeVideos()
+    {
+        return $this->hasMany(YouTubeVideo::class, 'disease_id');
     }
 }
 
