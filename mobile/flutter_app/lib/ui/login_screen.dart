@@ -187,6 +187,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   const SizedBox(height: 30),
+                  GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).go(
+                        '/forgotpassword',
+                      );
+                    },
+                    child: const Text(
+                      'Lupa password?',
+                      style: TextStyle(color: Color(0xFF2A8F79)),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
                   ElevatedButton(
                     onPressed: () {
                       final email = emailController.text;
