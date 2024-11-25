@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:tomatin/data/models/login_response.dart';
 
 class AuthRepository {
-  final String baseUrl = 'http://127.0.0.1/api';
+  final String baseUrl = 'http://10.0.2.2:8000/api';
 
   Future<LoginResponse> login(String email, String password) async {
     final url = Uri.parse('$baseUrl/login');

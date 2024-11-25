@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tomatin/bloc/auth/auth_bloc.dart';
 import 'package:tomatin/data/repository/auth_repository.dart';
+import 'package:tomatin/pages/forgotpass_screen.dart';
 import 'package:tomatin/pages/main_screen.dart';
 import 'package:tomatin/pages/onboarding_screen.dart';
+import 'package:tomatin/pages/plantdetail_screen.dart';
 import 'package:tomatin/pages/scan_screen.dart';
 import 'package:tomatin/pages/signup_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -80,12 +82,24 @@ final GoRouter _router = GoRouter(
           },
         ),
         GoRoute(
+          path: '/plantdetail',
+          builder: (BuildContext context, GoRouterState state) {
+            return PlantDetailScreen(plantName: 'Tomat 1', status: 'Sehat');
+          },
+        ),
+        GoRoute(
+          path: '/forgotpassword',
+          builder: (BuildContext context, GoRouterState state) {
+            return const ForgotpassScreen();
+          },
+        ),
+        GoRoute(
             path: '/scan',
             builder: (BuildContext context, GoRouterState state) {
               return MaterialApp(
                 title: 'Camera Scanner',
                 theme: ThemeData.dark(),
-                home: CameraScanScreen(camera: _cameras.first),
+                home: CameraScanScreen(camera: _cameras.last),
               );
             }),
       ],

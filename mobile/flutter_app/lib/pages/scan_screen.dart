@@ -91,7 +91,7 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
               icon: Icon(Icons.close, color: Colors.white),
               onPressed: () {
                 GoRouter.of(context).go(
-                    '/home',
+                    '/plantdetail',
                   );
               },
             ),
