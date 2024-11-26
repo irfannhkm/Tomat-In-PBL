@@ -44,7 +44,7 @@
                     <p class="text-red-500">{{ $result['error'] }}</p>
                 @else
                     <p><strong>Label:</strong> {{ $result['top1_label'] }}</p>
-                    <p><strong>Akurasi:</strong> {{ number_format($result['top1_confidence'], 2) }}%</p>
+                    <p><strong>Confidence:</strong> {{ number_format($result['top1_confidence'], 2)  }}%</p>
                     <h4 class="mt-4 font-semibold">Prediksi Top-5:</h4>
                     <ul>
                         @foreach ($result['top5'] as $classification)

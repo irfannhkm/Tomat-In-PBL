@@ -2,14 +2,17 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tomatin/bloc/auth/auth_bloc.dart';
+import 'package:tomatin/bloc/register/register_bloc.dart';
 import 'package:tomatin/data/repository/auth_repository.dart';
+import 'package:tomatin/data/repository/register_repository.dart';
+import 'package:tomatin/pages/article_screen.dart';
 import 'package:tomatin/pages/main_screen.dart';
 import 'package:tomatin/pages/onboarding_screen.dart';
 import 'package:tomatin/pages/scan_screen.dart';
-import 'package:tomatin/pages/signup_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tomatin/pages/reminder_setting.dart';
 import 'package:tomatin/ui/login_screen.dart';
+import 'package:tomatin/ui/signup_screen.dart';
 
 List<CameraDescription> _cameras = <CameraDescription>[];
 
@@ -38,6 +41,10 @@ class MyApp extends StatelessWidget {
         BlocProvider<AuthBloc>(
           create: (context) => AuthBloc(authRepository: AuthRepository()),
         ),
+        BlocProvider<RegisterBloc>(
+          create: (context) =>
+              RegisterBloc(registerRepository: RegisterRepository()),
+        )
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
@@ -88,6 +95,12 @@ final GoRouter _router = GoRouter(
                 home: CameraScanScreen(camera: _cameras.first),
               );
             }),
+        GoRoute(
+          path: '/article',
+          builder: (BuildContext context, GoRouterState state) {
+            return const ArticleScreen();
+          },
+        ),
       ],
     ),
   ],
