@@ -128,7 +128,7 @@ h6 {
 
 @media (max-width: 480px) {
   .header .logo img {
-    max-height: 24px;
+    max-height: 40px;
   }
 
   .header .logo h1 {
@@ -487,7 +487,7 @@ h6 {
 }
 
 .footer .footer-about .logo img {
-  max-height: 40px;
+  max-height: 70px;
   margin-right: 6px;
 }
 
@@ -568,6 +568,12 @@ h6 {
 
 .footer .footer-contact p {
   margin-bottom: 5px;
+}
+
+.footer .img-fluid {
+  max-width: 70%;
+  height: auto;
+  transform: scaleX(-1);
 }
 
 .footer .footer-newsletter .newsletter-form {
@@ -1194,14 +1200,17 @@ section,
 .features .nav-link p {
   font-size: 15px;
   margin: 0;
+  color: color-mix(in srgb, var(--nav-color), transparent 30%);
 }
 
 .features .nav-link:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 96%);
+  color: var(--accent-color);
 }
 
 .features .nav-link.active {
-  background: color-mix(in srgb, var(--accent-color), transparent 92%);
+  background: color-mix(in srgb, var(--accent-color), transparent 88%);
+
 }
 
 .features .tab-pane img {
@@ -1272,7 +1281,7 @@ section,
 }
 
 .services .service-item {
-  background-color: var(--contrast-color);
+  background-color: color-mix(in srgb, var(--accent-color), transparent 97%);
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
   height: 100%;
   padding: 30px;
@@ -1383,6 +1392,7 @@ section,
   height: 100%;
   object-fit: cover;
   z-index: 1;
+  border-radius: 32px;
 }
 
 .more-features h3 {
@@ -1556,6 +1566,13 @@ section,
 --------------------------------------------------------------*/
 .faq .section-title {
   padding-bottom: 20px;
+}
+
+.faq .img-fluid {
+  width: 30%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 .faq .faq-container .faq-item {
@@ -2003,4 +2020,101 @@ section,
 --------------------------------------------------------------*/
 .starter-section {
   /* Add your styles here */
+}
+
+/*--------------------------------------------------------------
+# Team
+--------------------------------------------------------------*/
+.team {
+  background: var(--background-color);
+  padding: 60px 0;
+}
+
+.team .member {
+  overflow: hidden;
+  text-align: center;
+  border-radius: 5px;
+  background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
+  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.08);
+  transition: 0.3s;
+}
+
+.team .member .member-img {
+  position: relative;
+  overflow: hidden;
+}
+
+.team .member .member-img:after {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  background: url(../img/team-shape.svg) no-repeat center bottom;
+  background-size: contain;
+  z-index: 1;
+}
+
+.team .member .social {
+  position: absolute;
+  right: -100%;
+  top: 30px;
+  opacity: 0;
+  border-radius: 4px;
+  transition: 0.5s;
+  background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
+  z-index: 2;
+}
+
+.team .member .social a {
+  transition: color 0.3s;
+  color: rgba(1, 41, 112, 0.5);
+  margin: 15px 12px;
+  display: block;
+  line-height: 0;
+  text-align: center;
+}
+
+.team .member .social a:hover {
+  color: var(--accent-color);
+}
+
+.team .member .social i {
+  font-size: 18px;
+}
+
+.team .member .member-info {
+  padding: 10px 15px 20px 15px;
+}
+
+.team .member .member-info h4 {
+  font-weight: 700;
+  margin-bottom: 5px;
+  font-size: 20px;
+  color: var(--accent-color);
+}
+
+.team .member .member-info span {
+  display: block;
+  font-size: 16px;
+  padding-top: 15px;
+  line-height: 26px;
+  color: var(--contrast-color);
+}
+
+.team .member .member-info p {
+  font-weight: 400;
+  color: #aaaaaa;
+  font-size: 12px;
+}
+
+.team .member:hover {
+  transform: scale(1.08);
+  box-shadow: var(--accent-color);
+}
+
+.team .member:hover .social {
+  right: 8px;
+  opacity: 1;
 }
