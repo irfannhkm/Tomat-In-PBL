@@ -492,12 +492,12 @@
               <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
                   <div class="member">
                       <div class="member-img">
-                          <img src="img/testimonials/testimonials-1.jpg" class="img-fluid" alt="">
+                          <img src="img/team/alhamdana.jpg" class="img-fluid" alt=""> 
                           <div class="social">
-                              <a href="https://github.com/Dhiyun"><i class="bi bi-github"></i></a>
-                              <a href="https://www.facebook.com/dhika.wahyu.n"><i class="bi bi-facebook"></i></a>
-                              <a href="https://www.instagram.com/dhiyuun/"><i class="bi bi-instagram"></i></a>
-                              <a href="https://www.linkedin.com/in/dhika-wahyu-nugroho-1a554a25a/"><i class="bi bi-linkedin"></i></a>
+                              <a href="https://github.com/Alhamdanaaa"><i class="bi bi-github"></i></a>
+                              <a href="https://www.facebook.com/alhamdana.fariz"><i class="bi bi-facebook"></i></a>
+                              <a href="https://www.instagram.com/alhamdanaaa/"><i class="bi bi-instagram"></i></a>
+                              <a href="https://www.linkedin.com/in/alhamdana-fariz-al-furqaan-663b92315"><i class="bi bi-linkedin"></i></a>
                           </div>
                       </div>
                       <div class="member-info">
