@@ -18,8 +18,8 @@ class AppUserSeeder extends Seeder
         $super_admin = AppUser::create([
             'name' => 'admin',
             'username' => 'admin_tomatin',
-            'email' => 'leafinrowbeyond@gmail.com',
-            'password' => bcrypt('admin123'), // Menggunakan Hash::make
+            'email' => 'leafingrowbeyond@gmail.com',
+            'password' => bcrypt('admin123'), 
         ]);
 
         $super_admin->assignRole('super_admin');

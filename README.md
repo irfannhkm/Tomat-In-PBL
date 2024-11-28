@@ -7,11 +7,11 @@
 * Ridho Aulia' Rahman         | (Mentor)
   
 ## 📧 Anggota Tim
-* Alhamdana Fariz Al Furqaan  | (Database Engineer, Machine Learning)
+* Alhamdana Fariz Al Furqaan  | (Machine Learning)
 * Ana Bellatus Mustaqfiro     | (Mobile Developer)
-* Mochammad Nizar Mahi        | (Network Admin, Mobile Developer)
-* Mochammad Zakaro Al Fajri   | (Pengolahan Citra dan Computer Vision)
-* Muhammad Irfan Nur Hakim    | (Backend Developer Web & API)
+* Mochammad Nizar Mahi        | (Keamanan Jaringan)
+* Mochammad Zakaro Al Fajri   | (UI/UX Figma)
+* Muhammad Irfan Nur Hakim    | (Backend Developer)
 
 ## 🚀 Fitur Utama
 - **Identifikasi Penyakit Daun Tomat** menggunakan teknik machine learning dan computer vision.

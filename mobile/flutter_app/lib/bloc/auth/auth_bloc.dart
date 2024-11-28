@@ -19,7 +19,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(AuthFailure(response.message));
         }
       } catch (error) {
-        emit(AuthFailure('Terjadi kesalahan: ${error.toString()}'));
+        emit(AuthFailure('Terjadi kesalahan'));
       }
     });
   }
