@@ -552,11 +552,11 @@
               <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="500">
                   <div class="member">
                       <div class="member-img">
-                          <img src="img/testimonials/testimonials-5.jpg" class="img-fluid" alt="">
+                          <img src="img\team\kaka.jpg" class="img-fluid" alt="">
                           <div class="social">
-                            <a href="https://github.com/danyfatihul-14"><i class="bi bi-github"></i></a>
+                            <a href="https://github.com/Zakaal"><i class="bi bi-github"></i></a>
                             <a href="https://www.facebook.com/profile.php?id=100017615168635"><i class="bi bi-facebook"></i></a>
-                            <a href="https://www.instagram.com/danyfth_/"><i class="bi bi-instagram"></i></a>
+                            <a href="https://www.instagram.com/zakaalfaj/"><i class="bi bi-instagram"></i></a>
                             <a href="https://www.linkedin.com/in/dany-fatihul-ihsan-7653731b4/"><i class="bi bi-linkedin"></i></a>
                           </div>
                       </div>
