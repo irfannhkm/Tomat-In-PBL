@@ -377,7 +377,7 @@
     <h2>Arsitektur Aplikasi</h2>
     <p>Aplikasi TomatIn dirancang menggunakan teknologi modern untuk mendukung deteksi penyakit daun tomat dan monitoring tanaman secara efisien.</p>
   </div>
-  
+
   <div class="container">
     <div class="row g-5">
 
@@ -463,7 +463,7 @@
           <header class="section-header">
               <h2>Anggota Tim Kami</h2>
           </header>
-  
+
           <!-- Single card on top -->
           <div class="row justify-content-center mb-4">
               <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
@@ -486,13 +486,13 @@
                   </div>
               </div>
           </div>
-  
+
           <!-- Four cards below -->
           <div class="row gy-4">
               <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
                   <div class="member">
                       <div class="member-img">
-                          <img src="img/team/alhamdana.jpg" class="img-fluid" alt=""> 
+                          <img src="img/team/alhamdana.jpg" class="img-fluid" alt="">
                           <div class="social">
                               <a href="https://github.com/Alhamdanaaa"><i class="bi bi-github"></i></a>
                               <a href="https://www.facebook.com/alhamdana.fariz"><i class="bi bi-facebook"></i></a>
@@ -508,7 +508,7 @@
                       </div>
                   </div>
               </div>
-  
+
               <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
                   <div class="member">
                       <div class="member-img">
@@ -528,16 +528,16 @@
                       </div>
                   </div>
               </div>
-  
+
               <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
                   <div class="member">
                       <div class="member-img">
-                          <img src="img/testimonials/testimonials-4.jpg" class="img-fluid" alt="">
+                          <img src="img/team/mahi.jpg" class="img-fluid" alt="">
                           <div class="social">
-                              <a href="https://github.com/Larasati11"><i class="bi bi-github"></i></a>
-                              <a href=""><i class="bi bi-facebook"></i></a>
-                              <a href="https://www.instagram.com/larascand_/"><i class="bi bi-instagram"></i></a>
-                              <a href=""><i class="bi bi-linkedin"></i></a>
+                              <a href="https://github.com/nizarmahi"><i class="bi bi-github"></i></a>
+                              <a href="#"><i class="bi bi-facebook"></i></a>
+                              <a href="https://www.instagram.com/mahinizar/"><i class="bi bi-instagram"></i></a>
+                              <a href="#"><i class="bi bi-linkedin"></i></a>
                           </div>
                       </div>
                       <div class="member-info">
@@ -548,7 +548,7 @@
                       </div>
                   </div>
               </div>
-  
+
               <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="500">
                   <div class="member">
                       <div class="member-img">
@@ -569,11 +569,11 @@
                   </div>
               </div>
           </div>
-  
+
       </div>
-  
+
   </section><!-- End Team Section -->
-  
+
     <!-- Faq Section -->
 <section id="faq" class="faq section">
   <!-- Section Title -->
@@ -690,35 +690,35 @@
             <form action="{{ route('contact.send') }}" method="POST" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
                 @csrf
                 <div class="row gy-4">
-        
+
                     <div class="col-md-6">
                         <input type="text" name="name" class="form-control" placeholder="Your Name" value="{{ old('name') }}" required>
                         @error('name')
                             <small style="color: red;">{{ $message }}</small>
                         @enderror
                     </div>
-        
+
                     <div class="col-md-6">
                         <input type="email" class="form-control" name="email" placeholder="Your Email" value="{{ old('email') }}" required>
                         @error('email')
                             <small style="color: red;">{{ $message }}</small>
                         @enderror
                     </div>
-        
+
                     <div class="col-md-12">
                         <input type="text" class="form-control" name="subject" placeholder="Subject" value="{{ old('subject') }}" required>
                         @error('subject')
                             <small style="color: red;">{{ $message }}</small>
                         @enderror
                     </div>
-        
+
                     <div class="col-md-12">
                         <textarea class="form-control" name="message" rows="6" placeholder="Message" required>{{ old('message') }}</textarea>
                         @error('message')
                             <small style="color: red;">{{ $message }}</small>
                         @enderror
                     </div>
-        
+
                     <div class="col-md-12 text-center">
                         @if(session('success'))
                             <div class="sent-message" style="color: green;">{{ session('success') }}</div>
@@ -728,11 +728,11 @@
                         @endif
                         <button type="submit" name="submit">Send Message</button>
                     </div>
-        
+
                 </div>
             </form>
         </div>
-            
+
 
         </div>
 
@@ -768,7 +768,7 @@
         </div>
       </div>
     </div>
-        
+
     <div class="container copyright text-center mt-4">
       <p>© <span>Copyright</span> <strong class="px-1 sitename">TomatIn.</strong><span>All Rights Reserved</span></p>
       <div class="credits">
