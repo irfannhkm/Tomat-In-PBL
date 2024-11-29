@@ -27,7 +27,8 @@ class AuthController extends BaseController
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
             $success['token'] = $user->createToken('api-token')->plainTextToken;
-            $success['name'] = $user->name;
+            $success['user'] = $user;
+
 
             return $this->sendResponse($success, 'User login successfully.');
         } else {
@@ -139,16 +140,21 @@ class AuthController extends BaseController
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
         ]);
-
+        
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors(), 409);
         }
-
+        
         if (!AppUser::where('email', $request->email)->exists()) {
             return $this->sendError('Validation Error.', ['error' => 'Email tidak terdaftar'], 409);
         }
-
-        $this->otpService->generateOTP($request->email);
+        try {
+            $this->otpService->generateOTP($request->email);
+            
+        } catch (\Throwable $th) {
+            return $this->sendError('Validation Error.', $th->getMessage());
+        }
+        
         return $this->sendResponse([], 'OTP berhasil dikirim, cek email anda.');
     }
 

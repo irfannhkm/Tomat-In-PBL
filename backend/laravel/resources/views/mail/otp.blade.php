@@ -22,26 +22,8 @@
 
         <!-- OTP Code -->
         <div class="flex justify-center items-center bg-gray-100 rounded-lg p-4 mb-6">
-            <span class="text-gray-500 text-sm">Kode OTP Anda:</span>
-            <span class="ml-2 text-green-600 text-2xl font-bold">{{ $otp }}</span>
-        </div>
-
-        <!-- Input Field -->
-        <form action="#" method="POST" class="space-y-4">
-            <label for="otp-input" class="block text-sm font-medium text-gray-700">Masukkan Kode OTP</label>
-            <input type="text" id="otp-input" name="otp" maxlength="6" placeholder="123456"
-                class="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 text-center text-xl tracking-widest"
-                required>
-            <button type="submit"
-                class="w-full bg-green-600 text-white font-medium px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition">
-                Verifikasi Akun
-            </button>
-        </form>
-
-        <!-- Additional Options -->
-        <div class="text-center mt-6 text-sm text-gray-500">
-            <p>Tidak menerima kode?</p>
-            <a href="#" class="text-green-600 font-medium hover:underline">Kirim ulang kode</a>
+            <span class="text-gray-500 text-2xl font-bold">Kode OTP Anda:</span>
+            <span class="ml-2 text-green-600 text-2xl font-bold"><b>{{ $otp }}<b></span>
         </div>
     </div>
 </body>

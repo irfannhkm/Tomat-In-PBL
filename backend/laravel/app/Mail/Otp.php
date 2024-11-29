@@ -28,7 +28,7 @@ class Otp extends Mailable
     {
         return new Envelope(
             subject: 'Otp Verification | TomatIn',
-            from: 'TomatIn <leafingrowbeyond@gmail.com>',
+            // from: Array("someone@somewhere.com"=>"Some One"),
         );
     }
 

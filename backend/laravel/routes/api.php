@@ -9,14 +9,13 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\LocationController;
 use App\Http\Controllers\API\DiagnosisHistoryController;
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('locations', [LocationController::class, 'index']); // List all locations
-    Route::get('locations/{id}', [LocationController::class, 'show']); // Get single location
-    Route::post('locations', [LocationController::class, 'store']); // Create new location
-    Route::put('locations/{id}', [LocationController::class, 'update']); // Update location
-    Route::delete('locations/{id}', [LocationController::class, 'destroy']); // Delete location
-});
-
+// Route::middleware('auth:sanctum')->group(function () {
+//     Route::get('locations', [LocationController::class, 'index']); // List all locations
+//     Route::get('locations/{id}', [LocationController::class, 'show']); // Get single location
+//     Route::post('locations', [LocationController::class, 'store']); // Create new location
+//     Route::put('locations/{id}', [LocationController::class, 'update']); // Update location
+//     Route::delete('locations/{id}', [LocationController::class, 'destroy']); // Delete location
+// });
 
 Route::group(['prefix' => 'diagnosis'], function () {
     // API tanpa login
@@ -68,7 +67,6 @@ Route::prefix('v1')->group(function () {
        
     }); // End of Authenticated
 }); // End of v1 prefix
-
 
 // Public routes
 Route::get('articles', [ArticleController::class, 'index']);

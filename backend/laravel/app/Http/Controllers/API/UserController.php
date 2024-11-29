@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\AppUser as User;
+use App\Models\AppUser;
 use App\Services\OTPService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -150,7 +150,7 @@ class UserController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors(), 409);
         }
 
-        if (User::where('email', $request->email)->exists()) {
+        if (AppUser::where('email', $request->email)->exists()) {
             return $this->sendError('Email sudah terdaftar', null, 409);
         }
 
