@@ -15,9 +15,9 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         $this->call([
-            // AppUserSeeder::class,
+            ShieldGenerateSeeder::class,
             DiseasesTableSeeder::class,
-
+            AppUserSeeder::class,
         ]);
     }
 }
