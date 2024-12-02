@@ -59,13 +59,4 @@ class AppUser extends Authenticatable
     {
         return $this->hasMany(Article::class, 'user_id');
     }
-
-    public function getAvatarAttribute($value)
-    {
-        // Check if the value is a path and not a full URL
-        if (filter_var($value, FILTER_VALIDATE_URL) === false) {
-            return Storage::url($value);
-        }
-        return $value;
-    }
 }
