@@ -600,12 +600,12 @@
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
               <div class="member">
                   <div class="member-img">
-                      <img src="img/team/mahi.jpg" class="img-fluid" alt="">
+                      <img src="img/team/mahi.png" class="img-fluid" alt="">
                       <div class="social">
                           <a href="https://github.com/nizarmahi"><i class="bi bi-github"></i></a>
-                          <a href="#"><i class="bi bi-facebook"></i></a>
+                          <a href="https://www.facebook.com/"><i class="bi bi-facebook"></i></a>
                           <a href="https://www.instagram.com/mahinizar/"><i class="bi bi-instagram"></i></a>
-                          <a href="#"><i class="bi bi-linkedin"></i></a>
+                          <a href="https://www.linkedin.com/in"><i class="bi bi-linkedin"></i></a>
                       </div>
                   </div>
                   <div class="member-info">
