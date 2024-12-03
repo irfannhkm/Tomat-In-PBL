@@ -457,123 +457,6 @@
   </div>
 </section>
 <!-- End Services Section -->
-    <section id="team" class="team">
-
-      <div class="container section-title" data-aos="fade-up">
-          <header class="section-header">
-              <h2>Anggota Tim Kami</h2>
-          </header>
-
-          <!-- Single card on top -->
-          <div class="row justify-content-center mb-4">
-              <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                  <div class="member">
-                      <div class="member-img">
-                          <img src="img/team/irfan(1,1).jpg" class="img-fluid" alt="">
-                          <div class="social">
-                            <a href="https://github.com/irfannhkm"><i class="bi bi-github"></i></a>
-                            <a href="https://www.facebook.com/profile.php?id=100023448218858&mibextid=JRoKGi"><i class="bi bi-facebook"></i></a>
-                            <a href="https://www.instagram.com/irfan.nhkm/"><i class="bi bi-instagram"></i></a>
-                            <a href="https://www.linkedin.com/in/muhammad-irfan-nur-hakim-0550292b4?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="bi bi-linkedin"></i></a>
-                        </div>
-                      </div>
-                      <div class="member-info">
-                          <h4>Muhammad Irfan Nur Hakim</h4>
-                          <p>2241720230 | 15
-                          </p>
-                          <span>PM | Backend Developer</span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <!-- Four cards below -->
-          <div class="row gy-4">
-              <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-                  <div class="member">
-                      <div class="member-img">
-                          <img src="img/team/alhamdana.jpg" class="img-fluid" alt="">
-                          <div class="social">
-                              <a href="https://github.com/Alhamdanaaa"><i class="bi bi-github"></i></a>
-                              <a href="https://www.facebook.com/alhamdana.fariz"><i class="bi bi-facebook"></i></a>
-                              <a href="https://www.instagram.com/alhamdanaaa/"><i class="bi bi-instagram"></i></a>
-                              <a href="https://www.linkedin.com/in/alhamdana-fariz-al-furqaan-663b92315"><i class="bi bi-linkedin"></i></a>
-                          </div>
-                      </div>
-                      <div class="member-info">
-                          <h4>Alhamdana Fariz Al Furqaan</h4>
-                          <p>2241720115 | 03
-                          </p>
-                          <span>Machine Learning</span>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-                  <div class="member">
-                      <div class="member-img">
-                          <img src="img/testimonials/testimonials-2.jpg" class="img-fluid" alt="">
-                          <div class="social">
-                              <a href="https://github.com/febriantimayori"><i class="bi bi-github"></i></a>
-                              <a href="https://www.facebook.com/febriantimayori"><i class="bi bi-facebook"></i></a>
-                              <a href="https://www.instagram.com/by.anoo/"><i class="bi bi-instagram"></i></a>
-                              <a href="https://www.linkedin.com/in/febriantimayori/"><i class="bi bi-linkedin"></i></a>
-                          </div>
-                      </div>
-                      <div class="member-info">
-                          <h4>Ana Bellatus Mustaqfiro </h4>
-                          <p>2241720095 | 04
-                          </p>
-                          <span>Mobile Developer</span>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
-                  <div class="member">
-                      <div class="member-img">
-                          <img src="img/team/mahi.jpg" class="img-fluid" alt="">
-                          <div class="social">
-                              <a href="https://github.com/nizarmahi"><i class="bi bi-github"></i></a>
-                              <a href="#"><i class="bi bi-facebook"></i></a>
-                              <a href="https://www.instagram.com/mahinizar/"><i class="bi bi-instagram"></i></a>
-                              <a href="#"><i class="bi bi-linkedin"></i></a>
-                          </div>
-                      </div>
-                      <div class="member-info">
-                          <h4>Mochammad Nizar Mahi </h4>
-                          <p>2241720185 | 13
-                          </p>
-                          <span>Keamanan Jaringan</span>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="500">
-                  <div class="member">
-                      <div class="member-img">
-                          <img src="img\team\kaka.jpg" class="img-fluid" alt="">
-                          <div class="social">
-                            <a href="https://github.com/Zakaal"><i class="bi bi-github"></i></a>
-                            <a href="https://www.facebook.com/profile.php?id=100017615168635"><i class="bi bi-facebook"></i></a>
-                            <a href="https://www.instagram.com/zakaalfaj/"><i class="bi bi-instagram"></i></a>
-                            <a href="https://www.linkedin.com/in/dany-fatihul-ihsan-7653731b4/"><i class="bi bi-linkedin"></i></a>
-                          </div>
-                      </div>
-                      <div class="member-info">
-                          <h4>Mochammad Zakaro Al Fajri</h4>
-                          <p>2241720175 | 14
-                          </p>
-                          <span>UI/UX Figma</span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-      </div>
-
-  </section><!-- End Team Section -->
-
     <!-- Faq Section -->
 <section id="faq" class="faq section">
   <!-- Section Title -->
@@ -642,6 +525,122 @@
   </div>
 </section><!-- /Faq Section -->
 
+<section id="team" class="team">
+
+  <div class="container section-title" data-aos="fade-up">
+      <header class="section-header">
+          <h2>Anggota Tim Kami</h2>
+      </header>
+
+      <!-- Single card on top -->
+      <div class="row justify-content-center mb-4">
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+              <div class="member">
+                  <div class="member-img">
+                      <img src="img/team/irfan(1,1).jpg" class="img-fluid" alt="">
+                      <div class="social">
+                        <a href="https://github.com/irfannhkm"><i class="bi bi-github"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=100023448218858&mibextid=JRoKGi"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.instagram.com/irfan.nhkm/"><i class="bi bi-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/muhammad-irfan-nur-hakim-0550292b4?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                  </div>
+                  <div class="member-info">
+                      <h4>Muhammad Irfan Nur Hakim</h4>
+                      <p>2241720230 | 15
+                      </p>
+                      <span>PM | Backend Developer</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Four cards below -->
+      <div class="row gy-4">
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+              <div class="member">
+                  <div class="member-img">
+                      <img src="img/team/alhamdana.jpg" class="img-fluid" alt="">
+                      <div class="social">
+                          <a href="https://github.com/Alhamdanaaa"><i class="bi bi-github"></i></a>
+                          <a href="https://www.facebook.com/alhamdana.fariz"><i class="bi bi-facebook"></i></a>
+                          <a href="https://www.instagram.com/alhamdanaaa/"><i class="bi bi-instagram"></i></a>
+                          <a href="https://www.linkedin.com/in/alhamdana-fariz-al-furqaan-663b92315"><i class="bi bi-linkedin"></i></a>
+                      </div>
+                  </div>
+                  <div class="member-info">
+                      <h4>Alhamdana Fariz Al Furqaan</h4>
+                      <p>2241720115 | 03
+                      </p>
+                      <span>Machine Learning</span>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+              <div class="member">
+                  <div class="member-img">
+                      <img src="img/team/ana.png" class="img-fluid" alt="">
+                      <div class="social">
+                          <a href="https://github.com/"><i class="bi bi-github"></i></a>
+                          <a href="https://www.facebook.com/"><i class="bi bi-facebook"></i></a>
+                          <a href="https://www.instagram.com/"><i class="bi bi-instagram"></i></a>
+                          <a href="https://www.linkedin.com/in/"><i class="bi bi-linkedin"></i></a>
+                      </div>
+                  </div>
+                  <div class="member-info">
+                      <h4>Ana Bellatus Mustaqfiro </h4>
+                      <p>2241720095 | 04
+                      </p>
+                      <span>Mobile Developer</span>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
+              <div class="member">
+                  <div class="member-img">
+                      <img src="img/team/mahi.png" class="img-fluid" alt="">
+                      <div class="social">
+                          <a href="https://github.com/nizarmahi"><i class="bi bi-github"></i></a>
+                          <a href="https://www.facebook.com/"><i class="bi bi-facebook"></i></a>
+                          <a href="https://www.instagram.com/mahinizar/"><i class="bi bi-instagram"></i></a>
+                          <a href="https://www.linkedin.com/in"><i class="bi bi-linkedin"></i></a>
+                      </div>
+                  </div>
+                  <div class="member-info">
+                      <h4>Mochammad Nizar Mahi </h4>
+                      <p>2241720185 | 13
+                      </p>
+                      <span>Keamanan Jaringan</span>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="500">
+              <div class="member">
+                  <div class="member-img">
+                      <img src="img\team\kaka(1,1).jpg" class="img-fluid" alt="">
+                      <div class="social">
+                        <a href="https://github.com/Zakaal"><i class="bi bi-github"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=100017615168635"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.instagram.com/zakaalfaj/"><i class="bi bi-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in"><i class="bi bi-linkedin"></i></a>
+                      </div>
+                  </div>
+                  <div class="member-info">
+                      <h4>Mochammad Zakaro Al Fajri</h4>
+                      <p>2241720175 | 14
+                      </p>
+                      <span>UI/UX Figma</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  </div>
+
+</section><!-- End Team Section -->
     <!-- Contact Section -->
     <section id="contact" class="contact section">
 

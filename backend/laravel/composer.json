@@ -9,6 +9,7 @@
         "bezhansalleh/filament-shield": "^3.2",
         "blade-ui-kit/blade-heroicons": "^2.4",
         "blade-ui-kit/blade-icons": "^1.7",
+        "dedoc/scramble": "^0.11.28",
         "filament/actions": "^3.2",
         "filament/filament": "^3.2",
         "filament/widgets": "^3.2",

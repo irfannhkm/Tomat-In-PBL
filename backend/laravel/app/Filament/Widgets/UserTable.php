@@ -4,12 +4,14 @@ namespace App\Filament\Widgets;
 
 use App\Filament\Resources\UserResource;
 use App\Models\AppUser;
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 
 class UserTable extends BaseWidget
 {
+    use HasWidgetShield;
     protected int | string | array $columnSpan = 'full';
     
     protected static ?int $sort = 2;

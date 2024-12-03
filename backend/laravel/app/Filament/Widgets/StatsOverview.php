@@ -6,11 +6,13 @@ use App\Models\Article;
 use App\Models\Disease;
 use App\Models\AppUser;
 use App\Models\YouTubeVideo;
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class StatsOverview extends BaseWidget
 {
+    use HasWidgetShield;
     protected static ?int $sort = 1;
 
     protected function getStats(): array

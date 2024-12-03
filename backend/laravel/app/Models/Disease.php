@@ -18,6 +18,7 @@ class Disease extends Model
         'symptoms',
         'prevention',
         'cause',
+        'class_idx',
     ];
 
     // Relasi satu Disease memiliki banyak DiagnosisHistory

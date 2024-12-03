@@ -32,12 +32,12 @@ class ArticleResource extends Resource
                         ->required(),
                     Forms\Components\Select::make('disease_id')
                         ->relationship('disease', 'disease_name')
-                        ->required(),
+                        // ->required(),
                 ]),
                 Forms\Components\Group::make()
                 ->schema([
                     Forms\Components\FileUpload::make('image_cover')
-                    ->required(),
+    
                 ]),
                 Forms\Components\Section::make()
                 ->schema([

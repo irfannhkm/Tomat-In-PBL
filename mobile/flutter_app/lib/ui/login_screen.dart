@@ -203,10 +203,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       final email = emailController.text;
                       final password = passwordController.text;
-                      context.read<AuthBloc>().add(LoginRequested(
-                            email: email,
-                            password: password,
-                          ));
+                      context.read<AuthBloc>().add(
+                            LoginRequested(
+                              email: email,
+                              password: password,
+                            ),
+                          );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF1AA283),

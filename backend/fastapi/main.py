@@ -49,10 +49,12 @@ async def detect_objects(file: UploadFile = File(...)):
                 # Gabungkan hasil
                 results.append({
                     "top1_label": top1_label,
+                    "class_id": top1,
                     "top1_confidence": round(top1_confidence * 100, 2),
                     "top5": [
                         {
                             "label": detection.names[class_idx],
+                            "class_id": class_idx,
                             "confidence": round(conf.item() * 100, 2),
                         }
                         for class_idx, conf in zip(top5, top5_confidence)

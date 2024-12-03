@@ -8,7 +8,7 @@ class WeatherHelper
 {
     public static function getWeatherData($latitude, $longitude)
     {
-        $apiKey = env('OPENWEATHER_API_KEY'); // Mengambil API key dari file .env
+        $apiKey = config('services.openweather.key'); // Mengambil API key dari file .env
         $url = "https://api.openweathermap.org/data/2.5/forecast";
 
         try {
@@ -47,6 +47,7 @@ class WeatherHelper
                 return [
                     'error' => 'Failed to retrieve weather data.',
                     'status' => $response->status(),
+                    'body' => $response->body(),
                 ];
             }
         } catch (\Exception $e) {
