@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             ShieldGenerateSeeder::class,
             DiseasesTableSeeder::class,
             AppUserSeeder::class,
+            ArticleSeeder::class,
+            YouTubeVideoSeeder::class,
         ]);
     }
 }
