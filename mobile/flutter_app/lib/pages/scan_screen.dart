@@ -144,6 +144,7 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
 
                     print(res);
                     // Pindah halaman preview hasil deteksi, parameter imagePath
+                    GoRouter.of(context).go('/preview', params: {'imagePath': imageFile.path});
                   } else {
                     print('No image selected');
                   }
@@ -153,7 +154,7 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
               IconButton(
                 icon: Icon(Icons.flash_on, color: Colors.green),
                 onPressed: () {
-                  // Aksi untuk tombol lampu flash
+                  _controller.setFlashMode(FlashMode.torch);
                 },
               ),
             ],

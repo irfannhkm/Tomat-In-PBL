@@ -12,8 +12,7 @@ import 'package:tomatin/pages/reminder_setting.dart';
 import 'package:tomatin/pages/scan_screen.dart';
 import 'package:tomatin/ui/login_screen.dart';
 import 'package:tomatin/ui/signup_screen.dart';
-
-List<CameraDescription> _cameras = <CameraDescription>[];
+import 'package:tomatin/ui/weather_screen.dart';
 
 void _logError(String code, String? message) {
   // ignore: avoid_print
@@ -21,12 +20,7 @@ void _logError(String code, String? message) {
 }
 
 Future<void> main() async {
-  try {
-    WidgetsFlutterBinding.ensureInitialized();
-    _cameras = await availableCameras();
-  } on CameraException catch (e) {
-    _logError(e.code, e.description);
-  }
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -94,14 +88,37 @@ final GoRouter _router = GoRouter(
           },
         ),
         GoRoute(
-            path: '/scan',
-            builder: (BuildContext context, GoRouterState state) {
-              return MaterialApp(
-                title: 'Camera Scanner',
-                theme: ThemeData.dark(),
-                home: CameraScanScreen(camera: _cameras.first),
-              );
-            }),
+          path: '/scan',
+          builder: (BuildContext context, GoRouterState state) {
+            return FutureBuilder(
+              future: availableCameras(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List<CameraDescription>? cameras = snapshot.data;
+                  return MaterialApp(
+                    title: 'Camera Scanner',
+                    theme: ThemeData.dark(),
+                    home: CameraScanScreen(
+                        camera: cameras!
+                            .first), // Use the null-aware operator (`?.`) to handle the case when `cameras` is null
+                  );
+                } else {
+                  return Scaffold(
+                    body: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+              },
+            );
+          },
+        ),
+        GoRoute(
+          path: '/weather',
+          builder: (BuildContext context, GoRouterState state) {
+            return const WeatherScreen();
+          },
+        ),
       ],
     ),
   ],

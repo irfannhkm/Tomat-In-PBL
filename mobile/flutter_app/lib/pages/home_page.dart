@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatefulWidget {
   final Function(int)
@@ -20,43 +21,47 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              // Top row for weather and location
-              Row(
-                children: [
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        '30°C',
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF8EB69B)),
-                      ),
-                      Text(
-                        'min 18C;max 31C',
-                        style:
-                            TextStyle(fontSize: 11, color: Color(0xFF8EB69B)),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  const ImageIcon(
-                    AssetImage('assets/loc_icon.png'),
-                    size: 10,
-                    color: Color(0xFF7AAB8D),
-                  ),
-                  const SizedBox(width: 5),
-                  const Text(
-                    'Kecamatan Tumpang',
-                    style: TextStyle(fontSize: 14, color: Color(0xFF7AAB8D)),
-                  ),
-                  const Spacer(),
-                  Image.asset(
-                    'assets/sunny_cloud.png',
-                    width: 70,
-                  ),
-                ],
+              GestureDetector(
+                onTap: () {
+                    GoRouter.of(context).go('/weather');
+                  },
+                child: Row(
+                  children: [
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          '30°C',
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF8EB69B)),
+                        ),
+                        Text(
+                          'min 18C;max 31C',
+                          style:
+                              TextStyle(fontSize: 11, color: Color(0xFF8EB69B)),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    const ImageIcon(
+                      AssetImage('assets/loc_icon.png'),
+                      size: 10,
+                      color: Color(0xFF7AAB8D),
+                    ),
+                    const SizedBox(width: 5),
+                    const Text(
+                      'Kecamatan Tumpang',
+                      style: TextStyle(fontSize: 14, color: Color(0xFF7AAB8D)),
+                    ),
+                    const Spacer(),
+                    Image.asset(
+                      'assets/sunny_cloud.png',
+                      width: 70,
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 20),
 

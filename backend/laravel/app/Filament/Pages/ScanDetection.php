@@ -38,13 +38,15 @@ class ScanDetection extends Page
                     $this->result = $query;
                     // append confidence
                     $this->result['confidence'] = $result['top1_confidence'];
+                    $this->result['image'] = asset('storage/' . $query->image);
+                    // dd($this->result);
                 }
                 
             } else {
                 $this->result = ['error' => 'Deteksi gagal dilakukan.'];
             }
         } catch (\Exception $e) {
-            $this->result = ['error' => 'Terjadi kesalahan sistem '];
+            $this->result = ['error' => 'Terjadi kesalahan sistem => ' . $e->getMessage()];
         }
     }
 }

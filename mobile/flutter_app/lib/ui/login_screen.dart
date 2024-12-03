@@ -209,15 +209,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               password: password,
                             ),
                           );
-                      // BlocListener<AuthBloc, AuthState>(
-                      //   listener: (context, state) {
-                      //     if (state is AuthSuccess) {
-                      //       GoRouter.of(context).go(
-                      //         '/home',
-                      //       );
-                      //     }
-                      //   },
-                      // );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF1AA283),
