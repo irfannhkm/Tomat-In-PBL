@@ -15,8 +15,8 @@ class DiseaseResource extends Resource
     protected static ?string $model = Disease::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-exclamation-circle';
-    protected static ?string $navigationLabel = 'Diseases';
-    protected static ?string $navigationGroup = 'Content Management';
+    protected static ?string $navigationLabel = 'Diseases Tomato';
+    protected static ?string $navigationGroup = 'Detection';
     protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form

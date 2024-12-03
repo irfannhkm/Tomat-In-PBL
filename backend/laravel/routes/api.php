@@ -7,18 +7,7 @@ use App\Http\Controllers\API\ArticleController;
 use App\Http\Controllers\API\YouTubeVideoController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\LocationController;
-use App\Http\Controllers\API\DiagnosisHistoryController;
-
-Route::group(['prefix' => 'diagnosis'], function () {
-    // API tanpa login
-    Route::post('/detect', [DiagnosisHistoryController::class, 'detect']);
-
-    // API dengan login
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::post('/store', [DiagnosisHistoryController::class, 'store']);
-    });
-});
-
+use App\Http\Controllers\Api\DiseaseController;
 
 Route::prefix('v1')->group(function () {
     Route::prefix('auth')->group(function () {
@@ -44,15 +33,13 @@ Route::prefix('v1')->group(function () {
         
             //location
             Route::prefix('locations')->group(function () {
-            Route::get('/', [LocationController::class, 'index']);
-            Route::get('/{id}', [LocationController::class, 'show']);
-            Route::post('/', [LocationController::class, 'store']);
-            Route::put('/{id}', [LocationController::class, 'update']);
-            Route::delete('/{id}', [LocationController::class, 'destroy']);
-        });
-        });
-
-       
+                Route::get('/', [LocationController::class, 'index']);
+                Route::get('/{id}', [LocationController::class, 'show']);
+                Route::post('/', [LocationController::class, 'store']);
+                Route::put('/{id}', [LocationController::class, 'update']);
+                Route::delete('/{id}', [LocationController::class, 'destroy']);
+            });
+        });  
     }); // End of Authenticated
 }); // End of v1 prefix
 
@@ -62,3 +49,6 @@ Route::get('articles/{id}', [ArticleController::class, 'show']);
 
 Route::get('videos', [YouTubeVideoController::class, 'index']);
 Route::get('videos/{id}', [YouTubeVideoController::class, 'show']);
+
+Route::get('diseases', [DiseaseController::class, 'index']);
+Route::get('diseases/{id}', [DiseaseController::class, 'show']);

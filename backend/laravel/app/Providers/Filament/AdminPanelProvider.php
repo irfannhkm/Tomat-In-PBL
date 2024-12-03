@@ -25,6 +25,7 @@ use DutchCodingCompany\FilamentSocialite\Provider;
 use Filament\Support\Colors;
 use Laravel\Socialite\Contracts\User as SocialiteUserContract;
 use Illuminate\Contracts\Auth\Authenticatable;
+use App\Filament\Auth\Register;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -85,7 +86,7 @@ class AdminPanelProvider extends PanelProvider
                 ->shouldShowBrowserSessionsForm()
                 ->shouldShowAvatarForm(
                     value: true,
-                    directory: 'storage/app/public', // image will be stored in 'storage/app/public/avatars
+                    directory: 'public', // image will be stored in 'storage/app/public/avatars
                     rules: 'mimes:jpeg,png|max:1024' //only accept jpeg and png files with a maximum size of 1MB
                 )
             ]);

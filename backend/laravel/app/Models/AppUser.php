@@ -59,4 +59,8 @@ class AppUser extends Authenticatable
     {
         return $this->hasMany(Article::class, 'user_id');
     }
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->avatar_url ? Storage::url("$this->avatar") : null;
+    }
 }
