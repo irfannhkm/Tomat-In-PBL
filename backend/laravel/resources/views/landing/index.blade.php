@@ -620,7 +620,7 @@
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="500">
               <div class="member">
                   <div class="member-img">
-                      <img src="img\team\kaka.jpg" class="img-fluid" alt="">
+                      <img src="img\team\kaka(1,1).jpg" class="img-fluid" alt="">
                       <div class="social">
                         <a href="https://github.com/Zakaal"><i class="bi bi-github"></i></a>
                         <a href="https://www.facebook.com/profile.php?id=100017615168635"><i class="bi bi-facebook"></i></a>
