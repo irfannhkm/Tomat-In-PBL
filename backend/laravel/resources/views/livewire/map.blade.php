@@ -1,4 +1,4 @@
-<div wire:ignore.self class="grid grid-cols-1 dark:bg-gray-900 md:grid-cols-12 gap-4" wire:ignore>
+<section wire:ignore.self class="grid grid-cols-1 dark:bg-gray-900 md:grid-cols-12 gap-4">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
@@ -48,7 +48,7 @@
 
         });
     </script>
-</div>
+</section>
 
 <style>
     .popup-content {
