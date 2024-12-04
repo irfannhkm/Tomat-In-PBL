@@ -23,12 +23,14 @@ class AuthRepository {
 
       if (response.statusCode == 200) {
         return LoginResponse.fromJson(jsonDecode(response.body));
-      } else {
-        final errorData = jsonDecode(response.body);
-        throw Exception(errorData['message'] ?? 'Login failed');
+      } else if (response.statusCode >= 400 && response.statusCode < 500) {
+        throw Exception("Terjadi Kesalahan: ${response.body}");
+      } else if (response.statusCode >= 500) {
+        throw Exception("Server sedang bermasalah, coba lagi nanti.");
       }
     } catch (e) {
       throw Exception('Error occurred: $e');
     }
+    throw Exception('Unexpected error occurred');
   }
 }
