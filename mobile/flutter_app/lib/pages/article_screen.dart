@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tomatin/data/repository/article_repository.dart';
 import 'package:tomatin/pages/detail_article_screen.dart';
 import 'package:tomatin/pages/videoplayer_screen.dart';
 
@@ -24,17 +25,23 @@ class ArticleScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              const SingleChildScrollView(
+              SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    Chip(label: Text('Semua')),
+                    InkWell(
+                      child: Chip(label: Text('Semua')),
+                      onTap: () async {
+                        final articleRepository = ArticleRepository();
+                        final response = await articleRepository.index();
+                        print(response.data![0].articleTitle);
+                      },
+                    ),
                     SizedBox(width: 8),
-                    Chip(label: Text('Trending')),
+                    Chip(label: Text('Artikel')),
                     SizedBox(width: 8),
-                    Chip(label: Text('Tips dan trik')),
+                    Chip(label: Text('Video')),
                     SizedBox(width: 8),
-                    Chip(label: Text('Panduan Perawatan')),
                   ],
                 ),
               ),

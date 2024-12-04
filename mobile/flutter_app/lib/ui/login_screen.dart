@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tomatin/bloc/auth/auth_bloc.dart';
-import 'package:tomatin/bloc/auth/auth_event.dart';
-import 'package:tomatin/bloc/auth/auth_state.dart';
+import 'package:tomatin/controllers/auth_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final AuthController authController = Get.find();
 
   final ValueNotifier<bool> isPasswordVisible = ValueNotifier(true);
 
@@ -59,32 +58,12 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF191d26),
       body: SafeArea(
-        child: BlocConsumer<AuthBloc, AuthState>(
-          listener: (context, state) {
-            if (state is AuthLoading) {
-              showLoadingDialog(context);
-            } else if (state is AuthSuccess) {
-              hideLoadingDialog(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Login berhasil'),
-                  backgroundColor: Colors.green,
-                ),
-              );
-              GoRouter.of(context).go(
-                '/home',
-              );
-            } else if (state is AuthFailure) {
-              hideLoadingDialog(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                  backgroundColor: Colors.red,
-                ),
-              );
+        child: Obx(
+          () {
+            if (authController.isLoading.value) {
+              return Center(child: CircularProgressIndicator());
             }
-          },
-          builder: (context, state) {
+
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
@@ -199,32 +178,34 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  ElevatedButton(
-                    onPressed: () {
-                      final email = emailController.text;
-                      final password = passwordController.text;
-                      context.read<AuthBloc>().add(LoginRequested(
-                            email: email,
-                            password: password,
-                          ));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1AA283),
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Masuk',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
+                  Obx(() {
+                    return ElevatedButton(
+                      onPressed: authController.isLoading.value
+                          ? null
+                          : () async {
+                              await authController.login(
+                                emailController.text,
+                                passwordController.text,
+                              );
+                            },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF1AA283),
+                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                    ),
-                  ),
+                      child: const Center(
+                        child: Text(
+                          'Masuk',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
                   SizedBox(height: 20),
                   Row(
                     children: <Widget>[

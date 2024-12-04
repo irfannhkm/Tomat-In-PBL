@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:tomatin/config.dart';
 import 'package:tomatin/data/models/login_response.dart';
 
 class AuthRepository {
-  final String baseUrl = 'http://10.0.2.2:8000/api';
+  final String baseUrl = Config.API_Url;
 
   Future<LoginResponse> login(String email, String password) async {
-    final url = Uri.parse('$baseUrl/login');
+    final url = Uri.parse('$baseUrl/v1/auth/login');
 
     try {
       final response = await http.post(
@@ -22,12 +23,14 @@ class AuthRepository {
 
       if (response.statusCode == 200) {
         return LoginResponse.fromJson(jsonDecode(response.body));
-      } else {
-        final errorData = jsonDecode(response.body);
-        throw Exception(errorData['message'] ?? 'Login failed');
+      } else if (response.statusCode >= 400 && response.statusCode < 500) {
+        throw Exception("Terjadi Kesalahan: ${response.body}");
+      } else if (response.statusCode >= 500) {
+        throw Exception("Server sedang bermasalah, coba lagi nanti.");
       }
     } catch (e) {
       throw Exception('Error occurred: $e');
     }
+    throw Exception('Unexpected error occurred');
   }
 }

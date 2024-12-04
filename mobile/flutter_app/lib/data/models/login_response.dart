@@ -1,26 +1,20 @@
-import 'user.dart';
 
 class LoginResponse {
   final bool success;
+  final String? data;
   final String message;
-  final String? accessToken;
-  final User? user;
 
   LoginResponse({
     required this.success,
+    this.data,
     required this.message,
-    this.accessToken,
-    this.user,
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
     return LoginResponse(
-      success: json['success'],
+      success: json['success'] ?? false,
+      data: json['data']?.toString(),
       message: json['message'],
-      accessToken: json['data']?['access_token'],
-      user: json['data']?['user'] != null
-          ? User.fromJson(json['data']['user'])
-          : null,
     );
   }
 }

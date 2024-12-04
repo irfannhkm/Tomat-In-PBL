@@ -46,24 +46,4 @@ class ArticleController extends Controller
             'data' => $article,
         ]);
     }
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'article_title' => 'required|string|max:255',
-            'article_content' => 'required|string',
-            'article_url' => 'required|url',
-            'image_cover' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        if ($request->hasFile('image_cover')) {
-            $validated['image_cover'] = $request->file('image_cover')->store('article_images', 'public');
-        }
-
-        $article = Article::create($validated);
-
-        return response()->json([
-            'success' => true,
-            'data' => $article,
-        ], 201);
-    }
 }

@@ -9,7 +9,7 @@
         "bezhansalleh/filament-shield": "^3.2",
         "blade-ui-kit/blade-heroicons": "^2.4",
         "blade-ui-kit/blade-icons": "^1.7",
-        "dutchcodingcompany/filament-socialite": "^2.2",
+        "dedoc/scramble": "^0.11.28",
         "filament/actions": "^3.2",
         "filament/filament": "^3.2",
         "filament/widgets": "^3.2",
@@ -21,7 +21,8 @@
         "laravel/framework": "^11.9",
         "laravel/pulse": "^1.2",
         "laravel/sanctum": "^4.0",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "owenvoke/blade-fontawesome": "^2.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Storage;
 
+
 class AppUser extends Authenticatable
 {
     use HasFactory, HasRoles, Notifiable, HasApiTokens;
@@ -20,6 +21,7 @@ class AppUser extends Authenticatable
         'email',
         'password',
         'google_id',
+        'email_verified_at',
         'avatar',
     ];
         /**
@@ -52,20 +54,13 @@ class AppUser extends Authenticatable
         return $this->hasMany(DiagnosisHistory::class, 'user_id');
     }
 
-    // Relasi satu AppUser memiliki banyak Plant
-    public function plants()
-    {
-        return $this->hasMany(Plant::class, 'user_id');
-    }
-
     // Relasi satu AppUser memiliki banyak Article
     public function articles()
     {
         return $this->hasMany(Article::class, 'user_id');
     }
-
     public function getFilamentAvatarUrl(): ?string
     {
-        return $this->avatar ? Storage::url("$this->avatar") : null;
+        return $this->avatar_url ? Storage::url("$this->avatar") : null;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Filament\Resources;
+use Illuminate\Support\Facades\Storage;
 
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\AppUser; // Menggunakan model AppUser
@@ -21,7 +22,7 @@ class UserResource extends Resource
     protected static ?string $navigationLabel = 'User';
     protected static ?string $navigationGroup = 'User Management';
     
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -76,7 +77,8 @@ class UserResource extends Resource
                                 Forms\Components\FileUpload::make('avatar')
                                     ->label('Image Profile (Avatar)')
                                     ->image()
-                                    ->maxSize(1024),
+                                    ->maxSize(1024)
+                                    ->disk('public')
                             ])
                     ])
             ]);

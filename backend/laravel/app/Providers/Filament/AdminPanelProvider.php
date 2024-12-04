@@ -18,8 +18,14 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
+use App\Filament\Auth\CustomLogin;
 use Joaopaulolndev\FilamentEditProfile\Pages\EditProfilePage;
-
+use DutchCodingCompany\FilamentSocialite\FilamentSocialitePlugin;
+use DutchCodingCompany\FilamentSocialite\Provider;
+use Filament\Support\Colors;
+use Laravel\Socialite\Contracts\User as SocialiteUserContract;
+use Illuminate\Contracts\Auth\Authenticatable;
+use App\Filament\Auth\Register;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -30,14 +36,13 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->registration()
             ->colors([
                 'primary' => Color::Slate,
             ])
             ->brandLogo(
                 asset('images/logo_tomatin_upscayl.png'),
             )
-            ->brandLogoHeight('3rem')
+            ->brandLogoHeight('4rem')
             ->brandName('Tomat-in')
             ->favicon(asset('images/favicon.png'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
@@ -81,7 +86,7 @@ class AdminPanelProvider extends PanelProvider
                 ->shouldShowBrowserSessionsForm()
                 ->shouldShowAvatarForm(
                     value: true,
-                    directory: 'storage/app/public', // image will be stored in 'storage/app/public/avatars
+                    directory: 'public', // image will be stored in 'storage/app/public/avatars
                     rules: 'mimes:jpeg,png|max:1024' //only accept jpeg and png files with a maximum size of 1MB
                 )
             ]);

@@ -1,0 +1,6 @@
+fastapi
+numpy
+ultralytics
+opencv-python
+opencv-contrib-python
+onnxruntime

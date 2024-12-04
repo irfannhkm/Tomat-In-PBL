@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:tomatin/config.dart';
 
-class ScanScreen extends StatelessWidget{
+class ScanScreen extends StatelessWidget {
   const ScanScreen({super.key, required this.camera});
 
   final CameraDescription camera;
@@ -76,7 +81,7 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
                   end: Alignment.bottomCenter,
                   colors: [
                     Colors.transparent,
-                    Colors.black.withOpacity(0.4),  // Efek bayangan
+                    Colors.black.withOpacity(0.4), // Efek bayangan
                   ],
                 ),
               ),
@@ -91,8 +96,8 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
               icon: Icon(Icons.close, color: Colors.white),
               onPressed: () {
                 GoRouter.of(context).go(
-                    '/plantdetail',
-                  );
+                  '/home',
+                );
               },
             ),
           ),
@@ -112,15 +117,44 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
             children: [
               IconButton(
                 icon: Icon(Icons.photo_library, color: Colors.green),
-                onPressed: () {
-                  // Aksi untuk tombol galeri
+                onPressed: () async {
+                  final picker = ImagePicker();
+                  final pickedFile =
+                      await picker.pickImage(source: ImageSource.gallery);
+
+                  if (pickedFile != null) {
+                    File imageFile = File(pickedFile.path);
+                    // Store the image file
+                    print(await imageFile.path);
+                    print('Image captured and stored!');
+                    final dio = Dio();
+                    final formData = FormData.fromMap({
+                      'file': await MultipartFile.fromFile(imageFile.path),
+                    });
+                    final res = await dio.post(
+                      Config.API_Deteksi,
+                      data: formData,
+                      options: Options(
+                        headers: {
+                          'Content-Type': 'multipart/form-data',
+                          'Accept': 'application/json',
+                        },
+                      ),
+                    );
+
+                    print(res);
+                    // Pindah halaman preview hasil deteksi, parameter imagePath
+                    GoRouter.of(context).go('/preview', extra: {'imagePath': imageFile.path});
+                  } else {
+                    print('No image selected');
+                  }
                 },
               ),
               SizedBox(width: 40), // Spasi untuk FAB
               IconButton(
                 icon: Icon(Icons.flash_on, color: Colors.green),
                 onPressed: () {
-                  // Aksi untuk tombol lampu flash
+                  _controller.setFlashMode(FlashMode.torch);
                 },
               ),
             ],
@@ -133,6 +167,7 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
         backgroundColor: Colors.green,
         onPressed: () {
           // Aksi untuk tombol kamera
+          print('tangkap gambar');
         },
         child: Icon(Icons.camera_alt),
       ),

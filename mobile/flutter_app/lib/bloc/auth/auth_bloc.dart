@@ -13,13 +13,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         final response =
             await authRepository.login(event.email, event.password);
-        if (response.success && response.user != null) {
-          emit(AuthSuccess(response.user!));
-        } else {
-          emit(AuthFailure(response.message));
-        }
+        // if (response.success && response.user != null) {
+        //   emit(AuthSuccess(response.user!));
+        // } else {
+        //   emit(AuthFailure(response.message));
+        // }
       } catch (error) {
-        emit(AuthFailure('Terjadi kesalahan: ${error.toString()}'));
+        emit(AuthFailure('Terjadi kesalahan'));
       }
     });
   }
