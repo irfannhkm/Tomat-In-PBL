@@ -7,7 +7,7 @@ use App\Http\Controllers\API\ArticleController;
 use App\Http\Controllers\API\YouTubeVideoController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\LocationController;
-use App\Http\Controllers\Api\DiseaseController;
+use App\Http\Controllers\API\DiseaseController;
 
 Route::prefix('v1')->group(function () {
     Route::prefix('auth')->group(function () {
