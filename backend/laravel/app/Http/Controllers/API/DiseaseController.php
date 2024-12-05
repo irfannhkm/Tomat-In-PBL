@@ -14,7 +14,7 @@ class DiseaseController extends Controller
      */
     public function index()
     {
-        $diseases = Disease::select('id', 'disease_name', 'symptoms', 'cause', 'prevention', 'description', 'image', 'created_at', 'updated_at')
+        $diseases = Disease::select('id', 'disease_name', 'symptoms', 'cause', 'prevention', 'description', 'image', 'class_idx', 'created_at', 'updated_at')
             ->orderBy('id', 'asc') // Order by id
             ->get()
             ->map(function ($disease) {
