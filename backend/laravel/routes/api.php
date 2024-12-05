@@ -52,3 +52,4 @@ Route::get('videos/{id}', [YouTubeVideoController::class, 'show']);
 
 Route::get('diseases', [DiseaseController::class, 'index']);
 Route::get('diseases/{id}', [DiseaseController::class, 'show']);
+Route::get('diseases/class/{class_idx}', [DiseaseController::class, 'showby_classidx']);

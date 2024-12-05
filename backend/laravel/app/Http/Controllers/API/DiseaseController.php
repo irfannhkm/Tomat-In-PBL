@@ -33,8 +33,25 @@ class DiseaseController extends Controller
      */
     public function show($id)
     {
-        $disease = Disease::select('id', 'disease_name', 'symptoms', 'cause', 'prevention', 'description', 'image', 'created_at', 'updated_at')
-            ->find($id);
+        $disease = Disease::find($id);
+
+        if (!$disease) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Disease not found.',
+            ], 404);
+        }
+
+        $disease->image = $disease->image ? asset('storage/' . $disease->image) : null;
+
+        return response()->json([
+            'success' => true,
+            'data' => $disease,
+        ]);
+    }
+    public function showby_classidx($class_idx)
+    {
+        $disease = Disease::where('class_idx','=', $class_idx)->first();
 
         if (!$disease) {
             return response()->json([
