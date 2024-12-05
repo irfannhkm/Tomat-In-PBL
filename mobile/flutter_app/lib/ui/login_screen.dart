@@ -78,18 +78,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           icon: const Icon(Icons.arrow_back,
                               color: Color(0xFF2A8F79)),
                           onPressed: () {
-                            GoRouter.of(context).go(
-                              '/',
-                            );
+                            Get.back();
                           },
                         ),
                         IconButton(
                           icon:
                               const Icon(Icons.close, color: Color(0xFF2A8F79)),
                           onPressed: () {
-                            GoRouter.of(context).go(
-                              '/',
-                            );
+                            Get.offAllNamed('/');
                           },
                         ),
                       ],
@@ -168,9 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 30),
                   GestureDetector(
                     onTap: () {
-                      GoRouter.of(context).go(
-                        '/forgotpassword',
-                      );
+                      Get.toNamed('/forgotpass');
                     },
                     child: const Text(
                       'Lupa password?',
@@ -251,9 +245,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(width: 5),
                       GestureDetector(
                         onTap: () {
-                          GoRouter.of(context).go(
-                            '/signup',
-                          );
+                          Get.toNamed('/signup');
                         },
                         child: const Text(
                           'Buat akun',
