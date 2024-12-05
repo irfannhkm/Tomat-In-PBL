@@ -107,6 +107,9 @@ class UserResource extends Resource
                     ->sortable()
                     ->badge()
                     ->label('Role'),
+                Tables\Columns\TextColumn::make('email_verified_at')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
