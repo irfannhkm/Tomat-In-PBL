@@ -1,9 +1,7 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tomatin/bloc/auth/auth_bloc.dart';
 import 'package:tomatin/data/repository/auth_repository.dart';
-import 'package:tomatin/pages/detail_article_screen.dart';
 import 'package:tomatin/pages/forgotpass_screen.dart';
 import 'package:tomatin/pages/main_screen.dart';
 import 'package:tomatin/pages/onboarding_screen.dart';
@@ -22,6 +20,7 @@ void _logError(String code, String? message) {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -118,18 +117,6 @@ final GoRouter _router = GoRouter(
           path: '/weather',
           builder: (BuildContext context, GoRouterState state) {
             return const WeatherScreen();
-          },
-        ),
-        GoRoute(
-          path: '/articles/:articleId',
-          builder: (BuildContext context, GoRouterState state) {
-            // Ambil parameter articleId dari route sebagai String
-            final String articleIdStr = state.pathParameters['articleId']!;
-
-            // Konversi articleId menjadi int
-            final int articleId = int.tryParse(articleIdStr) ?? 0;
-
-            return DetailArticleScreen(articleId: articleId);
           },
         ),
       ],

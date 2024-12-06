@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:tomatin/config.dart';
 import 'package:tomatin/data/models/login_response.dart';
@@ -22,13 +23,17 @@ class AuthRepository {
       );
 
       if (response.statusCode == 200) {
+        final loginResponse = LoginResponse.fromJson(jsonDecode(response.body));
+        GetStorage().write('token', loginResponse.data?.token);
         return LoginResponse.fromJson(jsonDecode(response.body));
-      } else {
-        final errorData = jsonDecode(response.body);
-        throw Exception(errorData['message'] ?? 'Login failed');
+      } else if (response.statusCode >= 400 && response.statusCode < 500) {
+        throw Exception("Terjadi Kesalahan: ${response.body}");
+      } else if (response.statusCode >= 500) {
+        throw Exception("Server sedang bermasalah, coba lagi nanti.");
       }
     } catch (e) {
       throw Exception('Error occurred: $e');
     }
+    throw Exception('Unexpected error occurred');
   }
 }

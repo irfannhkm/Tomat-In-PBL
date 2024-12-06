@@ -91,12 +91,12 @@ class UserController extends BaseController
         $path = $request->file('avatar')->store('avatars', 'public');
 
         // Delete the old avatar if it exists
-        if ($user->image_url) {
-            Storage::disk('public')->delete($user->image_url);
+        if ($user->avatar) {
+            Storage::disk('storage/')->delete($user->avatar);
         }
 
         // Update the user's avatar path
-        $user->image_url = $path;
+        $user->avatar = $path;
         $user->save();
 
         return $this->sendResponse($user, "Berhasil mengupdate avatar.");
@@ -157,4 +157,5 @@ class UserController extends BaseController
         $this->otpService->generateOTP($request->email);
         return $this->sendResponse([], 'OTP berhasil dikirim, cek email anda.');
     }
+    
 }

@@ -1,19 +1,19 @@
-part of 'detect_bloc.dart';
+// part of 'detect_bloc.dart';
 
-abstract class DetectEvent extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+// abstract class DetectEvent extends Equatable {
+//   @override
+//   List<Object> get props => [];
+// }
 
-class StartCamera extends DetectEvent {}
+// class StartCamera extends DetectEvent {}
 
-class CapturePhoto extends DetectEvent {}
+// class CapturePhoto extends DetectEvent {}
 
-class DetectDisease extends DetectEvent {
-  final String imagePath;
+// class DetectDisease extends DetectEvent {
+//   final String imagePath;
 
-  DetectDisease(this.imagePath);
+//   DetectDisease(this.imagePath);
 
-  @override
-  List<Object> get props => [imagePath];
-}
+//   @override
+//   List<Object> get props => [imagePath];
+// }
