@@ -1,7 +1,8 @@
+import 'package:tomatin/data/models/login_data.dart';
 
 class LoginResponse {
   final bool success;
-  final String? data;
+  final LoginData? data;
   final String message;
 
   LoginResponse({
@@ -13,7 +14,7 @@ class LoginResponse {
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
     return LoginResponse(
       success: json['success'] ?? false,
-      data: json['data']?.toString(),
+      data: json['data'] != null ? LoginData.fromJson(json['data']) : null,
       message: json['message'],
     );
   }

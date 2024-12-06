@@ -23,8 +23,8 @@ class AuthRepository {
 
       if (response.statusCode == 200) {
         return LoginResponse.fromJson(jsonDecode(response.body));
-      } else if (response.statusCode >= 400 && response.statusCode < 500) {
-        throw Exception("Terjadi Kesalahan: ${response.body}");
+      } else if (response.statusCode == 401) {
+        throw Exception('email atau password Anda salah');
       } else if (response.statusCode >= 500) {
         throw Exception("Server sedang bermasalah, coba lagi nanti.");
       }

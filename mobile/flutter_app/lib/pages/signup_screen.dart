@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:tomatin/bloc/register/register_bloc.dart';
-import 'package:tomatin/bloc/register/register_event.dart';
-import 'package:tomatin/bloc/register/register_state.dart';
+import 'package:get/get.dart';
+import 'package:tomatin/controllers/register_controller.dart';
+import 'package:tomatin/data/repository/register_repository.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -13,6 +11,8 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final RegisterController registerController = Get.put(RegisterController(registerRepository: RegisterRepository()));
+  
   final usernameController = TextEditingController();
   final fullNameController = TextEditingController();
   final emailController = TextEditingController();
@@ -34,20 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF191d26),
       body: SafeArea(
-        child: BlocListener<RegisterBloc, RegisterState>(
-          listener: (context, state) {
-            if (state is RegisterSuccess) {
-              GoRouter.of(context).go('/home');
-            } else if (state is RegisterFailure) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                  backgroundColor: Colors.red,
-                ),
-              );
-            }
-          },
-          child: Padding(
+        child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -61,13 +48,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         icon: const Icon(Icons.arrow_back,
                             color: Color(0xFF2A8F79)),
                         onPressed: () {
-                          GoRouter.of(context).go('/login');
+                          Get.back();
                         },
                       ),
                       IconButton(
                         icon: const Icon(Icons.close, color: Color(0xFF2A8F79)),
                         onPressed: () {
-                          GoRouter.of(context).go('/');
+                          Get.offAllNamed('/');
                         },
                       ),
                     ],
@@ -181,13 +168,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     final password = passwordController.text;
                     final cPassword = cPasswordController.text;
 
-                    context.read<RegisterBloc>().add(RegisterRequested(
-                          username: username,
-                          name: fullName,
-                          email: email,
-                          password: password,
-                          cPassword: cPassword,
-                        ));
+                    registerController.register(username, fullName, email, password, cPassword,);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF1AA283),
@@ -217,7 +198,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(width: 5),
                     GestureDetector(
                       onTap: () {
-                        GoRouter.of(context).go('/login');
+                        Get.toNamed('/login');
                       },
                       child: const Text(
                         'Login',
@@ -227,11 +208,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ],
                 ),
                 const Spacer(flex: 1),
+                Obx((){
+                  if(registerController.isLoading.value){
+                    return const CircularProgressIndicator();
+                  } 
+                  if (registerController.successMessage.isNotEmpty) {
+                  Future.delayed(Duration.zero, () => Get.snackbar('Success', registerController.successMessage.value));
+                }
+                if (registerController.errorMessage.isNotEmpty) {
+                  Future.delayed(Duration.zero, () => Get.snackbar('Error', registerController.errorMessage.value));
+                }
+                return const SizedBox();
+                }),
               ],
             ),
           ),
         ),
-      ),
     );
   }
 }

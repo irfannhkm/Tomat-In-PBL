@@ -7,7 +7,13 @@ import 'package:tomatin/data/models/register_response.dart';
 class RegisterRepository {
   final String baseUrl = Config.API_Url;
 
-  Future<RegisterResponse> register(RegisterRequested register) async {
+  Future<RegisterResponse> register(
+    String username,
+    String name,
+    String email,
+    String password,
+    String cPassword,
+  ) async {
     final url = Uri.parse('$baseUrl/v1/auth/register');
 
     try {
@@ -17,11 +23,11 @@ class RegisterRepository {
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
-          'username': register.username,
-          'name': register.name,
-          'email': register.email,
-          'password': register.password,
-          'c_password': register.cPassword,
+          'username': username,
+          'name': name,
+          'email': email,
+          'password': password,
+          'c_password': cPassword,
         }),
       );
 

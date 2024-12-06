@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tomatin/pages/forgotpass_screen.dart';
 import 'package:tomatin/pages/main_screen.dart';
-import 'package:tomatin/pages/onboarding_screen.dart';
+import 'package:tomatin/ui/onboarding_screen.dart';
 import 'package:tomatin/pages/plantdetail_screen.dart';
 import 'package:tomatin/pages/reminder_setting.dart';
 import 'package:tomatin/pages/scan_screen.dart';
