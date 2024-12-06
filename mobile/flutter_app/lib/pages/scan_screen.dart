@@ -144,7 +144,8 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
 
                     print(res);
                     // Pindah halaman preview hasil deteksi, parameter imagePath
-                    GoRouter.of(context).go('/preview', params: {'imagePath': imageFile.path});
+                    GoRouter.of(context)
+                        .go('/preview', extra: {'imagePath': imageFile.path});
                   } else {
                     print('No image selected');
                   }

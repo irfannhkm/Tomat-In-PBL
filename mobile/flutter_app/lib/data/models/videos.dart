@@ -1,27 +1,28 @@
 // To parse this JSON data, do
 //
-//     final article = articleFromJson(jsonString);
+//     final video = videoFromJson(jsonString);
 
 import 'dart:convert';
 
-Article articleFromJson(String str) => Article.fromJson(json.decode(str));
+Video videoFromJson(String str) => Video.fromJson(json.decode(str));
 
-String articleToJson(Article data) => json.encode(data.toJson());
+String videoToJson(Video data) => json.encode(data.toJson());
 
-class Article {
+class Video {
   final bool? success;
-  final List<Datum>? data;
+  final List<VideoDatum>? data;
 
-  Article({
+  Video({
     this.success,
     this.data,
   });
 
-  factory Article.fromJson(Map<String, dynamic> json) => Article(
+  factory Video.fromJson(Map<String, dynamic> json) => Video(
         success: json["success"],
         data: json["data"] == null
             ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+            : List<VideoDatum>.from(
+                json["data"]!.map((x) => VideoDatum.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -32,36 +33,33 @@ class Article {
       };
 }
 
-class Datum {
+class VideoDatum {
   final int? id;
-  final String? articleTitle;
-  final String? articleContent;
-  final String? articleUrl;
+  final String? videoTitle;
+  final String? videoUrl;
+  final String? thumbnailUrl;
   final int? diseaseId;
-  final dynamic imageCover;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final Disease? disease;
 
-  Datum({
+  VideoDatum({
     this.id,
-    this.articleTitle,
-    this.articleContent,
-    this.articleUrl,
+    this.videoTitle,
+    this.videoUrl,
+    this.thumbnailUrl,
     this.diseaseId,
-    this.imageCover,
     this.createdAt,
     this.updatedAt,
     this.disease,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory VideoDatum.fromJson(Map<String, dynamic> json) => VideoDatum(
         id: json["id"],
-        articleTitle: json["article_title"],
-        articleContent: json["article_content"],
-        articleUrl: json["article_url"],
+        videoTitle: json["video_title"],
+        videoUrl: json["video_url"],
+        thumbnailUrl: json["thumbnail_url"],
         diseaseId: json["disease_id"],
-        imageCover: json["image_cover"],
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -74,11 +72,10 @@ class Datum {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "article_title": articleTitle,
-        "article_content": articleContent,
-        "article_url": articleUrl,
+        "video_title": videoTitle,
+        "video_url": videoUrl,
+        "thumbnail_url": thumbnailUrl,
         "disease_id": diseaseId,
-        "image_cover": imageCover,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "disease": disease?.toJson(),
