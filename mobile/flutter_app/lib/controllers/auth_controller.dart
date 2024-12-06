@@ -21,11 +21,12 @@ class AuthController extends GetxController {
     try {
       final response = await _authRepository.login(email, password);
 
-      if (response.success) {
+      if (response.success!) {
+        Get.snackbar('Login Success', 'Welcome back');
         Get.offAllNamed('/home');
       } else {
-        errorMessage.value = response.message;
-        Get.snackbar("Login Failed", response.message);
+        errorMessage.value = response.message!;
+        Get.snackbar("Login Failed", response.message!);
       }
     } catch (error) {
       errorMessage.value = 'Terjadi kesalahan';

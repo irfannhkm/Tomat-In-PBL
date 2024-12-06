@@ -61,6 +61,7 @@ class AuthController extends BaseController
         }
         $input['password'] = bcrypt($input['password']);
         $user = AppUser::create($input);
+
         // Berikan role 'user' secara otomatis
         $this->assignUserRole($user, 'User');
         $success['token'] = $user->createToken('api-token')->plainTextToken;
@@ -105,7 +106,7 @@ class AuthController extends BaseController
             'email' => $request->email,
             'password' => Str::random(12),
             'email_verified_at' => now(),
-            'image_url' => $request->photoUrl,
+            'avatar' => $request->photoUrl,
         ]);
 
         $this->assignUserRole($user, 'user');
@@ -157,7 +158,23 @@ class AuthController extends BaseController
         
         return $this->sendResponse([], 'OTP berhasil dikirim, cek email anda.');
     }
+    public function sendOTPRegister(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
 
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors(), 409);
+        }
+
+        try {
+            $this->otpService->generateOTP($request->email);
+        } catch (\Throwable $th) {
+            return $this->sendError('Validation Error.', $th->getMessage());
+        }
+        return $this->sendResponse([], 'OTP berhasil dikirim, cek email anda. Lalu lakukan verifikasi.');
+    }
     /**
      * verifyOTP
      * @param \Illuminate\Http\Request $request
@@ -212,5 +229,27 @@ class AuthController extends BaseController
         $user->save();
 
         return $this->sendResponse([], 'Password berhasil diubah.');
+    }
+    public function changeEmail(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'token' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors(), 409);
+        }
+        $token = $request->input('token');
+        $userToken = $this->otpService->getTokenByEmail($request->email);
+        if ($userToken != $token) {
+            return $this->sendError('Validation Error', 'Token tidak valid', 409);
+        }
+        $user = AppUser::where('email', $request->email)->first();
+        if (!$user) {
+            return $this->sendError('Validation Error.', ['error' => 'Email tidak terdaftar'], 409);
+        }
+        $user->email = $request->email;
+        $user->save();
+        return $this->sendResponse([], 'Email berhasil diubah.');
     }
 }

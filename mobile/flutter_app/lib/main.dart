@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:tomatin/bindings/auth_binding.dart';
 import 'package:tomatin/routes/app_routes.dart';
 
@@ -10,6 +11,7 @@ void _logError(String code, String? message) {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   runApp(const MyApp());
 }
 

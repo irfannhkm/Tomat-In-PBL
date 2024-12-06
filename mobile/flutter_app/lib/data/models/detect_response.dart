@@ -4,20 +4,21 @@
 
 import 'dart:convert';
 
-Detect detectFromJson(String str) => Detect.fromJson(json.decode(str));
+DetectResponse detectFromJson(String str) =>
+    DetectResponse.fromJson(json.decode(str));
 
-String detectToJson(Detect data) => json.encode(data.toJson());
+String detectToJson(DetectResponse data) => json.encode(data.toJson());
 
-class Detect {
+class DetectResponse {
   final bool? success;
   final List<Classification>? classifications;
 
-  Detect({
+  DetectResponse({
     this.success,
     this.classifications,
   });
 
-  factory Detect.fromJson(Map<String, dynamic> json) => Detect(
+  factory DetectResponse.fromJson(Map<String, dynamic> json) => DetectResponse(
         success: json["success"],
         classifications: json["classifications"] == null
             ? []
@@ -35,17 +36,20 @@ class Detect {
 
 class Classification {
   final String? top1Label;
+  final int? classId;
   final double? top1Confidence;
   final List<Top5>? top5;
 
   Classification({
     this.top1Label,
+    this.classId,
     this.top1Confidence,
     this.top5,
   });
 
   factory Classification.fromJson(Map<String, dynamic> json) => Classification(
         top1Label: json["top1_label"],
+        classId: json["class_id"],
         top1Confidence: json["top1_confidence"]?.toDouble(),
         top5: json["top5"] == null
             ? []
@@ -54,6 +58,7 @@ class Classification {
 
   Map<String, dynamic> toJson() => {
         "top1_label": top1Label,
+        "class_id": classId,
         "top1_confidence": top1Confidence,
         "top5": top5 == null
             ? []
@@ -63,20 +68,24 @@ class Classification {
 
 class Top5 {
   final String? label;
+  final int? classId;
   final double? confidence;
 
   Top5({
     this.label,
+    this.classId,
     this.confidence,
   });
 
   factory Top5.fromJson(Map<String, dynamic> json) => Top5(
         label: json["label"],
+        classId: json["class_id"],
         confidence: json["confidence"]?.toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
         "label": label,
+        "class_id": classId,
         "confidence": confidence,
       };
 }

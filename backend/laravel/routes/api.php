@@ -17,8 +17,10 @@ Route::prefix('v1')->group(function () {
             Route::post('register', 'register');
             Route::post('google/callback', 'googleCallback');
             Route::post('otp/send', 'sendOTP');
+            Route::post('otp/register/send', 'sendOTPRegister');
             Route::post('otp/verify', 'verifyOTP');
             Route::post('change-password', 'changePassword');
+            Route::post('change-email', 'changeEmail');
         });
     });
 

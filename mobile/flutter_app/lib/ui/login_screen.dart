@@ -56,6 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFF191d26),
       body: SafeArea(
         child: Obx(
@@ -63,7 +64,6 @@ class _LoginScreenState extends State<LoginScreen> {
             if (authController.isLoading.value) {
               return Center(child: CircularProgressIndicator());
             }
-
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
@@ -168,9 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 30),
                   GestureDetector(
                     onTap: () {
-                      GoRouter.of(context).go(
-                        '/forgotpassword',
-                      );
+                      Get.toNamed('/forgot-password');
                     },
                     child: const Text(
                       'Lupa password?',

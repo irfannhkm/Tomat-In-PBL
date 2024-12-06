@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -39,9 +39,7 @@ class OnboardingScreen extends StatelessWidget {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  GoRouter.of(context).go(
-                    '/login',
-                  );
+                  Get.toNamed('/login');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF126E5C),
