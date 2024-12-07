@@ -56,7 +56,7 @@ class ArticleScreen extends StatelessWidget {
                           final articles = state.articles;
                           final videos = state.videos;
                           return TabBarView(
-                            children: [                              
+                            children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -234,7 +234,7 @@ class ArticleScreen extends StatelessWidget {
             articleId: article.id,
             title: article.articleTitle ?? 'No Title',
             category: article.disease?.diseaseName ?? 'No Category',
-            imagePath: 'assets/tomato_article.png',
+            imagePath: article.imageCover ?? 'assets/tomato_article.png',
           );
         },
       ),
