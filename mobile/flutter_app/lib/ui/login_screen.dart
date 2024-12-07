@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:tomatin/controllers/auth_controller.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -32,15 +33,17 @@ class _LoginScreenState extends State<LoginScreen> {
       builder: (BuildContext context) {
         return Center(
           child: Container(
-            width: 80,
-            height: 80,
+            width: 100,
+            height: 100,
             decoration: BoxDecoration(
               color: Colors.black.withOpacity(0.8),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const Center(
-              child: CircularProgressIndicator(
-                color: Colors.white,
+            child: Center(
+              child: LoadingAnimationWidget.flickr(
+                leftDotColor: const Color(0xFFD01E26),
+                rightDotColor: const Color(0xFF306526),
+                size: 50,
               ),
             ),
           ),
@@ -62,7 +65,13 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Obx(
           () {
             if (authController.isLoading.value) {
-              return Center(child: CircularProgressIndicator());
+              return Center(
+                child: LoadingAnimationWidget.flickr(
+                  leftDotColor: const Color(0xFFD01E26),
+                  rightDotColor: const Color(0xFF306526),
+                  size: 50,
+                ),
+              );
             }
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -78,20 +87,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           icon: const Icon(Icons.arrow_back,
                               color: Color(0xFF2A8F79)),
                           onPressed: () {
-                            GoRouter.of(context).go(
-                              '/',
-                            );
+                            Get.toNamed('/onboarding');
                           },
                         ),
-                        IconButton(
-                          icon:
-                              const Icon(Icons.close, color: Color(0xFF2A8F79)),
+                        //tombol daftar
+                        TextButton(
+                          child: Text(
+                            'Daftar',
+                            style: TextStyle(color: Color(0xFF2A8F79)),
+                          ),
                           onPressed: () {
-                            GoRouter.of(context).go(
-                              '/',
-                            );
+                            Get.toNamed('/signup');
                           },
-                        ),
+                        )
                       ],
                     ),
                   ),
@@ -187,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
                             },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1AA283),
+                        backgroundColor: const Color(0xFF1E5F56),
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
@@ -198,7 +206,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           'Masuk',
                           style: TextStyle(
                             fontSize: 18,
-                            color: Colors.white,
+                            color: Color.fromRGBO(255, 255, 255,
+                                0.8), // Adjust the opacity to your preference
                           ),
                         ),
                       ),
@@ -249,9 +258,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(width: 5),
                       GestureDetector(
                         onTap: () {
-                          GoRouter.of(context).go(
-                            '/signup',
-                          );
+                          Get.toNamed('/signup');
                         },
                         child: const Text(
                           'Buat akun',

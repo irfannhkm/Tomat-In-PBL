@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tomatin/data/repository/register_repository.dart';
 import 'register_event.dart';
 import 'register_state.dart';

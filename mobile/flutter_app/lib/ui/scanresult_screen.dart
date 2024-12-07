@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:tomatin/controllers/detect_controller.dart';
+import 'package:tomatin/services/database_service.dart';
 
 class ScanresultScreen extends GetView<DetectController> {
   const ScanresultScreen({super.key});
@@ -35,31 +36,23 @@ class ScanresultScreen extends GetView<DetectController> {
                 child: Column(
                   children: [
                     const SizedBox(height: 10),
-
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(
-                          30), // Atur radius sesuai keinginan
+                      borderRadius: BorderRadius.circular(30),
                       child: Image.file(
-                        File(controller.scanResult
-                            .path), // Pastikan path sesuai dengan lokasi gambar Anda
-                        fit: BoxFit
-                            .cover, // Gambar menyesuaikan container dengan mengisi ruang
-                        width: MediaQuery.of(context).size.width *
-                            0.9, // Lebar gambar
-                        height: MediaQuery.of(context).size.height *
-                            0.4, // Tinggi gambar
+                        File(controller.scanResult.path),
+                        fit: BoxFit.cover,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.4,
                       ),
                     ),
-
                     const SizedBox(height: 20),
                     CircleAvatar(
                       radius: 80,
                       backgroundImage: NetworkImage(
-                        controller.disease.image!, // Link gambar
+                        controller.disease.image!,
                       ),
                     ),
-                    // Jenis tanaman
-                    // Nama tanaman
+                    const SizedBox(height: 20),
                     Text(
                       controller.disease.diseaseName!,
                       style: const TextStyle(
@@ -69,8 +62,8 @@ class ScanresultScreen extends GetView<DetectController> {
                       ),
                     ),
                     Text(
-                      'Akurasi: ${controller.top1.top1Confidence}', // Nama tanaman
-                      style: TextStyle(color: Colors.white54, fontSize: 16),
+                      'Akurasi: ${controller.top1.top1Confidence}%',
+                      style: TextStyle(color: Colors.white54, fontSize: 18),
                     ),
                     const SizedBox(height: 20),
                   ],
@@ -86,21 +79,26 @@ class ScanresultScreen extends GetView<DetectController> {
                     outputFormat.format(DateTime.now()),
                     style: TextStyle(color: Colors.white54),
                   ),
+                  IconButton(
+                    onPressed: () async {
+                      await _saveToHistory();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Hasil deteksi disimpan ke riwayat!')),
+                      );
+                    },
+                    icon: Icon(Icons.save, color: Colors.white),
+                  ),
                 ],
               ),
-              const SizedBox(height: 30),
 
-              // Pengingat perawatan
-              _buildReminderBox(),
+              const SizedBox(height: 10),
 
-              const SizedBox(height: 20),
-
-              // Kesehatan tanaman
+              // Status Kesehatan Tanaman
               _buildHealthStatusBox(),
 
               const SizedBox(height: 20),
 
-              //Saran perawatan
+              // Detail Penyakit
               const Text(
                 'Deskripsi Penyakit',
                 style: TextStyle(
@@ -109,25 +107,22 @@ class ScanresultScreen extends GetView<DetectController> {
                     fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
-              _buildExpandableTile(
-                'Deskripsi Penyakit',
-                '${controller.disease.description}',
-                '${controller.disease.description}',
+
+              // Toggle Box untuk Symptoms, Prevention, dan Cause
+              _buildToggleBox(
+                'Gejala Penyakit',
+                controller.disease.symptoms ?? '-',
+                Icons.error_outline,
               ),
               const SizedBox(height: 10),
-              _buildExpandableTile(
-                'Pencahayaan',
-                'Intensitas cahaya: Matahari penuh',
-                'Tomat membutuhkan pencahayaan penuh dari sinar matahari selama 6-8 jam per hari untuk fotosintesis yang optimal.',
-              ),
+              _buildToggleBox(
+                  'Pencegahan',
+                  controller.disease.prevention ?? '-',
+                  Icons.check_circle_outline),
               const SizedBox(height: 10),
-              _buildExpandableTile(
-                'Pemupukan',
-                'Jenis pemupukan: Mingguan',
-                'Pemupukan dilakukan setiap minggu menggunakan pupuk organik untuk menunjang pertumbuhan tanaman.',
-              ),
-              // const SizedBox(height: 10),
-              // _buildDetailTile('Kelembapan', 'Batas kelembapan: -'),
+              _buildToggleBox('Penyebab', controller.disease.cause ?? '-',
+                  Icons.info_outline),
+              const SizedBox(height: 10),
             ],
           ),
         ),
@@ -135,61 +130,40 @@ class ScanresultScreen extends GetView<DetectController> {
     );
   }
 
-  // Fungsi untuk membuat kotak pengingat perawatan
-  Widget _buildReminderBox() {
-    return Container(
-      padding: const EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 89, 132, 119),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Pengingat perawatan',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.add_circle, color: Colors.white),
-                onPressed: () {},
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          _buildToggleSwitch('Penyiraman'),
-          _buildToggleSwitch('Pencahayaan'),
-          _buildToggleSwitch('Pemupukan'),
-        ],
-      ),
-    );
+  Future<void> _saveToHistory() async {
+    final db = DatabaseService.instance;
+    await db.insertHistory({
+      'imagePath': controller.scanResult.path,
+      'diseaseName': controller.disease.diseaseName,
+      'accuracy': controller.top1.top1Confidence,
+      'date': DateTime.now().toIso8601String(),
+    });
   }
 
   // Fungsi untuk membuat kotak status kesehatan tanaman
   Widget _buildHealthStatusBox() {
+    final isHealthy = controller.disease.diseaseName == "Tomato Healthy" &&
+        controller.top1.classId == 9;
+
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: 'sehat' == 'sehat' ? Colors.greenAccent : Colors.redAccent,
+        color: isHealthy ? Color(0xFF126E5C) : Color(0xFF321D22),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
-              Icon(Icons.warning, color: Colors.white),
-              SizedBox(width: 8),
+              Icon(
+                isHealthy ? Icons.check_circle : Icons.warning,
+                color: Colors.white,
+              ),
+              const SizedBox(width: 8),
               Text(
-                'Kesehatan Tanaman',
-                style: TextStyle(
+                'Status Kesehatan Tanaman',
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -198,52 +172,46 @@ class ScanresultScreen extends GetView<DetectController> {
             ],
           ),
           const SizedBox(height: 10),
-          Text(
-            'widget.status',
-            style: const TextStyle(color: Colors.white70, fontSize: 16),
-          ),
-          const SizedBox(height: 10),
-          TextButton(
-            onPressed: () {},
-            style: TextButton.styleFrom(
-              foregroundColor: 'widget.status.toLowerCase()' == 'sehat'
-                  ? const Color.fromARGB(255, 20, 120, 72)
-                  : Colors.redAccent,
-              backgroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+          if (isHealthy)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Tanaman dalam kondisi sehat dan tidak ada penyakit yang terdeteksi. Selamat!',
+                  style: const TextStyle(color: Colors.white70, fontSize: 16),
+                ),
+              ],
+            )
+          else
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                'Tanaman dalam kondisi tidak sehat dan terdeteksi penyakit ${controller.disease.diseaseName}.',
+                style: const TextStyle(color: Colors.white70, fontSize: 16),
               ),
-            ),
-            child: const Text('Lihat detail penyakit'),
-          ),
+            ]),
         ],
       ),
     );
   }
 
-  // Fungsi untuk membuat toggle switch
-  Widget _buildToggleSwitch(String label) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(label,
-            style: const TextStyle(color: Colors.white70, fontSize: 16)),
-        Switch(value: true, onChanged: (value) {}),
-      ],
-    );
-  }
-
-  // Fungsi untuk membuat expandable tile
-  Widget _buildExpandableTile(String title, String subtitle, String content) {
+  Widget _buildToggleBox(String title, String content, IconData icon) {
     return Container(
+      padding: const EdgeInsets.all(4.0),
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 89, 132, 119),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(32),
       ),
       child: ExpansionTile(
-        title: Text(title,
-            style: const TextStyle(color: Colors.white, fontSize: 16)),
-        subtitle: Text(subtitle, style: const TextStyle(color: Colors.white70)),
+        title: Row(
+          children: [
+            Icon(icon, color: Colors.white),
+            const SizedBox(width: 8),
+            Text(
+              title,
+              style: const TextStyle(color: Colors.white, fontSize: 16),
+            ),
+          ],
+        ),
         iconColor: Colors.white,
         children: [
           Padding(
@@ -252,22 +220,6 @@ class ScanresultScreen extends GetView<DetectController> {
             child: Text(content, style: const TextStyle(color: Colors.white70)),
           ),
         ],
-      ),
-    );
-  }
-
-  // Fungsi untuk membuat detail tile (non-expandable)
-  Widget _buildDetailTile(String title, String description) {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 89, 132, 119),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: ListTile(
-        title: Text(title,
-            style: const TextStyle(color: Colors.white, fontSize: 16)),
-        subtitle:
-            Text(description, style: const TextStyle(color: Colors.white70)),
       ),
     );
   }

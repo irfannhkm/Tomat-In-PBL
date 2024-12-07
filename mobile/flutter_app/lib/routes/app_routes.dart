@@ -9,13 +9,15 @@ import 'package:tomatin/pages/plantdetail_screen.dart';
 import 'package:tomatin/pages/reminder_setting.dart';
 import 'package:tomatin/ui/login_screen.dart';
 import 'package:tomatin/ui/scanresult_screen.dart';
+import 'package:tomatin/ui/splash_screen.dart';
 import 'package:tomatin/ui/weather_screen.dart';
 import 'package:tomatin/ui/scan_screen.dart';
 import '../ui/signup_screen.dart';
 
 class AppRoutes {
   static final routes = [
-    GetPage(name: '/', page: () => const OnboardingScreen()),
+    GetPage(name: '/', page: () => const SplashScreen()),
+    GetPage(name: '/onboarding', page: () => const OnboardingScreen()),
     GetPage(name: '/login', page: () => const LoginScreen()),
     GetPage(name: '/signup', page: () => const SignUpScreen()),
     GetPage(name: '/forgotpass', page: () => const ForgotpassScreen()),

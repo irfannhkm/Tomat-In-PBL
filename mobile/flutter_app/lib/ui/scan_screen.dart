@@ -2,9 +2,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-// import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tomatin/config.dart';
 import 'package:tomatin/controllers/detect_controller.dart';
 
 class ScanScreen extends StatelessWidget {
@@ -31,10 +29,15 @@ class CameraScanScreen extends StatefulWidget {
   _CameraScanScreenState createState() => _CameraScanScreenState();
 }
 
-class _CameraScanScreenState extends State<CameraScanScreen> {
+class _CameraScanScreenState extends State<CameraScanScreen>
+    with SingleTickerProviderStateMixin {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
   final flashMode = false.obs;
+  XFile? _capturedImage;
+  late AnimationController _animationController;
+  bool _scanning = false;
+
   @override
   void initState() {
     super.initState();
@@ -43,12 +46,38 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
       ResolutionPreset.high,
     );
     _initializeControllerFuture = _controller.initialize();
+
+    _animationController = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          _animationController.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          _animationController.forward();
+        }
+      });
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _animationController.dispose();
     super.dispose();
+  }
+
+  void _startScanAnimation() {
+    setState(() {
+      _scanning = true;
+    });
+    _animationController.forward();
+  }
+
+  void _stopScanAnimation() {
+    setState(() {
+      _scanning = false;
+    });
+    _animationController.stop();
   }
 
   @override
@@ -57,7 +86,7 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
       backgroundColor: Colors.grey[900],
       body: Stack(
         children: [
-          // Tampilan kamera
+          // Camera Preview
           Center(
             child: FutureBuilder<void>(
               future: _initializeControllerFuture,
@@ -65,38 +94,27 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
                 if (snapshot.connectionState == ConnectionState.done) {
                   return CameraPreview(_controller);
                 } else {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
               },
             ),
           ),
 
-          // Area fokus pemindaian
-          Center(
-            child: Container(
-              width: 250,
-              height: 350,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 2),
-                borderRadius: BorderRadius.circular(20),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    Colors.black.withOpacity(0.4), // Efek bayangan
-                  ],
-                ),
+          // Scanning Effect
+          if (_scanning && _capturedImage != null)
+            Positioned.fill(
+              child: ImageScannerWidget(
+                imagePath: _capturedImage!.path,
+                animation: _animationController,
               ),
             ),
-          ),
 
-          // Tombol close di pojok kanan atas
+          // Close Button
           Positioned(
             top: 80,
             right: 20,
             child: IconButton(
-              icon: Icon(Icons.close, color: Colors.white),
+              icon: const Icon(Icons.close, color: Colors.white),
               onPressed: () {
                 Get.toNamed('/home');
               },
@@ -108,16 +126,16 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
       // BottomAppBar
       bottomNavigationBar: BottomAppBar(
         color: Colors.black,
-        shape: CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         notchMargin: 8.0,
         child: Container(
           height: 80,
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
-                icon: Icon(Icons.photo_library, color: Colors.green),
+                icon: const Icon(Icons.photo_library, color: Colors.green),
                 onPressed: () async {
                   final picker = ImagePicker();
                   final pickedFile =
@@ -125,39 +143,27 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
 
                   if (pickedFile != null) {
                     File imageFile = File(pickedFile.path);
-                    // Store the image file
-                    print(await imageFile.path);
-                    print('Image captured and stored!');
-                    // final dio = Dio();
-                    // final formData = FormData({
-                    //   'file': await MultipartFile.fromFile(imageFile.path),
-                    // });
-                    // final res = await dio.post(
-                    //   Config.API_Deteksi,
-                    //   data: formData,
-                    //   options: Options(
-                    //     headers: {
-                    //       'Content-Type': 'multipart/form-data',
-                    //       'Accept': 'application/json',
-                    //     },
-                    //   ),
-                    // );
+                    print('Image path: ${imageFile.path}');
 
-                    // Pindah halaman preview hasil deteksi, parameter imagePath
-                    Get.toNamed(
-                      '/scan-result',
-                      arguments: {'imagePath': imageFile.path},
-                    );
-                  } else {
-                    print('No image selected');
+                    final detectController = Get.put(DetectController());
+                    detectController.scanResult = XFile(imageFile.path);
+
+                    bool result = await detectController.detect();
+                    if (result) {
+                      Get.toNamed('/scan-result');
+                    } else {
+                      Get.snackbar('Error', 'Failed to process the image.');
+                    }
                   }
                 },
               ),
-              SizedBox(width: 40), // Spasi untuk FAB
+              const SizedBox(width: 40), // Space for FAB
               IconButton(
-                icon: Icon(Icons.flash_on, color: Colors.green),
+                icon: Icon(
+                  Icons.flash_on,
+                  color: flashMode.value ? Colors.white : Colors.green,
+                ),
                 onPressed: () {
-                  // _controller.setFlashMode(FlashMode.auto);
                   if (flashMode.value) {
                     _controller.setFlashMode(FlashMode.off);
                     flashMode.value = false;
@@ -172,27 +178,73 @@ class _CameraScanScreenState extends State<CameraScanScreen> {
         ),
       ),
 
-      // Tombol floatingActionButton untuk kamera
+      // Floating Action Button
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
         onPressed: () async {
-          // Aksi untuk tombol kamera
           final detectController = Get.put(DetectController());
           final file = await _controller.takePicture();
           detectController.scanResult = file;
+          setState(() {
+            _capturedImage = file;
+          });
+          _startScanAnimation();
+
           bool success = await detectController.detect();
+          _stopScanAnimation();
+
           if (success) {
             Get.toNamed('/scan-result');
           } else {
-            Get.snackbar('Error', 'Gagal untuk mendeteksi');
+            Get.snackbar('Error', 'Failed to detect');
           }
         },
-        child: Icon(Icons.camera_alt),
+        child: const Icon(Icons.camera_alt),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
+  }
+}
+
+class ImageScannerWidget extends StatelessWidget {
+  final String imagePath;
+  final Animation<double> animation;
+
+  const ImageScannerWidget({
+    required this.imagePath,
+    required this.animation,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Center(
+          child: Image.file(
+            File(imagePath),
+            fit: BoxFit.cover,
+          ),
+        ),
+        AnimatedBuilder(
+          animation: animation,
+          builder: (context, child) {
+            final scanPosition =
+                animation.value * MediaQuery.of(context).size.height;
+            return Positioned(
+              top: scanPosition,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: 4.0,
+                color: Colors.green.withOpacity(0.5),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }

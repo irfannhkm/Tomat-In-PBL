@@ -7,6 +7,7 @@ import 'package:tomatin/config.dart';
 import 'package:tomatin/data/models/disease_response.dart';
 
 class DiseaseRepository extends GetConnect {
+  @override
   void onInit() {
     final localStorage = GetStorage();
     httpClient.baseUrl = Config.API_Url;
@@ -17,9 +18,9 @@ class DiseaseRepository extends GetConnect {
     });
   }
 
-  Future<Response> getDisease(String class_idx) async {
+  Future<Response> getDisease(String classIdx) async {
     return await get(
-      '/diseases/class/$class_idx',
+      '/diseases/class/$classIdx',
       headers: {'Accept': 'application/json'},
     );
   }

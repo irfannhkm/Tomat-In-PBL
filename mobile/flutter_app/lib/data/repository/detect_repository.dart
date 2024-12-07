@@ -6,6 +6,7 @@ import 'package:tomatin/config.dart';
 import 'package:tomatin/data/models/detect_response.dart';
 
 class DetectRepository extends GetConnect {
+  @override
   void onInit() {
     final localStorage = GetStorage();
     httpClient.baseUrl = Config.API_Deteksi;
@@ -16,9 +17,9 @@ class DetectRepository extends GetConnect {
     });
   }
 
-  Future<Response> detect(String file_path) async {
+  Future<Response> detect(String filePath) async {
     final formData = FormData({
-      'file': MultipartFile(file_path, filename: 'image.jpg'),
+      'file': MultipartFile(filePath, filename: 'image.jpg'),
     });
 
     return await post(
