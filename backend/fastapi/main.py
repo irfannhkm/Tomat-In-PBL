@@ -46,6 +46,13 @@ async def detect_objects(file: UploadFile = File(...)):
                 top5 = detection.probs.top5  # Indeks kelas dengan 5 probabilitas tertinggi
                 top5_confidence = detection.probs.top5conf  # Skor kepercayaan top-5
 
+                # Filter berdasarkan confidence
+                if top1_confidence < 0.8:  # 80% threshold
+                    top1_label = "Bukan termasuk daun tomat"
+                    top1 = -1  # Class ID untuk 'tidak dikenali'
+                    top5 = []  # Kosongkan prediksi top-5
+                    top5_confidence = []
+
                 # Gabungkan hasil
                 results.append({
                     "top1_label": top1_label,
