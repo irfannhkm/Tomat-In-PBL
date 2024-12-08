@@ -11,7 +11,7 @@ class ScanresultScreen extends GetView<DetectController> {
 
   @override
   Widget build(BuildContext context) {
-    var outputFormat = DateFormat('MM/dd/yyyy hh:mm a');
+    var outputFormat = DateFormat('MM/dd/yyyy HH:mm');
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 9, 27, 28),
@@ -83,7 +83,9 @@ class ScanresultScreen extends GetView<DetectController> {
                     onPressed: () async {
                       await _saveToHistory();
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Hasil deteksi disimpan ke riwayat!')),
+                        SnackBar(
+                            content:
+                                Text('Hasil deteksi disimpan ke riwayat!')),
                       );
                     },
                     icon: Icon(Icons.save, color: Colors.white),
@@ -189,6 +191,33 @@ class ScanresultScreen extends GetView<DetectController> {
                 style: const TextStyle(color: Colors.white70, fontSize: 16),
               ),
             ]),
+          ExpansionTile(
+            title: TextButton(
+                onPressed: null,
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.redAccent,
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text('Lihat detail',
+                    style: TextStyle(fontSize: 16, color: Color(0xFF051F20)))),
+            iconColor: Colors.white,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  controller.disease.description ??
+                      'Deskripsi penyakit tidak tersedia.',
+                  style: const TextStyle(color: Colors.white70, fontSize: 16),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          )
         ],
       ),
     );

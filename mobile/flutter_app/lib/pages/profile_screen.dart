@@ -12,9 +12,9 @@ class ProfileScreen extends StatelessWidget {
           padding: const EdgeInsets.all(25.0),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text('Profil & Akun',
+                const Text('Profil',
                     textAlign: TextAlign.start,
                     style: TextStyle(
                       color: Colors.white,
@@ -45,20 +45,20 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Text('....................................',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 35,
-                        fontWeight: FontWeight.w500)),
+                // const Text('....................................',
+                //     style: TextStyle(
+                //         color: Colors.white,
+                //         fontSize: 35,
+                //         fontWeight: FontWeight.w500)),
                 _buildTextField(Icons.person, "Nama"),
                 _buildTextField(Icons.location_on, "Lokasi"),
                 _buildTextField(Icons.cloud, "Iklim"),
                 _buildTextField(Icons.email, "Email"),
-                const Text('....................................',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 35,
-                        fontWeight: FontWeight.w500)),
+                // const Text('....................................',
+                //     style: TextStyle(
+                //         color: Colors.white,
+                //         fontSize: 35,
+                //         fontWeight: FontWeight.w500)),
                 const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () {},
