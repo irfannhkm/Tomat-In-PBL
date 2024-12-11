@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _navigateToNextScreen() async {
-    await Future.delayed(const Duration(seconds: 5)); // Durasi SplashScreen
+    await Future.delayed(const Duration(seconds: 3)); // Durasi SplashScreen
     Get.offAllNamed('/onboarding'); // Arahkan ke OnboardingScreen
   }
 
