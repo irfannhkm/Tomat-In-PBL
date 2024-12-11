@@ -1,34 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tomatin/controllers/register_controller.dart';
-import 'package:tomatin/data/repository/register_repository.dart';
 
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends GetView<RegisterController> {
   const SignUpScreen({super.key});
-
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
-  final RegisterController registerController =
-      Get.put(RegisterController(registerRepository: RegisterRepository()));
-
-  final usernameController = TextEditingController();
-  final fullNameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final cPasswordController = TextEditingController();
-
-  @override
-  void dispose() {
-    usernameController.dispose();
-    fullNameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    cPasswordController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +61,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const SizedBox(height: 40),
               TextField(
-                controller: usernameController,
+                controller: controller.usernameController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: const Color(0xFF2C2C34),
@@ -101,7 +76,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const SizedBox(height: 20),
               TextField(
-                controller: fullNameController,
+                controller: controller.fullNameController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: const Color(0xFF2C2C34),
@@ -116,7 +91,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const SizedBox(height: 20),
               TextField(
-                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                controller: controller.emailController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: const Color(0xFF2C2C34),
@@ -131,7 +107,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const SizedBox(height: 20),
               TextField(
-                controller: passwordController,
+                controller: controller.passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   filled: true,
@@ -147,7 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const SizedBox(height: 20),
               TextField(
-                controller: cPasswordController,
+                controller: controller.cPasswordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   filled: true,
@@ -164,19 +140,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
-                  final username = usernameController.text;
-                  final fullName = fullNameController.text;
-                  final email = emailController.text;
-                  final password = passwordController.text;
-                  final cPassword = cPasswordController.text;
-
-                  registerController.register(
-                    username,
-                    fullName,
-                    email,
-                    password,
-                    cPassword,
-                  );
+                  controller.otpRegister(controller.emailController.text);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF1AA283),
@@ -217,20 +181,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const Spacer(flex: 1),
               Obx(() {
-                if (registerController.isLoading.value) {
+                if (controller.isLoading.value) {
                   return const CircularProgressIndicator();
                 }
-                if (registerController.successMessage.isNotEmpty) {
+                if (controller.successMessage.isNotEmpty) {
                   Future.delayed(
                       Duration.zero,
                       () => Get.snackbar(
-                          'Success', registerController.successMessage.value));
+                          'Success', controller.successMessage.value));
                 }
-                if (registerController.errorMessage.isNotEmpty) {
+                if (controller.errorMessage.isNotEmpty) {
                   Future.delayed(
                       Duration.zero,
-                      () => Get.snackbar(
-                          'Error', registerController.errorMessage.value));
+                      () =>
+                          Get.snackbar('Error', controller.errorMessage.value));
                 }
                 return const SizedBox();
               }),

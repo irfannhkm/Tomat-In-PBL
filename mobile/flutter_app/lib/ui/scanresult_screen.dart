@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:tomatin/controllers/detect_controller.dart';
-import 'package:tomatin/services/database_service.dart';
 
 class ScanresultScreen extends GetView<DetectController> {
   const ScanresultScreen({super.key});
@@ -79,17 +78,17 @@ class ScanresultScreen extends GetView<DetectController> {
                     outputFormat.format(DateTime.now()),
                     style: TextStyle(color: Colors.white54),
                   ),
-                  IconButton(
-                    onPressed: () async {
-                      await _saveToHistory();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                            content:
-                                Text('Hasil deteksi disimpan ke riwayat!')),
-                      );
-                    },
-                    icon: Icon(Icons.save, color: Colors.white),
-                  ),
+                  // IconButton(
+                  //   onPressed: () async {
+                  //     await _saveToHistory();
+                  //     ScaffoldMessenger.of(context).showSnackBar(
+                  //       SnackBar(
+                  //           content:
+                  //               Text('Hasil deteksi disimpan ke riwayat!')),
+                  //     );
+                  //   },
+                  //   icon: Icon(Icons.save, color: Colors.white),
+                  // ),
                 ],
               ),
 
@@ -125,6 +124,27 @@ class ScanresultScreen extends GetView<DetectController> {
               _buildToggleBox('Penyebab', controller.disease.cause ?? '-',
                   Icons.info_outline),
               const SizedBox(height: 10),
+
+              // membuat button "tambah" untuk dimasukkan di koleksi tanamanan yang nantinya dimonitoring
+              Row(children: [
+                const Text(
+                  'Tambah Ke Koleksi Tanaman',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+                const Spacer(),
+                IconButton(
+                  icon: const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Get.toNamed('/');
+                  },
+                ),
+              ])
             ],
           ),
         ),
@@ -132,15 +152,15 @@ class ScanresultScreen extends GetView<DetectController> {
     );
   }
 
-  Future<void> _saveToHistory() async {
-    final db = DatabaseService.instance;
-    await db.insertHistory({
-      'imagePath': controller.scanResult.path,
-      'diseaseName': controller.disease.diseaseName,
-      'accuracy': controller.top1.top1Confidence,
-      'date': DateTime.now().toIso8601String(),
-    });
-  }
+  // Future<void> _saveToHistory() async {
+  //   final db = DatabaseService.instance;
+  //   await db.insertHistory({
+  //     'imagePath': controller.scanResult.path,
+  //     'diseaseName': controller.disease.diseaseName,
+  //     'accuracy': controller.top1.top1Confidence,
+  //     'date': DateTime.now().toIso8601String(),
+  //   });
+  // }
 
   // Fungsi untuk membuat kotak status kesehatan tanaman
   Widget _buildHealthStatusBox() {

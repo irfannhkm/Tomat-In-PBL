@@ -67,6 +67,9 @@ class AuthController extends BaseController
         $success['token'] = $user->createToken('api-token')->plainTextToken;
         $success['name'] = $user->name;
 
+        $user->email_verified_at = now();
+        $user->save();
+
         return $this->sendResponse($success, 'User register successfully.');
     }
 
