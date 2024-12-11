@@ -37,7 +37,6 @@ class VideoDatum {
   final int? id;
   final String? videoTitle;
   final String? videoUrl;
-  final String? thumbnailUrl;
   final int? diseaseId;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -47,18 +46,46 @@ class VideoDatum {
     this.id,
     this.videoTitle,
     this.videoUrl,
-    this.thumbnailUrl,
     this.diseaseId,
     this.createdAt,
     this.updatedAt,
     this.disease,
   });
 
+  String getThumbnailUrl() {
+    if (videoUrl == null || videoUrl!.isEmpty) {
+      return 'https://img.youtube.com/vi/default/0.jpg'; // Placeholder thumbnail
+    }
+
+    try {
+      final Uri uri = Uri.parse(videoUrl!);
+
+      if (uri.host.contains('youtube.com')) {
+        // Extract video ID from query parameter "v"
+        final videoId = uri.queryParameters['v'];
+        if (videoId != null && videoId.isNotEmpty) {
+          return 'https://img.youtube.com/vi/$videoId/0.jpg';
+        }
+      } else if (uri.host.contains('youtu.be')) {
+        // Extract video ID from the path segment
+        final videoId =
+            uri.pathSegments.isNotEmpty ? uri.pathSegments.first : null;
+        if (videoId != null && videoId.isNotEmpty) {
+          return 'https://img.youtube.com/vi/$videoId/0.jpg';
+        }
+      }
+    } catch (e) {
+      print('Error parsing video URL: $e'); // Log the error for debugging
+    }
+
+    // Fallback thumbnail if URL is invalid or not a YouTube link
+    return 'https://img.youtube.com/vi/default/0.jpg';
+  }
+
   factory VideoDatum.fromJson(Map<String, dynamic> json) => VideoDatum(
         id: json["id"],
         videoTitle: json["video_title"],
         videoUrl: json["video_url"],
-        thumbnailUrl: json["thumbnail_url"],
         diseaseId: json["disease_id"],
         createdAt: json["created_at"] == null
             ? null
@@ -74,7 +101,6 @@ class VideoDatum {
         "id": id,
         "video_title": videoTitle,
         "video_url": videoUrl,
-        "thumbnail_url": thumbnailUrl,
         "disease_id": diseaseId,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),

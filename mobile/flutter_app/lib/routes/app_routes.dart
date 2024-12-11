@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tomatin/bindings/detect_binding.dart';
+import 'package:tomatin/pages/article_screen.dart';
 import 'package:tomatin/pages/forgotpass_screen.dart';
 import 'package:tomatin/pages/main_screen.dart';
 import 'package:tomatin/pages/onboarding_screen.dart';
@@ -52,5 +53,9 @@ class AppRoutes {
         name: '/scan-result',
         page: () => const ScanresultScreen(),
         binding: DetectBinding()),
+    GetPage(
+      name: '/article',
+      page: () => const ArticleScreen(),
+    ),
   ];
 }
