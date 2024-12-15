@@ -1,11 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LandingPageController;
 
-Route::get('/login', function() {
-    return redirect('admin/login');
-})->name('login');
+// Rute untuk halaman utama
+Route::get('/', [LandingPageController::class, 'index'])->name('home');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Rute untuk menangani pengiriman pesan
+Route::post('/send-message', [LandingPageController::class, 'sendMessage'])->name('contact.send');

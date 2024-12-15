@@ -16,7 +16,7 @@ class LocationResource extends Resource
     protected static ?string $model = Location::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-map-pin';
-    protected static ?string $navigationLabel = 'Locations';
+    protected static ?string $navigationLabel = 'Location User';
     protected static ?string $navigationGroup = 'User Management';
     protected static ?int $navigationSort = 4;
 
@@ -38,7 +38,6 @@ class LocationResource extends Resource
                                 ->relationship('AppUser', 'name')
                                 ->label('User ID')
                                 ->required()
-                                ->searchable()
                                 ->placeholder('Select User ID'),
                             Forms\Components\Group::make()
                                 ->schema([
@@ -62,7 +61,7 @@ class LocationResource extends Resource
                                         ->extraControl([
                                             'zoomDelta'           => 1,
                                             'zoomSnap'            => 0.25,
-                                            'wheelPxPerZoomLevel' => 60
+                                            'wheelPxPerZoomLevel' => 10
                                         ])
                                         ->afterStateHydrated(function (Forms\Get $get, Forms\Set $set, $record) {
                                             if ($record) {
@@ -125,6 +124,7 @@ class LocationResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

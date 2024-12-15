@@ -16,7 +16,10 @@ class DiagnosisHistory extends Model
         'user_id',
         'disease_id',
         'image',
+        'media_type',
+        'media_size',
         'diagnosis_date',
+        'name_plant',
     ];
 
     // Relasi satu DiagnosisHistory dimiliki oleh satu AppUser
@@ -29,5 +32,9 @@ class DiagnosisHistory extends Model
     public function disease()
     {
         return $this->belongsTo(Disease::class, 'disease_id');
+    }
+    public function treatment_logs()
+    {
+        return $this->hasMany(TreatmentLogs::class, 'diagnosis_history_id');
     }
 }

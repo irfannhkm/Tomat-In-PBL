@@ -19,13 +19,6 @@ class YouTubeVideo extends Model
         'disease_id'       
     ];
 
-    /**
-     * Aturan casting untuk tipe data pada kolom tertentu
-     */
-    protected $casts = [
-        'published_at' => 'datetime',
-    ];
-
     // Relasi satu YouTubeVideo memiliki satu Disease
     public function disease()
     {

@@ -23,19 +23,28 @@ class ArticleResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('article_title')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('article_content')
+                Forms\Components\Group::make()
+                ->schema([
+                    Forms\Components\TextInput::make('article_title')
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('article_url')
+                        ->required(),
+                    Forms\Components\Select::make('disease_id')
+                        ->relationship('disease', 'disease_name')
+                        // ->required(),
+                ]),
+                Forms\Components\Group::make()
+                ->schema([
+                    Forms\Components\FileUpload::make('image_cover')
+    
+                ]),
+                Forms\Components\Section::make()
+                ->schema([
+                    Forms\Components\MarkdownEditor::make('article_content')
                     ->required(),
-                Forms\Components\TextInput::make('article_url')
-                    ->required(),
-                Forms\Components\Select::make('disease_id')
-                    ->relationship('disease', 'disease_name')
-                    ->required(),
-                Forms\Components\DateTimePicker::make('published_at')
-                    ->label('Publish Date')
-                    ->nullable(),
+                ])
+                
             ]);
     }
 
@@ -46,28 +55,39 @@ class ArticleResource extends Resource
                 Tables\Columns\TextColumn::make('article_title')
                     ->searchable()
                     ->sortable()
-                    ->label('Title'),
+                    ->limit(25)
+                    ->label('Title/Judul'),
                 Tables\Columns\TextColumn::make('article_content')
                     ->searchable()
-                    ->label('Content'),
+                    ->sortable()
+                    ->limit(25)
+                    ->label('Isi Content'),
                 Tables\Columns\TextColumn::make('article_url')
                     ->searchable()
-                    ->label('URL'),
-                Tables\Columns\TextColumn::make('disease.disease_name'),
-                Tables\Columns\TextColumn::make('published_at')
-                    ->dateTime()
                     ->sortable()
-                    ->label('Published At'),
+                    ->limit(25)
+                    ->label('URL Article'),
+                Tables\Columns\TextColumn::make('disease.disease_name')
+                    ->searchable()
+                    ->sortable()
+                    ->label('Jenis Penyakit'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->label('Created At'),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label('Updated At'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

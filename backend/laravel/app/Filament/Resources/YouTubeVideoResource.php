@@ -36,9 +36,6 @@ class YouTubeVideoResource extends Resource
                 Forms\Components\Select::make('disease_id')
                     ->relationship('disease', 'disease_name')
                     ->nullable(),
-                Forms\Components\DateTimePicker::make('published_at')
-                    ->label('Publish Date')
-                    ->nullable(),
             ]);
     }
 
@@ -50,19 +47,23 @@ class YouTubeVideoResource extends Resource
                 Tables\Columns\TextColumn::make('video_title')
                     ->searchable()
                     ->sortable()
-                    ->label('Title'),
+                    ->label('Title/Judul'),
                 Tables\Columns\TextColumn::make('video_url')
                     ->limit(50)
                     ->url(fn ($record) => $record->url, true)
-                    ->label('URL'),
-                Tables\Columns\TextColumn::make('disease.disease_name'),
+                    ->label('Link URL Youtube'),
+                Tables\Columns\TextColumn::make('disease.disease_name')
+                    ->searchable()
+                    ->label('Jenis Penyakit Tanaman'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->label('Created At'),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->label('Updated At')
             ])
             ->filters([

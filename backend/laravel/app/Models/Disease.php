@@ -18,6 +18,7 @@ class Disease extends Model
         'symptoms',
         'prevention',
         'cause',
+        'class_idx',
     ];
 
     // Relasi satu Disease memiliki banyak DiagnosisHistory
@@ -30,6 +31,10 @@ class Disease extends Model
     public function articles()
     {
         return $this->hasMany(Article::class, 'disease_id');
+    }
+    public function youTubeVideos()
+    {
+        return $this->hasMany(YouTubeVideo::class, 'disease_id');
     }
 }
 

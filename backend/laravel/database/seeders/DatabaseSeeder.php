@@ -15,9 +15,11 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         $this->call([
-            // AppUserSeeder::class,
+            ShieldGenerateSeeder::class,
             DiseasesTableSeeder::class,
-            // Seeder lainnya yang ingin dijalankan
+            AppUserSeeder::class,
+            ArticleSeeder::class,
+            YouTubeVideoSeeder::class,
         ]);
     }
 }
