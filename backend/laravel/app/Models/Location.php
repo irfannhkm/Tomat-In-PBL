@@ -16,6 +16,6 @@ class Location extends Model
     // Relasi satu Location dimiliki oleh satu AppUser
     public function appUser()
     {
-        return $this->hasOne(AppUser::class, 'user_id');
+        return $this->belongsTo(AppUser::class, 'user_id');
     }
 }
