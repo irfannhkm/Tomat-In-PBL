@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tomatin/modules/controllers/user_controller.dart';
+import 'package:tomatin/modules/auth/controllers/user_controller.dart';
 import 'package:tomatin/utils/location_services.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -57,6 +57,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
       emailController.text = userController.user?.email ?? "";
       usernameController.text = userController.user?.username ?? "";
     }
+  }
+
+  void _showLogoutConfirmationDialog() {
+    Get.defaultDialog(
+      title: "Konfirmasi Logout",
+      middleText: "Apakah Anda yakin ingin logout?",
+      textCancel: "Tidak",
+      textConfirm: "Ya",
+      confirmTextColor: Colors.white,
+      onConfirm: () {
+        Get.back(); 
+        userController.logout(); // Panggil metode logout
+      },
+    );
   }
 
   @override
@@ -166,7 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
-                      userController.logout();
+                      _showLogoutConfirmationDialog();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,

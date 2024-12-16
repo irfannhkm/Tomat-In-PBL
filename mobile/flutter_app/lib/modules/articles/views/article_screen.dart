@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tomatin/modules/controllers/article_controller.dart';
-import 'package:tomatin/modules/controllers/video_controller.dart';
+import 'package:tomatin/modules/articles/controllers/article_controller.dart';
+import 'package:tomatin/modules/articles/controllers/video_controller.dart';
 import 'package:tomatin/data/repositories/article_repository.dart';
 import 'package:tomatin/data/models/article.dart';
 import 'package:tomatin/data/models/videos.dart';
 import 'package:tomatin/data/repositories/video_repository.dart';
-import 'package:tomatin/ui/detail_article_screen.dart';
-import 'package:tomatin/ui/videoplayer_screen.dart';
+import 'package:tomatin/modules/articles/views/detail_article_screen.dart';
+import 'package:tomatin/modules/articles/views/videoplayer_screen.dart';
 
 class ArticleScreen extends StatelessWidget {
   const ArticleScreen({super.key});

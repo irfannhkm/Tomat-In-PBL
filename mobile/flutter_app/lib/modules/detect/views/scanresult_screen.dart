@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:tomatin/modules/controllers/detect_controller.dart';
+import 'package:tomatin/modules/detect/controllers/detect_controller.dart';
 
 class ScanresultScreen extends GetView<DetectController> {
   const ScanresultScreen({super.key});

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tomatin/ui/article_screen.dart';
-import 'package:tomatin/ui/home_page.dart';
-import 'package:tomatin/ui/plantcollection_screen.dart';
-import 'package:tomatin/ui/profile_screen.dart';
+import 'package:tomatin/modules/articles/views/article_screen.dart';
+import 'package:tomatin/modules/home/views/home_page.dart';
+import 'package:tomatin/modules/plantcollection/views/plantcollection_screen.dart';
+import 'package:tomatin/modules/auth/views/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
