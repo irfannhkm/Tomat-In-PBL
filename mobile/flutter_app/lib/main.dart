@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tomatin/modules/controllers/user_controller.dart';
 import 'package:tomatin/data/repositories/user_repository.dart';
-import 'package:tomatin/routes/app_routes.dart';
+import 'package:tomatin/routes/app_pages.dart';
 
 void _logError(String code, String? message) {
   // ignore: avoid_print
@@ -22,7 +22,7 @@ Future<void> main() async {
     GetMaterialApp(
       initialRoute: token != null ? '/home' : '/login',
       debugShowCheckedModeBanner: false,
-      getPages: AppRoutes.routes,
+      getPages: AppPages.pages,
     ),
   );
 }
