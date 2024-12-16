@@ -1,4 +1,10 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    
     <application
         android:label="TomatIn"
         android:name="${applicationName}"
@@ -30,6 +36,18 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <activity 
+            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            tools:replace="android:exported" />
+        <meta-data
+            android:name="com.google.android.gms.auth.api.credentials.CREDENTIAL_PICKER_REQUEST"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.gms.signin.CLIENT_ID"
+            android:value="52121171890-37qad4hf0g1g1isu242viahv5851at4f.apps.googleusercontent.com" />
+
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

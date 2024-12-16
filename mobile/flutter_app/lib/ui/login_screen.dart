@@ -218,7 +218,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 145.0),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await authController.signInWithGoogle();
+                      },
                       style: ElevatedButton.styleFrom(
                         side: const BorderSide(color: Colors.grey, width: 1),
                         backgroundColor: const Color(0xFF2C2C33),

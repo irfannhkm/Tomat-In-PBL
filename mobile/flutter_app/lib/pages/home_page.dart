@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:tomatin/data/services/location_services.dart';
 
 class HomePage extends StatefulWidget {
   final Function(int)
@@ -12,6 +15,44 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final LocationServices locationServices = LocationServices();
+  String cityName = 'Mendapatkan lokasi...';
+
+  @override
+  void initState() {
+    super.initState();
+    _getCityName();
+  }
+
+  Future<void> _getCityName() async {
+    try {
+      final Position? position = await locationServices.getCurrentLocation();
+      if (position != null) {
+        List<Placemark> placemarks = await placemarkFromCoordinates(
+          position.latitude,
+          position.longitude,
+        );
+        if (placemarks.isNotEmpty) {
+          setState(() {
+            cityName = placemarks.first.locality ?? "Unknown City";
+          });
+        } else {
+          setState(() {
+            cityName = "City not found";
+          });
+        }
+      } else {
+        setState(() {
+          cityName = "Location not available";
+        });
+      }
+    } catch (e) {
+      setState(() {
+        cityName = "Error fetching city: $e";
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,8 +64,8 @@ class _HomePageState extends State<HomePage> {
             children: [
               GestureDetector(
                 onTap: () {
-                    GoRouter.of(context).go('/weather');
-                  },
+                  Get.toNamed('/weather');
+                },
                 child: Row(
                   children: [
                     const Column(
@@ -51,8 +92,8 @@ class _HomePageState extends State<HomePage> {
                       color: Color(0xFF7AAB8D),
                     ),
                     const SizedBox(width: 5),
-                    const Text(
-                      'Kecamatan Tumpang',
+                    Text(
+                      cityName,
                       style: TextStyle(fontSize: 14, color: Color(0xFF7AAB8D)),
                     ),
                     const Spacer(),
@@ -122,28 +163,28 @@ class _HomePageState extends State<HomePage> {
                       'Koleksi',
                       'Ketuk untuk melihat koleksi',
                       const Color(0xFF8EB69B),
-                      1,
+                      'plantcollection',
                     ),
                     _buildGridItem(
                       'camera_leaf',
                       'Identifikasi Penyakit',
                       'Ketuk untuk mengenali tanaman',
                       const Color(0xFF235347),
-                      0,
+                      'scan',
                     ),
                     _buildGridItem(
                       'user',
                       'Profile',
                       'Mengatur Profil',
                       const Color(0xFF163832),
-                      3,
+                      'profile',
                     ),
                     _buildGridItem(
                       'article',
                       'Artikel',
                       'Eksplorasi Artikel',
                       const Color(0xFF0B2B26),
-                      2,
+                      'article',
                     ),
                   ],
                 ),
@@ -156,11 +197,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildGridItem(
-      String icon, String title, String subtitle, Color color, int pageIndex) {
+      String icon, String title, String subtitle, Color color, String route) {
     return GestureDetector(
       onTap: () {
-        widget.onNavigate(
-            pageIndex); // Use callback to change the selected index in MainScreen
+        Get.toNamed(
+          '/$route',
+        );
       },
       child: Container(
         padding: const EdgeInsets.all(16),

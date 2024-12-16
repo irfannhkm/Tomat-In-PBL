@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tomatin/pages/article_screen.dart';
 import 'package:tomatin/pages/home_page.dart';
 import 'package:tomatin/pages/plantcollection_screen.dart';
-import 'package:tomatin/pages/profile_screen.dart';
-import 'package:go_router/go_router.dart';
+import 'package:tomatin/ui/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -41,7 +41,7 @@ class _MainScreenState extends State<MainScreen> {
       body: _pages[_selectedIndex],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          GoRouter.of(context).go('/scan');
+          Get.toNamed('/scan');
         },
         backgroundColor: Colors.green,
         shape: RoundedRectangleBorder(

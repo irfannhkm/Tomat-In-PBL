@@ -1,8 +1,13 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tomatin/data/repository/auth_repository.dart';
 
 class AuthController extends GetxController {
   final AuthRepository _authRepository;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  final box = GetStorage();
 
   AuthController(this._authRepository);
 
@@ -26,7 +31,9 @@ class AuthController extends GetxController {
     try {
       final response = await _authRepository.login(email, password);
 
-      if (response.success) {
+      if (response.success && response.data != null) {
+        box.write('token', response.data!.token);
+        errorMessage.value = '';
         Get.offAllNamed('/home');
         Get.snackbar("Login Success", "Welcome ${response.data!.user.name}");
       } else {
@@ -38,6 +45,49 @@ class AuthController extends GetxController {
       Get.snackbar("Error", error.toString());
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  Future<void> signInWithGoogle() async {
+    isLoading.value = true;
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        Get.snackbar("Google Sign-In", "Login cancelled by user");
+        return;
+      }
+
+      final response = await _authRepository.googleSignIn(googleUser.id);
+
+      if (response.success) {
+        box.write('token', response.data);
+        Get.offAllNamed('/home');
+        Get.snackbar("Login Success", "Welcome ${googleUser.displayName}");
+      } else {
+        Get.snackbar("Google Sign-In Failed", response.message);
+      }
+    } catch (error) {
+      errorMessage.value = 'Google Sign-In failed';
+      Get.snackbar("Error", error.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  String? getToken() {
+    return box.read('token');
+  }
+
+  Future<void> logout() async {
+    try {
+      final token = getToken();
+      if (token != null) {
+        await _authRepository.logout(token);
+      }
+      box.remove('token');
+      Get.offAllNamed('/login');
+    } catch (e) {
+      Get.snackbar('Logout', 'Gagal logout: $e, coba lagi nanti.');
     }
   }
 }

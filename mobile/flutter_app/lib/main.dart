@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tomatin/bindings/auth_binding.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:tomatin/controllers/user_controller.dart';
+import 'package:tomatin/data/repository/user_repository.dart';
 import 'package:tomatin/routes/app_routes.dart';
 
 void _logError(String code, String? message) {
@@ -10,19 +12,17 @@ void _logError(String code, String? message) {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
-}
+  Get.lazyPut(() => UserController(UserRepository()));
+  await GetStorage.init();
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final box = GetStorage();
+  final token = box.read('token');
 
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      initialBinding: AuthBinding(),
-      initialRoute: '/',
+  runApp(
+    GetMaterialApp(
+      initialRoute: token != null ? '/home' : '/login',
       debugShowCheckedModeBanner: false,
       getPages: AppRoutes.routes,
-    );
-  }
+    ),
+  );
 }

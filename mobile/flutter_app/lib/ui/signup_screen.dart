@@ -11,7 +11,8 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final RegisterController registerController = Get.put(RegisterController(registerRepository: RegisterRepository()));
+  final RegisterController registerController =
+      Get.put(RegisterController(registerRepository: RegisterRepository()));
 
   final usernameController = TextEditingController();
   final fullNameController = TextEditingController();
@@ -222,13 +223,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Future.delayed(
                       Duration.zero,
                       () => Get.snackbar(
-                          'Success', registerController.successMessage.value));
+                            'Success',
+                            registerController.successMessage.value,
+                            backgroundColor: Colors.green,
+                            colorText: Colors.white,
+                          ));
                 }
                 if (registerController.errorMessage.isNotEmpty) {
                   Future.delayed(
                       Duration.zero,
                       () => Get.snackbar(
-                          'Error', registerController.errorMessage.value));
+                            'Error',
+                            registerController.errorMessage.value,
+                            backgroundColor: Colors.red,
+                            colorText: Colors.white,
+                          ));
                 }
                 return const SizedBox();
               }),

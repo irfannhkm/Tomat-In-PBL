@@ -33,4 +33,50 @@ class AuthRepository {
     }
     throw Exception('Unexpected error occurred');
   }
+
+  Future<LoginResponse> googleSignIn(String googleId) async {
+    final url = Uri.parse('$baseUrl/v1/auth/google/callback');
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'google_id': googleId,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        return LoginResponse.fromJson(jsonDecode(response.body));
+      } else {
+        throw Exception('Failed to sign in with Google');
+      }
+    } catch (e) {
+      throw Exception('Error occurred: $e');
+    }
+  }
+
+  Future<void> logout(String token) async {
+    final url = Uri.parse('$baseUrl/v1/auth/logout');
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return;
+      } else {
+        throw Exception('Failed to logout');
+      }
+    } catch (e) {
+      throw Exception('Logout error: $e');
+    }
+  }
 }

@@ -18,16 +18,23 @@ class RegisterController extends GetxController {
     String cPassword,
   ) async {
     isLoading.value = true;
+    errorMessage.value = '';
+    
     try {
       final response = await registerRepository.register(
           username, name, email, password, cPassword);
+
       if (response.success) {
         successMessage.value = response.message;
       } else {
-        errorMessage.value = response.message;
+        if (response.data != null && response.data!.isNotEmpty) {
+          errorMessage.value = response.data!.values.join(', ');
+        } else {
+          errorMessage.value = response.message;
+        }
       }
     } catch (error) {
-      errorMessage.value = 'Terjadi kesalahan';
+      errorMessage.value = error.toString();
     } finally {
       isLoading.value = false;
     }
