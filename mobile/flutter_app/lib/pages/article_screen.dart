@@ -165,7 +165,7 @@ class ArticleScreen extends StatelessWidget {
           title: article.articleTitle ?? 'No Title',
           category: article.disease?.diseaseName ?? 'No Category',
           imagePath:
-              // article.imageCover ??
+              article.imageCover ??
               'assets/tomato_article.png',
         );
       },
