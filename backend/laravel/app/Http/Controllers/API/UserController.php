@@ -84,23 +84,25 @@ class UserController extends BaseController
         } catch (\Throwable $th) {
             return $this->sendError($th->getMessage(), $th->getCode(), 400);
         }
-
+    
         $user = $request->user();
-
-        // Store the uploaded file
-        $path = $request->file('avatar')->store('avatars', 'public');
-
-        // Delete the old avatar if it exists
-        if ($user->image_url) {
-            Storage::disk('public')->delete($user->image_url);
+    
+        // Simpan file langsung di direktori storage/
+        $fileName = uniqid() . '.' . $request->file('avatar')->getClientOriginalExtension();
+        $path = $request->file('avatar')->storeAs('', $fileName, 'public');
+    
+        // Hapus avatar lama jika ada
+        if ($user->avatar) {
+            Storage::disk('public')->delete($user->avatar);
         }
-
-        // Update the user's avatar path
-        $user->image_url = $path;
+    
+        // Perbarui path avatar pengguna
+        $user->avatar = $path;
         $user->save();
-
+    
         return $this->sendResponse($user, "Berhasil mengupdate avatar.");
     }
+    
 
     /**
      * Change the authenticated user's password.
@@ -157,4 +159,5 @@ class UserController extends BaseController
         $this->otpService->generateOTP($request->email);
         return $this->sendResponse([], 'OTP berhasil dikirim, cek email anda.');
     }
+    
 }

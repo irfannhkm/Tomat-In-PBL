@@ -37,7 +37,7 @@ class ArticleController extends Controller
         if (!$article) {
             return response()->json([
                 'success' => false,
-                'message' => 'Article not found.',
+                'message' => 'Artikel tidak ditemukan.',
             ], 404);
         }
 
