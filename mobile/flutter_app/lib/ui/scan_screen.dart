@@ -3,9 +3,8 @@ import 'package:get/get.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tomatin/controllers/detect_controller.dart';
+import 'package:tomatin/modules/controllers/detect_controller.dart';
 import 'package:camera/camera.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScanScreen extends StatelessWidget {
   const ScanScreen({super.key, required this.camera});
@@ -14,55 +13,7 @@ class ScanScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return BlocProvider(
-    //   create: (_) => DetectBloc(cameraController: CameraController(camera, ResolutionPreset.high)),
-    //   child: BlocConsumer<DetectBloc, DetectState>(
-    //     listener: (context, state) {
-    //       if (state is DetectionError) {
-    //         ScaffoldMessenger.of(context).showSnackBar(
-    //           SnackBar(content: Text(state.errorMessage)),
-    //         );
-    //       }
-    //     },
-    //     builder: (context, state) {
-    //       final detectBloc = context.read<DetectBloc>();
-
-          return Scaffold(
-            body: Stack(
-              children: [
-                // Camera preview
-                // if (state is CameraInitialized)
-                //   CameraPreview(detectBloc.cameraController)
-                // else if (state is CameraLoading)
-                //   Center(child: CircularProgressIndicator())
-                // else
-                //   Center(child: Text('Initializing Camera...')),
-
-                // Focus area
-                Center(
-                  child: Container(
-                    width: 250,
-                    height: 350,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 2),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ),
-
-                // Close button
-                Positioned(
-                  top: 40,
-                  right: 20,
-                  child: IconButton(
-                    icon: Icon(Icons.close, color: Colors.white),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-              ],
-            ),
+    
     return MaterialApp(
       title: 'Camera Scanner',
       theme: ThemeData.dark(),
@@ -297,18 +248,5 @@ class ImageScannerWidget extends StatelessWidget {
         ),
       ],
     );
-            // Floating Action Button for capturing photo
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: Colors.green,
-              onPressed: () {
-                // detectBloc.add(CapturePhoto());
-              },
-              child: Icon(Icons.camera_alt),
-            ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-          );
-        // },
-    //   ),
-    // );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:tomatin/controllers/auth_controller.dart';
+import 'package:tomatin/modules/controllers/auth_controller.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -90,20 +90,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             Get.toNamed('/onboarding');
                           },
                         ),
-                        //tombol daftar
-                        TextButton(
-                          child: Text(
-                            'Daftar',
-                            style: TextStyle(color: Color(0xFF2A8F79)),
-                          ),
-                            Get.back();
-                          },
-                        ),
                         IconButton(
                           icon:
                               const Icon(Icons.close, color: Color(0xFF2A8F79)),
                           onPressed: () {
-                            Get.toNamed('/signup');
                             Get.offAllNamed('/');
                           },
                         )

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:tomatin/controllers/user_controller.dart';
-import 'package:tomatin/data/repository/user_repository.dart';
+import 'package:tomatin/modules/controllers/user_controller.dart';
+import 'package:tomatin/data/repositories/user_repository.dart';
 import 'package:tomatin/routes/app_routes.dart';
 
 void _logError(String code, String? message) {

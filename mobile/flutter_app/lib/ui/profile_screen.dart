@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tomatin/controllers/user_controller.dart';
-import 'package:tomatin/data/services/location_services.dart';
+import 'package:tomatin/modules/controllers/user_controller.dart';
+import 'package:tomatin/utils/location_services.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
