@@ -11,12 +11,12 @@ class OtpScreen extends GetView<RegisterController> {
     return Scaffold(
         backgroundColor: const Color(0xFF191d26),
         body: SafeArea(
-          child: Obx(() {
+          child: GetBuilder<RegisterController>(builder: (_) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'Enter OTP',
+                  'Masukkan OTP',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -26,17 +26,17 @@ class OtpScreen extends GetView<RegisterController> {
                 OtpTextField(
                   numberOfFields: 6,
                   borderColor: Color(0xFF512DA8),
-                  //set to true to show as box or false to show as dash
                   showFieldAsBox: true,
-                  //runs when a code is typed in
-                  onCodeChanged: (String code) {
-                    //handle validation or checks here
-                  },
+                  onCodeChanged: (String code) {},
                   fillColor: Colors.white,
                   styles: [
                     TextStyle(color: Colors.white),
+                    TextStyle(color: Colors.white),
+                    TextStyle(color: Colors.white),
+                    TextStyle(color: Colors.white),
+                    TextStyle(color: Colors.white),
+                    TextStyle(color: Colors.white),
                   ],
-                  //runs when every textfield is filled
                   onSubmit: (String verificationCode) async {
                     controller.isLoading.value = true;
 
@@ -48,12 +48,17 @@ class OtpScreen extends GetView<RegisterController> {
                     if (status) {
                       Get.snackbar(
                         "Success",
-                        "OTP verified successfully",
+                        "OTP berhasil diverifikasi",
                         backgroundColor: Colors.green,
                         colorText: Colors.white,
                       );
-                      // Navigate to the next page
-                      Get.offAllNamed('/home');
+
+                      await controller.register(
+                          controller.usernameController.text,
+                          controller.fullNameController.text,
+                          controller.emailController.text,
+                          controller.passwordController.text,
+                          controller.cPasswordController.text);
                     } else {
                       Get.snackbar(
                         "Error",
@@ -67,7 +72,7 @@ class OtpScreen extends GetView<RegisterController> {
                 const SizedBox(height: 20),
                 TextButton(
                   onPressed: () {
-                    controller.otpRegister(controller.emailController.text);
+                    controller.sendOtpRequest(controller.emailController.text);
                   },
                   child: const Text(
                     'Kirim ulang OTP',

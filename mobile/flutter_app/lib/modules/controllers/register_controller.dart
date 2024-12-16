@@ -28,7 +28,13 @@ class RegisterController extends GetxController {
     super.onClose();
   }
 
-  Future<void> register() async {
+  Future<void> register(
+    String username,
+    String name,
+    String email,
+    String password,
+    String cPassword,
+  ) async {
     if (_validateInputs()) {
       isLoading.value = true;
       errorMessage.value = '';
@@ -41,14 +47,18 @@ class RegisterController extends GetxController {
 
       try {
         final response = await registerRepository.register(
-          username, name, email, password, cPassword,
+          username,
+          name,
+          email,
+          password,
+          cPassword,
         );
 
         if (response.success) {
           successMessage.value = response.message;
-          Get.offAllNamed('/home');
+          Get.offAllNamed('/login');
         } else {
-          errorMessage.value = _parseErrorResponse(response);
+          errorMessage.value = response.message;
         }
       } catch (error) {
         errorMessage.value = error.toString();
@@ -56,6 +66,44 @@ class RegisterController extends GetxController {
         isLoading.value = false;
       }
     }
+  }
+
+  Future<void> sendOtpRequest(String email) async {
+    isLoading.value = true;
+    try {
+      final response = await registerRepository.otpRegister(email);
+      if (response.success!) {
+        successMessage.value = response.message!;
+        Get.toNamed('/otp-register');
+      } else {
+        errorMessage.value = response.message!;
+      }
+    } catch (e) {
+      errorMessage.value = e.toString();
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<bool> otpVerify(String otp, String email) async {
+    bool result = false;
+    isLoading.value = true;
+    try {
+      final response = await registerRepository.otpVerify(otp, email);
+      if (response.success!) {
+        successMessage.value = response.message!;
+        result = true;
+      } else {
+        errorMessage.value = response.message!;
+        result = false;
+      }
+    } catch (e) {
+      errorMessage.value = e.toString();
+      result = false;
+    } finally {
+      isLoading.value = false;
+    }
+    return result;
   }
 
   bool _validateInputs() {
@@ -73,56 +121,5 @@ class RegisterController extends GetxController {
       return false;
     }
     return true;
-  }
-
-  String _parseErrorResponse(RegisterResponse response) {
-    if (response.data != null && response.data!.isNotEmpty) {
-      return response.data!.values.join(', ');
-    }
-    return response.message;
-  }
-
-  Future<void> otpRegister(String email) async {
-    await _handleApiCall(
-      apiCall: () => registerRepository.otpRegister(email),
-      onSuccess: (response) {
-        successMessage.value = response.message;
-        Get.toNamed('/otp-register');
-      },
-    );
-  }
-
-  Future<bool> otpVerify(String otp, String email) async {
-    bool result = false;
-    await _handleApiCall(
-      apiCall: () => registerRepository.otpVerify(otp, email),
-      onSuccess: (response) {
-        successMessage.value = response.message;
-        result = true;
-      },
-    );
-    return result;
-  }
-
-  Future<void> _handleApiCall({
-    required Future<RegisterResponse> Function() apiCall,
-    required Function(RegisterResponse) onSuccess,
-    String loadingMessage = "Loading...",
-  }) async {
-    isLoading.value = true;
-    errorMessage.value = '';
-    try {
-      final response = await apiCall();
-      if (response.success) {
-        onSuccess(response);
-      } else {
-        errorMessage.value =
-            response.data?.values.join(', ') ?? response.message;
-      }
-    } catch (e) {
-      errorMessage.value = "Terjadi kesalahan: $e";
-    } finally {
-      isLoading.value = false;
-    }
   }
 }

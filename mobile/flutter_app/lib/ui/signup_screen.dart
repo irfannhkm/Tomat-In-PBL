@@ -15,7 +15,7 @@ class SignUpScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Obx(() {
+          child: GetBuilder<RegisterController>(builder: (_) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -143,9 +143,8 @@ class SignUpScreen extends StatelessWidget {
                 const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: () {
-                    registerController.isLoading.value
-                        ? null
-                        : registerController.register();
+                    registerController.sendOtpRequest(
+                        registerController.emailController.text);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF1AA283),
@@ -192,14 +191,18 @@ class SignUpScreen extends StatelessWidget {
                   if (registerController.successMessage.isNotEmpty) {
                     Future.delayed(
                         Duration.zero,
-                        () => Get.snackbar('Success',
-                            registerController.successMessage.value));
+                        () => Get.snackbar(
+                            'Success', registerController.successMessage.value,
+                            backgroundColor: Colors.green,
+                            colorText: Colors.white));
                   }
                   if (registerController.errorMessage.isNotEmpty) {
                     Future.delayed(
                         Duration.zero,
                         () => Get.snackbar(
-                            'Error', registerController.errorMessage.value));
+                            'Error', registerController.errorMessage.value,
+                            backgroundColor: Colors.red,
+                            colorText: Colors.white));
                   }
                   return const SizedBox();
                 }),

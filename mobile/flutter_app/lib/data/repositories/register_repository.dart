@@ -1,23 +1,23 @@
 import 'dart:convert';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:tomatin/utils/config.dart';
 import 'package:tomatin/data/models/otp_response.dart';
+import 'package:tomatin/utils/config.dart';
 import 'package:tomatin/data/models/register_response.dart';
-import 'package:get/get.dart';
 
-class RegisterRepository {
-  final localStorage = GetStorage();
+class RegisterRepository extends GetConnect {
   final String baseUrl = Config.API_Url;
 
-  // @override
-  // void onInit() {
+  @override
+  void onInit() {
+    final localStorage = GetStorage();
 
-  //   httpClient.addRequestModifier<Object?>((request) {
-  //     request.headers['Authorization'] = 'Bearer ${localStorage.read('token')}';
-  //     return request;
-  //   });
-  // }
+    httpClient.addRequestModifier<Object?>((request) {
+      request.headers['Authorization'] = 'Bearer ${localStorage.read('token')}';
+      return request;
+    });
+  }
 
   Future<RegisterResponse> register(
     String username,
@@ -43,20 +43,17 @@ class RegisterRepository {
         }),
       );
 
-      final responseJson = jsonDecode(response.body);
-
       if (response.statusCode == 200) {
-        return RegisterResponse.fromJson(responseJson);
+        return RegisterResponse.fromJson(jsonDecode(response.body));
       } else {
-        final errorData = jsonDecode(response.body);
-        return RegisterResponse.fromJson(responseJson);
+        throw Exception('Registrasi gagal');
       }
     } catch (e) {
-      throw Exception('Error occurred: $e');
+      throw Exception('Registrasi gagal: $e');
     }
   }
 
-  Future<RegisterResponse> otpRegister(String email) async {
+  Future<OtpResponse> otpRegister(String email) async {
     final url = Uri.parse('$baseUrl/v1/auth/otp/register/send');
     try {
       final response = await http.post(
@@ -68,17 +65,17 @@ class RegisterRepository {
       );
 
       if (response.statusCode == 200) {
-        return RegisterResponse.fromJson(jsonDecode(response.body));
+        return otpResponseFromJson(response.body);
       } else {
         final errorData = jsonDecode(response.body);
-        throw Exception(errorData['message'] ?? 'Login gagal');
+        throw Exception(errorData['message'] ?? 'Gagal mengirim OTP');
       }
     } catch (e) {
-      throw Exception('Error occurred: $e');
+      throw Exception('Gagal mengirim OTP: $e');
     }
   }
 
-  Future<RegisterResponse> otpVerify(String otp, String email) async {
+  Future<OtpResponse> otpVerify(String otp, String email) async {
     final url = Uri.parse('$baseUrl/v1/auth/otp/verify');
 
     try {
@@ -91,16 +88,14 @@ class RegisterRepository {
         }),
       );
 
-      final responseJson = jsonDecode(response.body);
-
       if (response.statusCode == 200) {
-        return RegisterResponse.fromJson(jsonDecode(response.body));
+        return otpResponseFromJson(response.body);
       } else {
         final errorData = jsonDecode(response.body);
-        throw Exception(errorData['message'] ?? 'Login gagal');
+        throw Exception(errorData['message'] ?? 'Verifikasi OTP gagal');
       }
     } catch (e) {
-      throw Exception('Error occurred: $e');
+      throw Exception('Verifikasi OTP gagal: $e');
     }
   }
 }
