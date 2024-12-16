@@ -37,8 +37,8 @@ class AuthController extends GetxController {
         Get.offAllNamed('/home');
         Get.snackbar("Login Success", "Welcome ${response.data!.user.name}");
       } else {
-        errorMessage.value = response.message;
-        Get.snackbar("Login Failed", response.message);
+        errorMessage.value = response.message!;
+        Get.snackbar("Login Gagal", response.message!);
       }
     } catch (error) {
       errorMessage.value = 'Terjadi kesalahan';

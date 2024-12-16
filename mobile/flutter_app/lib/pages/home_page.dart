@@ -66,20 +66,22 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   Get.toNamed('/weather');
                 },
+                  GoRouter.of(context).go('/weather');
+                },
                 child: Row(
                   children: [
                     const Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           '30°C',
                           style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF8EB69B)),
+                              color: Colors.white),
                         ),
                         Text(
-                          'min 18C;max 31C',
+                          'min: 18°/max: 31°',
                           style:
                               TextStyle(fontSize: 11, color: Color(0xFF8EB69B)),
                         ),
@@ -92,13 +94,13 @@ class _HomePageState extends State<HomePage> {
                       color: Color(0xFF7AAB8D),
                     ),
                     const SizedBox(width: 5),
-                    Text(
-                      cityName,
-                      style: TextStyle(fontSize: 14, color: Color(0xFF7AAB8D)),
+                    const Text(
+                      'Malang',
+                      style: TextStyle(fontSize: 14, color: Color(0xFFDAF1DD)),
                     ),
                     const Spacer(),
                     Image.asset(
-                      'assets/sunny_cloud.png',
+                      'assets/weather/2.png',
                       width: 70,
                     ),
                   ],
@@ -120,15 +122,15 @@ class _HomePageState extends State<HomePage> {
                       Text(
                         'Selamat Siang,',
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 23,
                             fontWeight: FontWeight.w600,
                             color: Color(0xFFD9DADA)),
                       ),
                       Text(
-                        'tomato lover!',
+                        'Pecinta Tomat!',
                         style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w300,
                             color: Color(0xFFD9DADA)),
                       ),
                     ],
@@ -139,12 +141,13 @@ class _HomePageState extends State<HomePage> {
               TextField(
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.white,
-                  prefixIcon: const Icon(Icons.search, color: Colors.grey),
-                  hintText: 'Search Your Plants',
-                  hintStyle: const TextStyle(color: Colors.grey),
+                  fillColor: Color(0xFF8EB69B),
+                  prefixIcon:
+                      const Icon(Icons.search, color: Color(0xFF0B2B26)),
+                  hintText: 'Cari Tomatmu',
+                  hintStyle: const TextStyle(color: Color(0xFF153832)),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(32),
                     borderSide: BorderSide.none,
                   ),
                 ),
@@ -161,14 +164,14 @@ class _HomePageState extends State<HomePage> {
                     _buildGridItem(
                       'pot',
                       'Koleksi',
-                      'Ketuk untuk melihat koleksi',
-                      const Color(0xFF8EB69B),
+                      'Menyimpan Koleksi Tomatmu',
+                      const Color(0xFF163832),
                       'plantcollection',
                     ),
                     _buildGridItem(
                       'camera_leaf',
-                      'Identifikasi Penyakit',
-                      'Ketuk untuk mengenali tanaman',
+                      'Deteksi',
+                      'Mengidentifikasi Penyakit Daun Tomat',
                       const Color(0xFF235347),
                       'scan',
                     ),
@@ -176,14 +179,14 @@ class _HomePageState extends State<HomePage> {
                       'user',
                       'Profile',
                       'Mengatur Profil',
-                      const Color(0xFF163832),
+                      const Color(0xFF235347),
                       'profile',
                     ),
                     _buildGridItem(
                       'article',
-                      'Artikel',
-                      'Eksplorasi Artikel',
-                      const Color(0xFF0B2B26),
+                      'Eksplorasi',
+                      'Artikel dan Video',
+                      const Color(0xFF163832),
                       'article',
                     ),
                   ],
@@ -222,7 +225,7 @@ class _HomePageState extends State<HomePage> {
             Text(
               title,
               style: const TextStyle(
-                  fontSize: 17,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
             ),

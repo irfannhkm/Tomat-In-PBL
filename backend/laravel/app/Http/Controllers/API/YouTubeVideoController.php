@@ -36,7 +36,7 @@ class YouTubeVideoController extends Controller
         if (!$video) {
             return response()->json([
                 'success' => false,
-                'message' => 'Video not found.',
+                'message' => 'Video tidak ditemukan.',
             ], 404);
         }
 
