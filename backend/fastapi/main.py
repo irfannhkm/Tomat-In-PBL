@@ -9,9 +9,9 @@ app = FastAPI()
 @app.get("/")
 async def hello():
     """
-    Endpoint sederhana untuk memeriksa apakah backend aktif.
+    Endpoint untuk memeriksa apakah backend aktif.
     """
-    return {"message": "Hello, this is FastAPI backend!"}
+    return {"message": "Halo, ini backend FastAPI! Selamat datang di TomatIn."}
 
 @app.post("/detect/")
 async def detect_objects(file: UploadFile = File(...)):
@@ -25,17 +25,17 @@ async def detect_objects(file: UploadFile = File(...)):
         image = cv2.imdecode(image, cv2.IMREAD_COLOR)
 
         if image is None:
-            return {"success": False, "error": "Invalid image format or corrupt file."}
+            return {"success": False, "error": "Format gambar tidak valid atau file rusak."}
 
         # Deteksi dan klasifikasi
         results = detect_and_classify(image)
 
         # Jika tidak ada deteksi
         if not results:
-            return {"success": True, "message": "No tomato leaves detected.", "classifications": []}
+            return {"success": True, "message": "Tidak ada daun tomat yang terdeteksi.", "classifications": []}
 
 
-        return {"success": True, "classifications": results}
+        return {"success": True, "message": "Terdeteksi daun tomat", "classifications": results}
 
     except Exception as e:
         # Penanganan error jika terjadi kesalahan

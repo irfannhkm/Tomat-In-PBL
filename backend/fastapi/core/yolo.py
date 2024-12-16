@@ -51,7 +51,7 @@ def detect_and_classify(image, confidence_threshold=0.75):
         top1_confidence = classification_results[0].probs.top1conf.item() * 100
 
         results.append({
-            "box": [x1, y1, x2, y2],
+            "bounding box": [x1, y1, x2, y2],
             "detection_confidence": round(confidence * 100, 2),
             "class_id": class_id,
             "top1_label": top1_label,

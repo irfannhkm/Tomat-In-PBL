@@ -24,6 +24,7 @@ class DiseaseController extends Controller
 
         return response()->json([
             'success' => true,
+            'message' => 'Penyakit berhasil ditemukan.',
             'data' => $diseases,
         ]);
     }
@@ -38,7 +39,7 @@ class DiseaseController extends Controller
         if (!$disease) {
             return response()->json([
                 'success' => false,
-                'message' => 'Disease not found.',
+                'message' => 'Penyakit tidak ditemukan.',
             ], 404);
         }
 
@@ -46,6 +47,7 @@ class DiseaseController extends Controller
 
         return response()->json([
             'success' => true,
+            'message'=> 'Penyakit berhasil ditemukan.',
             'data' => $disease,
         ]);
     }
@@ -56,7 +58,7 @@ class DiseaseController extends Controller
         if (!$disease) {
             return response()->json([
                 'success' => false,
-                'message' => 'Disease not found.',
+                'message' => 'Penyakit tidak ditemukan.',
             ], 404);
         }
 
@@ -64,6 +66,7 @@ class DiseaseController extends Controller
 
         return response()->json([
             'success' => true,
+            'message'=> 'Penyakit berhasil ditemukan.',
             'data' => $disease,
         ]);
     }

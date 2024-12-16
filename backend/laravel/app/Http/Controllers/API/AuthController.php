@@ -30,7 +30,7 @@ class AuthController extends BaseController
             $success['user'] = $user;
 
 
-            return $this->sendResponse($success, 'User login successfully.');
+            return $this->sendResponse($success, 'User berhasil login.');
         } else {
             return $this->sendError('Unauthorized.', ['error' => 'Unauthorized'], 401);
         }
@@ -57,7 +57,7 @@ class AuthController extends BaseController
 
         $input = $request->all();
         if (AppUser::where('email', $input['email'])->exists()) {
-            return $this->sendError('Validation Error.', ['error' => 'Email already exists']);
+            return $this->sendError('Validation Error.', ['error' => 'Email sudah terdaftar']);
         }
         $input['password'] = bcrypt($input['password']);
         $user = AppUser::create($input);
@@ -70,7 +70,7 @@ class AuthController extends BaseController
         $user->email_verified_at = now();
         $user->save();
 
-        return $this->sendResponse($success, 'User register successfully.');
+        return $this->sendResponse($success, 'User berhasil daftar.');
     }
 
     /**
@@ -99,7 +99,7 @@ class AuthController extends BaseController
             $user = Auth::user();
             $success['token'] = $user->createToken('api-token')->plainTextToken;
             $success['name'] = $user->name;
-            return $this->sendResponse($success, 'User login successfully.');
+            return $this->sendResponse($success, 'User berhasil login.');
         }
 
         // If the user does not exist, create a new user
@@ -131,7 +131,7 @@ class AuthController extends BaseController
     {
         $request->user()->currentAccessToken()->delete();
 
-        return $this->sendResponse([], 'User logged out successfully.');
+        return $this->sendResponse([], 'User berhasil log out.');
     }
 
     /**

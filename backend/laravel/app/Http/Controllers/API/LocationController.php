@@ -21,6 +21,7 @@ class LocationController extends Controller
 
         return response()->json([
             'success' => true,
+            'message' => 'Lokasi berhasil ditemukan.',
             'data' => $locations,
         ]);
     }
@@ -35,7 +36,7 @@ class LocationController extends Controller
         if (!$location) {
             return response()->json([
                 'success' => false,
-                'message' => 'Location not found.',
+                'message' => 'Lokasi tidak ditemukan.',
             ], 404);
         }
 
@@ -51,6 +52,7 @@ class LocationController extends Controller
 
         return response()->json([
             'success' => true,
+            'message' => 'Lokasi berhasil ditemukan.',
             'location' => $location,
             'weather' => $weatherData,
         ]);
@@ -62,7 +64,7 @@ class LocationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'location_name' => 'required|string|max:100',
+            'location_name' => 'required|string',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
         ]);
@@ -78,7 +80,7 @@ class LocationController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Location created successfully.',
+            'message' => 'Lokasi berhasil ditambahkan.',
             'location' => $location,
             'weather' => $weatherData,
         ], 201);
@@ -94,7 +96,7 @@ class LocationController extends Controller
         if (!$location) {
             return response()->json([
                 'success' => false,
-                'message' => 'Location not found.',
+                'message' => 'Lokasi tidak ditemukan.',
             ], 404);
         }
 
@@ -114,7 +116,7 @@ class LocationController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Location updated successfully.',
+            'message' => 'Lokasi berhasil diperbarui.',
             'location' => $location,
             'weather' => $weatherData,
         ]);
@@ -130,7 +132,7 @@ class LocationController extends Controller
         if (!$location) {
             return response()->json([
                 'success' => false,
-                'message' => 'Location not found.',
+                'message' => 'Lokasi tidak ditemukan.',
             ], 404);
         }
 
@@ -138,7 +140,7 @@ class LocationController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Location deleted successfully.',
+            'message' => 'Lokasi berhasil dihapus.',
         ]);
     }
 }
