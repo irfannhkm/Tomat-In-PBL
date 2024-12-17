@@ -24,7 +24,7 @@ class DetectController extends GetxController {
     final req = await detectRepository.detect(scanResult.path);
 
     if (req.statusCode == 200) {
-      final detectRes = detectFromJson(req.bodyString!);
+      final detectRes = detectResponseFromJson(req.bodyString!);
 
       // Simpan top 1 dan top 5 klasifikasi
       top1 = detectRes.classifications![0];
