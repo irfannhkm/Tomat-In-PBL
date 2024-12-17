@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:tomatin/modules/controllers/auth_controller.dart';
+import 'package:tomatin/modules/auth/controllers/auth_controller.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LoginScreen extends StatefulWidget {

@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../data/repositories/article_repository.dart';
-import '../../data/models/article.dart';
+import '../../../data/repositories/article_repository.dart';
+import '../../../data/models/article.dart';
 
 class ArticleController extends GetxController {
   final ArticleRepository repository;
@@ -18,7 +19,12 @@ class ArticleController extends GetxController {
       isLoading.value = true;
       articles.value = await repository.fetchAllArticles();
     } catch (e) {
-      Get.snackbar("Error", "Failed to load articles: $e");
+      Get.snackbar(
+        "Error",
+        "Failed to load articles: $e",
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
     } finally {
       isLoading.value = false;
     }
@@ -29,7 +35,12 @@ class ArticleController extends GetxController {
     try {
       selectedArticle.value = await repository.fetchArticleById(id);
     } catch (e) {
-      Get.snackbar("Error", "Failed to load article details: $e");
+      Get.snackbar(
+        "Error",
+        "Failed to load article details: $e",
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
     }
   }
 

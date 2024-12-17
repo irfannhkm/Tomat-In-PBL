@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tomatin/modules/controllers/user_controller.dart';
+import 'package:tomatin/modules/auth/controllers/user_controller.dart';
 import 'package:tomatin/utils/location_services.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -59,6 +59,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  void _showLogoutConfirmationDialog() {
+    Get.defaultDialog(
+      title: "Konfirmasi Logout",
+      middleText: "Apakah Anda yakin ingin logout?",
+      textCancel: "Tidak",
+      textConfirm: "Ya",
+      confirmTextColor: Colors.white,
+      onConfirm: () {
+        Get.back(); 
+        userController.logout(); // Panggil metode logout
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,12 +119,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     padding: const EdgeInsets.all(20.0),
                     child: Stack(
                       children: [
-                        CircleAvatar(
-                          radius: 60,
-                          backgroundImage: user.avatar != null
-                              ? NetworkImage(user.avatarUrl)
-                              : const AssetImage('assets/profile_pic.png')
-                                  as ImageProvider,
+                        GestureDetector(
+                          onTap: () async {
+                            await userController.pickImage();
+                          },
+                          child: CircleAvatar(
+                            radius: 60,
+                            backgroundImage: user.avatar != null
+                                ? NetworkImage(user.avatarUrl)
+                                : const AssetImage('assets/profile_pic.png')
+                                    as ImageProvider,
+                          ),
                         ),
                         Positioned(
                           bottom: 0,
@@ -166,7 +185,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
-                      userController.logout();
+                      _showLogoutConfirmationDialog();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,

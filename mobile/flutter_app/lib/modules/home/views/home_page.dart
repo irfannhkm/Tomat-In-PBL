@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:tomatin/modules/auth/controllers/user_controller.dart';
 import 'package:tomatin/utils/location_services.dart';
 
 class HomePage extends StatefulWidget {
-  final Function(int)
-      onNavigate; // Callback function to navigate using MainScreen
+  final Function(int) onNavigate;
 
   const HomePage({super.key, required this.onNavigate});
 
@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final LocationServices locationServices = LocationServices();
+  final UserController userController = Get.find<UserController>();
   String cityName = 'Mendapatkan lokasi...';
 
   @override
@@ -34,21 +35,21 @@ class _HomePageState extends State<HomePage> {
         );
         if (placemarks.isNotEmpty) {
           setState(() {
-            cityName = placemarks.first.locality ?? "Unknown City";
+            cityName = placemarks.first.locality ?? "Kota tidak diketahui";
           });
         } else {
           setState(() {
-            cityName = "City not found";
+            cityName = "Kota tidak ditemukan";
           });
         }
       } else {
         setState(() {
-          cityName = "Location not available";
+          cityName = "Lokasi tidak tersedia";
         });
       }
     } catch (e) {
       setState(() {
-        cityName = "Error fetching city: $e";
+        cityName = "Error fetching kota: $e";
       });
     }
   }
@@ -72,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          '30°C',
+                          '25°C',
                           style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
@@ -92,13 +93,13 @@ class _HomePageState extends State<HomePage> {
                       color: Color(0xFF7AAB8D),
                     ),
                     const SizedBox(width: 5),
-                    const Text(
-                      'Malang',
+                    Text(
+                      cityName,
                       style: TextStyle(fontSize: 14, color: Color(0xFFDAF1DD)),
                     ),
                     const Spacer(),
                     Image.asset(
-                      'assets/weather/2.png',
+                      'assets/weather/6.png',
                       width: 70,
                     ),
                   ],
@@ -106,7 +107,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 20),
 
-              const Row(
+              Row(
                 children: [
                   ImageIcon(
                     AssetImage('assets/person_circle.png'),
@@ -124,32 +125,52 @@ class _HomePageState extends State<HomePage> {
                             fontWeight: FontWeight.w600,
                             color: Color(0xFFD9DADA)),
                       ),
-                      Text(
-                        'Pecinta Tomat!',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300,
-                            color: Color(0xFFD9DADA)),
-                      ),
+                      Obx(() {
+                        if (userController.isLoading.value) {
+                          return Text(
+                            'Loading...',
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFFD9DADA)),
+                          );
+                        } else if (userController.user != null) {
+                          return Text(
+                            userController.user!.name,
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFFD9DADA)),
+                          );
+                        } else {
+                          return Text(
+                            'Pecinta Tomat!',
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFFD9DADA)),
+                          );
+                        }
+                      }),
                     ],
                   ),
                 ],
               ),
               const SizedBox(height: 20),
-              TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Color(0xFF8EB69B),
-                  prefixIcon:
-                      const Icon(Icons.search, color: Color(0xFF0B2B26)),
-                  hintText: 'Cari Tomatmu',
-                  hintStyle: const TextStyle(color: Color(0xFF153832)),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(32),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
+              // TextField(
+              //   decoration: InputDecoration(
+              //     filled: true,
+              //     fillColor: Color(0xFF8EB69B),
+              //     prefixIcon:
+              //         const Icon(Icons.search, color: Color(0xFF0B2B26)),
+              //     hintText: 'Cari Tomatmu',
+              //     hintStyle: const TextStyle(color: Color(0xFF153832)),
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(32),
+              //       borderSide: BorderSide.none,
+              //     ),
+              //   ),
+              // ),
               const SizedBox(height: 20),
 
               // Grid item

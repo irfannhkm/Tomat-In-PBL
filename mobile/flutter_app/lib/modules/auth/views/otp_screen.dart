@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
-import 'package:tomatin/modules/controllers/register_controller.dart';
+import 'package:tomatin/modules/auth/controllers/register_controller.dart';
 
 class OtpScreen extends GetView<RegisterController> {
   const OtpScreen({super.key});
@@ -59,6 +59,7 @@ class OtpScreen extends GetView<RegisterController> {
                           controller.emailController.text,
                           controller.passwordController.text,
                           controller.cPasswordController.text);
+                      Get.offAllNamed('/login');
                     } else {
                       Get.snackbar(
                         "Error",

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tomatin/modules/controllers/detect_controller.dart';
+import 'package:tomatin/modules/detect/controllers/detect_controller.dart';
 import 'package:camera/camera.dart';
 
 class ScanScreen extends StatelessWidget {
@@ -13,7 +13,6 @@ class ScanScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return MaterialApp(
       title: 'Camera Scanner',
       theme: ThemeData.dark(),
@@ -154,7 +153,12 @@ class _CameraScanScreenState extends State<CameraScanScreen>
                     if (result) {
                       Get.toNamed('/scan-result');
                     } else {
-                      Get.snackbar('Error', 'Failed to process the image.');
+                      Get.snackbar(
+                        'Error',
+                        'Failed to process the image.',
+                        backgroundColor: Colors.red,
+                        colorText: Colors.white,
+                      );
                     }
                   }
                 },
@@ -201,7 +205,12 @@ class _CameraScanScreenState extends State<CameraScanScreen>
           if (success) {
             Get.toNamed('/scan-result');
           } else {
-            Get.snackbar('Error', 'Failed to detect');
+            Get.snackbar(
+              'Error',
+              'Failed to detect',
+              backgroundColor: Colors.red,
+              colorText: Colors.white,
+            );
           }
         },
         child: const Icon(Icons.camera_alt),

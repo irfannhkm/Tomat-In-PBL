@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tomatin/modules/plantcollection/views/history_tab.dart';
+import 'package:tomatin/modules/plantcollection/views/plant_tab.dart';
 
-class PlantCollectionScreen extends StatelessWidget {
+class PlantCollectionScreen extends StatefulWidget {
   const PlantCollectionScreen({super.key});
 
   @override
+  State<PlantCollectionScreen> createState() => _PlantCollectionScreenState();
+}
+
+class _PlantCollectionScreenState extends State<PlantCollectionScreen> {
+  final TextEditingController _searchController = TextEditingController();
+  final RxString _searchQuery = ''.obs;
+  @override
   Widget build(BuildContext context) {
+    
     return DefaultTabController(
       length: 3, // Jumlah tab
       child: Scaffold(
@@ -25,6 +36,10 @@ class PlantCollectionScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: TextField(
+                    controller: _searchController,
+                    onChanged: (value) {
+                      _searchQuery.value = value;
+                    },
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
@@ -48,31 +63,31 @@ class PlantCollectionScreen extends StatelessWidget {
                   tabs: [
                     Tab(text: 'Tanaman'),
                     Tab(text: 'Riwayat'),
-                    Tab(text: 'Pengingat'),
+                    // Tab(text: 'Pengingat'),
                   ],
                 ),
               ],
             ),
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            PlantTab(), // Halaman Tanaman
-            HistoryTab(), // Halaman Riwayat
-            ReminderTab(), // Halaman Pengingat
+            CollectionTab(searchQuery: _searchQuery), // Halaman Tanaman
+            HistoryTab(searchQuery: _searchQuery), // Halaman Riwayat
+            // ReminderTab(), // Halaman Pengingat
           ],
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {},
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
-          ),
-          label: const Text('Tambah',
-              style: TextStyle(color: Colors.white, fontSize: 15)),
-          icon: const Icon(Icons.add, color: Colors.white, size: 24),
-          extendedPadding: const EdgeInsets.symmetric(horizontal: 25),
-          backgroundColor: const Color(0xFFB77813),
-        ),
+        // floatingActionButton: FloatingActionButton.extended(
+        //   onPressed: () {},
+        //   shape: RoundedRectangleBorder(
+        //     borderRadius: BorderRadius.circular(25),
+        //   ),
+        //   label: const Text('Tambah',
+        //       style: TextStyle(color: Colors.white, fontSize: 15)),
+        //   icon: const Icon(Icons.add, color: Colors.white, size: 24),
+        //   extendedPadding: const EdgeInsets.symmetric(horizontal: 25),
+        //   backgroundColor: const Color(0xFFB77813),
+        // ),
       ),
     );
   }
@@ -94,31 +109,6 @@ class PlantTab extends StatelessWidget {
         ),
         PlantCard(
           plantName: 'Tomat 2',
-          status: 'Tidak Sehat',
-          color: Color(0x745E1C1C),
-          onTap: null,
-        ),
-      ],
-    );
-  }
-}
-
-class HistoryTab extends StatelessWidget {
-  const HistoryTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(20.0),
-      children: const [
-        PlantCard(
-          plantName: 'Diagnosis 1',
-          status: 'Sehat',
-          color: Color(0xFF0B2B26),
-          onTap: null,
-        ),
-        PlantCard(
-          plantName: 'Diagnosis 2',
           status: 'Tidak Sehat',
           color: Color(0x745E1C1C),
           onTap: null,
