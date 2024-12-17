@@ -27,9 +27,9 @@ class AuthController extends GetxController {
       final response = await _authRepository.login(email, password);
 
       if (response.success!) {
-        Get.snackbar('Login Berhasil', 'Selamat Datang!');
+        // Get.snackbar('Login Berhasil', 'Selamat Datang!');
         Get.offAllNamed('/home');
-        Get.snackbar("Login Success", "Welcome ${response.data!.user.name}");
+        Get.snackbar("Login Success", "Selamat Datang ${response.data!.user!.name}");
       } else {
         errorMessage.value = response.message!;
         Get.snackbar("Login Gagal", response.message!);
