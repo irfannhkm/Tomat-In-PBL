@@ -14,11 +14,13 @@ class LoginResponse {
   final Data? data;
   final String? message;
 
+
   LoginResponse({
     this.success,
     this.data,
     this.message,
   });
+
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
         success: json["success"],

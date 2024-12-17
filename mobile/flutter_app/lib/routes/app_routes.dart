@@ -6,7 +6,7 @@ import 'package:tomatin/pages/article_screen.dart';
 import 'package:tomatin/bindings/register_binding.dart';
 import 'package:tomatin/pages/forgotpass_screen.dart';
 import 'package:tomatin/pages/main_screen.dart';
-import 'package:tomatin/pages/onboarding_screen.dart';
+import 'package:tomatin/ui/onboarding_screen.dart';
 import 'package:tomatin/pages/plantdetail_screen.dart';
 import 'package:tomatin/pages/reminder_setting.dart';
 import 'package:tomatin/ui/login_screen.dart';

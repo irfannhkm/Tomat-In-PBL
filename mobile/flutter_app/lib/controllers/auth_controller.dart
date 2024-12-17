@@ -15,6 +15,11 @@ class AuthController extends GetxController {
       Get.snackbar("Error", errorMessage.value);
       return;
     }
+    if (!GetUtils.isEmail(email)) {
+      errorMessage.value = 'Email tidak valid';
+      Get.snackbar("Error", errorMessage.value);
+      return;
+    }
 
     isLoading.value = true;
 
@@ -24,6 +29,7 @@ class AuthController extends GetxController {
       if (response.success!) {
         Get.snackbar('Login Berhasil', 'Selamat Datang!');
         Get.offAllNamed('/home');
+        Get.snackbar("Login Success", "Welcome ${response.data!.user.name}");
       } else {
         errorMessage.value = response.message!;
         Get.snackbar("Login Gagal", response.message!);

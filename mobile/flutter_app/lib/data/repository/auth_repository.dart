@@ -26,8 +26,8 @@ class AuthRepository {
         final loginResponse = LoginResponse.fromJson(jsonDecode(response.body));
         GetStorage().write('token', loginResponse.data?.token);
         return LoginResponse.fromJson(jsonDecode(response.body));
-      } else if (response.statusCode >= 400 && response.statusCode < 500) {
-        throw Exception("Terjadi Kesalahan: ${response.body}");
+      } else if (response.statusCode == 401) {
+        throw Exception('email atau password Anda salah');
       } else if (response.statusCode >= 500) {
         throw Exception("Server sedang bermasalah, coba lagi nanti.");
       }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tomatin/controllers/register_controller.dart';
 
+
 class SignUpScreen extends GetView<RegisterController> {
   const SignUpScreen({super.key});
 
@@ -66,6 +67,7 @@ class SignUpScreen extends GetView<RegisterController> {
                   filled: true,
                   fillColor: const Color(0xFF2C2C34),
                   hintText: 'Username',
+
                   hintStyle: const TextStyle(color: Color(0xFF5A5A62)),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -77,6 +79,7 @@ class SignUpScreen extends GetView<RegisterController> {
               const SizedBox(height: 20),
               TextField(
                 controller: controller.fullNameController,
+
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: const Color(0xFF2C2C34),
@@ -108,6 +111,7 @@ class SignUpScreen extends GetView<RegisterController> {
               const SizedBox(height: 20),
               TextField(
                 controller: controller.passwordController,
+
                 obscureText: true,
                 decoration: InputDecoration(
                   filled: true,
@@ -124,6 +128,7 @@ class SignUpScreen extends GetView<RegisterController> {
               const SizedBox(height: 20),
               TextField(
                 controller: controller.cPasswordController,
+
                 obscureText: true,
                 decoration: InputDecoration(
                   filled: true,

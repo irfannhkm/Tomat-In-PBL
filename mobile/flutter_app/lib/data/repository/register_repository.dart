@@ -25,6 +25,7 @@ class RegisterRepository extends GetConnect {
     String password,
     String cPassword,
   ) async {
+
     final url = '/v1/auth/register';
 
     try {
@@ -65,9 +66,11 @@ class RegisterRepository extends GetConnect {
         headers: {
           'Content-Type': 'application/json',
         },
+
         {
           'email': email,
         },
+
       );
 
       if (response.statusCode == 200) {

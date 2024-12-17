@@ -88,6 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: Color(0xFF2A8F79)),
                           onPressed: () {
                             Get.toNamed('/onboarding');
+
                           },
                         ),
                         //tombol daftar
@@ -97,7 +98,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: TextStyle(color: Color(0xFF2A8F79)),
                           ),
                           onPressed: () {
+
                             Get.toNamed('/signup');
+
                           },
                         )
                       ],
@@ -176,7 +179,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 30),
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed('/forgot-password');
+
+                      Get.toNamed('/forgotpass');
+
                     },
                     child: const Text(
                       'Lupa password?',

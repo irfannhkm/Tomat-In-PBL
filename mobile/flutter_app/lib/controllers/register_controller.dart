@@ -7,6 +7,7 @@ class RegisterController extends GetxController {
   var successMessage = ''.obs;
   var errorMessage = ''.obs;
 
+
   final usernameController = TextEditingController();
   final fullNameController = TextEditingController();
   final emailController = TextEditingController();
@@ -14,6 +15,11 @@ class RegisterController extends GetxController {
   final cPasswordController = TextEditingController();
 
   RegisterController();
+// =======
+//   final RegisterRepository registerRepository;
+
+//   RegisterController({required this.registerRepository});
+// >>>>>>> feature/frontend-flutter
 
   Future<void> register(
     String username,
@@ -26,11 +32,14 @@ class RegisterController extends GetxController {
     try {
       final RegisterRepository registerRepository =
           Get.find<RegisterRepository>();
+
       final response = await registerRepository.register(
           username, name, email, password, cPassword);
       if (response.success) {
         successMessage.value = response.message;
+
         Get.offAllNamed('/home');
+
       } else {
         errorMessage.value = response.message;
       }
@@ -40,7 +49,6 @@ class RegisterController extends GetxController {
       isLoading.value = false;
     }
   }
-
   Future<void> otpRegister(String email) async {
     isLoading.value = true;
     try {
@@ -80,4 +88,5 @@ class RegisterController extends GetxController {
       isLoading.value = false;
     }
   }
+
 }
