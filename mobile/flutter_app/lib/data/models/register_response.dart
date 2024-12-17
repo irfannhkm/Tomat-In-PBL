@@ -1,4 +1,4 @@
-import 'user.dart';
+import 'package:tomatin/data/models/login_response.dart';
 
 class RegisterResponse {
   final bool success;

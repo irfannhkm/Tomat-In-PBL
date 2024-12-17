@@ -1,38 +1,40 @@
-// To parse this JSON data, do
-//
-//     final loginResponse = loginResponseFromJson(jsonString);
-
+import 'package:tomatin/data/models/login_data.dart';
 import 'dart:convert';
 
-LoginResponse loginResponseFromJson(String str) =>
-    LoginResponse.fromJson(json.decode(str));
+// LoginResponse loginResponseFromJson(String str) =>
+//     LoginResponse.fromJson(json.decode(str));
 
-String loginResponseToJson(LoginResponse data) => json.encode(data.toJson());
+// String loginResponseToJson(LoginResponse data) => json.encode(data.toJson());
 
 class LoginResponse {
-  final bool? success;
-  final Data? data;
-  final String? message;
-
+  final bool success;
+  final LoginData? data;
+  final String message;
 
   LoginResponse({
-    this.success,
+    required this.success,
     this.data,
-    this.message,
+    required this.message,
   });
 
+  factory LoginResponse.fromJson(Map<String, dynamic> json) {
+    return LoginResponse(
+      success: json['success'] ?? false,
+      data: json['data'] != null ? LoginData.fromJson(json['data']) : null,
+      message: json['message'],
+    );
+  }
+  // factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
+  //       success: json["success"],
+  //       data: json["data"] == null ? null : Data.fromJson(json["data"]),
+  //       message: json["message"],
+  //     );
 
-  factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
-        success: json["success"],
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
-        message: json["message"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "success": success,
-        "data": data?.toJson(),
-        "message": message,
-      };
+  // Map<String, dynamic> toJson() => {
+  //       "success": success,
+  //       "data": data?.toJson(),
+  //       "message": message,
+  //     };
 }
 
 class Data {

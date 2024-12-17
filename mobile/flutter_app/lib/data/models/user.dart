@@ -7,9 +7,9 @@ class User extends Equatable {
   final String email;
   final String? googleId;
   final String? avatar;
-  final String createdAt;
-  final String updatedAt;
-  final String? emailVerifiedAt;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime? emailVerifiedAt;
 
   const User({
     required this.id,
@@ -31,10 +31,34 @@ class User extends Equatable {
       email: json['email'],
       googleId: json['google_id'],
       avatar: json['avatar'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
-      emailVerifiedAt: json['email_verified_at'],
+      createdAt: DateTime.parse(json['created_at']),
+      updatedAt: DateTime.parse(json['updated_at']),
+      emailVerifiedAt: json['email_verified_at'] != null
+          ? DateTime.parse(json['email_verified_at'])
+          : null,
     );
+  }
+
+   Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'username': username,
+      'email': email,
+      'google_id': googleId,
+      'avatar': avatar,
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
+      'email_verified_at': emailVerifiedAt?.toIso8601String(),
+    };
+  }
+
+  String get avatarUrl {
+    if (avatar != null && avatar!.isNotEmpty) {
+      return 'https://tomatin.my.id/storage/$avatar';
+    } else {
+      return '';
+    }
   }
 
   @override
