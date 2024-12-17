@@ -71,6 +71,10 @@ class ArticleResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->label('Jenis Penyakit'),
+                Tables\Columns\ImageColumn::make('image_cover')
+                    ->searchable()
+                    ->sortable()
+                    ->label('Image Cover'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

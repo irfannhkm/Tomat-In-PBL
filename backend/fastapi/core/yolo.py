@@ -46,7 +46,6 @@ def detect_and_classify(image, confidence_threshold=0.75):
             continue  # Skip low-confidence detections
 
         x1, y1, x2, y2 = map(int, box.xyxy[0])  # Bounding box coordinates
-        class_id = int(box.cls[0].item())  # Detected class ID
 
         # Crop the detected region
         cropped_image = image[y1:y2, x1:x2]
@@ -60,7 +59,7 @@ def detect_and_classify(image, confidence_threshold=0.75):
         results.append({
             "bounding box": [x1, y1, x2, y2],
             "detection_confidence": round(confidence * 100, 2),
-            "class_id": class_id,
+            "class_id": top1,
             "top1_label": top1_label,
             "top1_confidence": round(top1_confidence, 2)
         })
