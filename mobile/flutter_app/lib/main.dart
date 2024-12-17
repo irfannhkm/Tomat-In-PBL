@@ -21,7 +21,7 @@ Future<void> main() async {
 
   runApp(
     GetMaterialApp(
-      initialRoute: token != null ? '/home' : '/login',
+      initialRoute: token != null ? '/home' : '/',
       debugShowCheckedModeBanner: false,
       getPages: AppPages.pages,
     ),

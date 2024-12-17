@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:tomatin/data/models/detection_history.dart';
 import 'package:tomatin/modules/detect/controllers/detect_controller.dart';
+import 'package:tomatin/utils/database_helper.dart';
 
 class ScanresultScreen extends GetView<DetectController> {
   const ScanresultScreen({super.key});
@@ -125,7 +127,6 @@ class ScanresultScreen extends GetView<DetectController> {
                   Icons.info_outline),
               const SizedBox(height: 10),
 
-              // membuat button "tambah" untuk dimasukkan di koleksi tanamanan yang nantinya dimonitoring
               Row(children: [
                 const Text(
                   'Tambah Ke Koleksi Tanaman',
@@ -140,8 +141,24 @@ class ScanresultScreen extends GetView<DetectController> {
                     Icons.add,
                     color: Colors.white,
                   ),
-                  onPressed: () {
-                    Get.toNamed('/');
+                  onPressed: () async {
+                    final history = DetectionHistory(
+                      plantName: controller.disease.diseaseName!,
+                      status: controller.disease.diseaseName == "Tomato Healthy"
+                          ? "Sehat"
+                          : "Tidak Sehat",
+                      imagePath: controller.scanResult.path,
+                      diseaseName: controller.disease.diseaseName!,
+                      detectionDate: DateTime.now(),
+                      isInCollection: true,
+                    );
+                    await DatabaseHelper().insertDetectionHistory(history);
+                    Get.snackbar(
+                      'Sukses',
+                      'Tanaman berhasil ditambahkan ke koleksi.',
+                      backgroundColor: Colors.green,
+                      colorText: Colors.white,
+                    );
                   },
                 ),
               ])

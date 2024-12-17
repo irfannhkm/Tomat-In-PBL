@@ -59,6 +59,7 @@ class OtpScreen extends GetView<RegisterController> {
                           controller.emailController.text,
                           controller.passwordController.text,
                           controller.cPasswordController.text);
+                      Get.offAllNamed('/login');
                     } else {
                       Get.snackbar(
                         "Error",
