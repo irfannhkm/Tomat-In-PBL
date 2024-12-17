@@ -4,7 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tomatin/modules/detect/controllers/detect_controller.dart';
-import 'package:camera/camera.dart';
+
 
 class ScanScreen extends StatelessWidget {
   const ScanScreen({super.key, required this.camera});

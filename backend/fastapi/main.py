@@ -32,7 +32,7 @@ async def detect_objects(file: UploadFile = File(...)):
 
         # Jika tidak ada deteksi
         if not results:
-            return {"success": True, "message": "Tidak ada daun tomat yang terdeteksi.", "classifications": []}
+            return {"success": False, "message": "Tidak ada daun tomat yang terdeteksi.", "classifications": []}
 
 
         return {"success": True, "message": "Terdeteksi daun tomat", "classifications": results}
