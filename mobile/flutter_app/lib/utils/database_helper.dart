@@ -32,8 +32,9 @@ class DatabaseHelper {
         plantName TEXT,
         status TEXT,
         imagePath TEXT,
-        detectionDate TEXT
-        isInCollection INTEGER DEFAULT 0
+        detectionDate TEXT,
+        isInCollection INTEGER DEFAULT 0,
+        diseaseName TEXT
       )
     ''');
   }
