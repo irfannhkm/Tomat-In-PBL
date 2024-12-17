@@ -115,13 +115,14 @@ def detect_and_classify_with_segmentation(image, confidence_threshold=0.75):
     top1_label = classification_results[0].names[top1]
     top1_confidence = float(classification_results[0].probs.top1conf.item()) * 100
 
-    return {
-        "bounding_box": [x1, y1, x2, y2],
-        "shape": [x2 - x1, y2 - y1],
+    return {  
         "classification": {
+            "class_id": top1,
             "top1_label": top1_label,
             "top1_confidence": round(top1_confidence, 2)
         },
+        "bounding_box": [x1, y1, x2, y2],
+        "shape": [x2 - x1, y2 - y1],
         "segmentation": {
             "confidence": round(highest_confidence * 100, 2),
             "segments_x": best_segments_x,
