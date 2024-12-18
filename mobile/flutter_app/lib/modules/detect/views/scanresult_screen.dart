@@ -63,7 +63,7 @@ class ScanresultScreen extends GetView<DetectController> {
                       ),
                     ),
                     Text(
-                      'Akurasi: ${controller.top1.top1Confidence}%',
+                      'Nilai Confidence: ${controller.top1.top1Confidence}%',
                       style: TextStyle(color: Colors.white54, fontSize: 18),
                     ),
                     const SizedBox(height: 20),
@@ -80,17 +80,6 @@ class ScanresultScreen extends GetView<DetectController> {
                     outputFormat.format(DateTime.now()),
                     style: TextStyle(color: Colors.white54),
                   ),
-                  // IconButton(
-                  //   onPressed: () async {
-                  //     await _saveToHistory();
-                  //     ScaffoldMessenger.of(context).showSnackBar(
-                  //       SnackBar(
-                  //           content:
-                  //               Text('Hasil deteksi disimpan ke riwayat!')),
-                  //     );
-                  //   },
-                  //   icon: Icon(Icons.save, color: Colors.white),
-                  // ),
                 ],
               ),
 
@@ -168,16 +157,6 @@ class ScanresultScreen extends GetView<DetectController> {
       ),
     );
   }
-
-  // Future<void> _saveToHistory() async {
-  //   final db = DatabaseService.instance;
-  //   await db.insertHistory({
-  //     'imagePath': controller.scanResult.path,
-  //     'diseaseName': controller.disease.diseaseName,
-  //     'accuracy': controller.top1.top1Confidence,
-  //     'date': DateTime.now().toIso8601String(),
-  //   });
-  // }
 
   // Fungsi untuk membuat kotak status kesehatan tanaman
   Widget _buildHealthStatusBox() {

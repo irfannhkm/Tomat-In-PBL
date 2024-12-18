@@ -13,8 +13,8 @@ Route::prefix('v1')->group(function () {
     Route::prefix('auth')->group(function () {
         Route::controller(AuthController::class)->group(function () {
             Route::post('logout', 'logout')->middleware('auth:sanctum');
-            Route::post('login', 'login');
-            Route::post('register', 'register');
+            Route::post('login', 'login')->middleware('throttle:login');
+            Route::post('register', 'register')->middleware('throttle:register');
             Route::post('google/callback', 'googleCallback');
             Route::post('otp/send', 'sendOTP');
             Route::post('otp/register/send', 'sendOTPRegister');
@@ -25,7 +25,7 @@ Route::prefix('v1')->group(function () {
     });
 
     // Authenticated
-    Route::middleware(['auth:sanctum'])->group(function () {
+    Route::middleware(['auth:sanctum', 'throttle:authenticated'])->group(function () {
         Route::group(['prefix' => 'user'], function () {
             Route::get('/', [UserController::class, 'user']);
             Route::put('/', [UserController::class, 'update']);
