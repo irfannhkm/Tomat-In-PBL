@@ -12,9 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->api('throttle:login');
-        $middleware->api('throttle:register');
-        $middleware->api('throttle:authenticated');
+        // $middleware->api('throttle:login');
+        // $middleware->api('throttle:register');
+        // $middleware->api('throttle:authenticated');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
