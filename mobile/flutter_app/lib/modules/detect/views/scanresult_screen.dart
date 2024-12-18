@@ -63,7 +63,7 @@ class ScanresultScreen extends GetView<DetectController> {
                       ),
                     ),
                     Text(
-                      'Akurasi: ${controller.top1.top1Confidence}%',
+                      'Nilai Confidence: ${controller.top1.top1Confidence}%',
                       style: TextStyle(color: Colors.white54, fontSize: 18),
                     ),
                     const SizedBox(height: 20),
