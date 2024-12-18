@@ -25,7 +25,7 @@ Route::prefix('v1')->group(function () {
     });
 
     // Authenticated
-    Route::middleware(['auth:sanctum', 'throttle:authenticated'])->group(function () {
+    Route::middleware(['auth:sanctum'])->group(function () {
         Route::group(['prefix' => 'user'], function () {
             Route::get('/', [UserController::class, 'user']);
             Route::put('/', [UserController::class, 'update']);
