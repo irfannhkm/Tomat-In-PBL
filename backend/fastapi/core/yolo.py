@@ -22,7 +22,7 @@ if not os.path.exists(segmentation_model_path):
 
 segmentation_model = YOLO(segmentation_model_path)
 
-def detect_and_classify(image, confidence_threshold=0.75):
+def detect_and_classify(image, confidence_threshold=0.50):
     """
     Perform object detection and classification.
 
