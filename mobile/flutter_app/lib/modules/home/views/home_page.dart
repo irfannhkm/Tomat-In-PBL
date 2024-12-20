@@ -3,7 +3,6 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:tomatin/modules/auth/controllers/user_controller.dart';
-import 'package:tomatin/modules/home/controllers/home_controller.dart';
 import 'package:tomatin/utils/location_services.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,8 +15,44 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final HomeController homeController = Get.put(HomeController());
+  final LocationServices locationServices = LocationServices();
   final UserController userController = Get.find<UserController>();
+  String cityName = 'Mendapatkan lokasi...';
+
+  @override
+  void initState() {
+    super.initState();
+    _getCityName();
+  }
+
+  Future<void> _getCityName() async {
+    try {
+      final Position? position = await locationServices.getCurrentLocation();
+      if (position != null) {
+        List<Placemark> placemarks = await placemarkFromCoordinates(
+          position.latitude,
+          position.longitude,
+        );
+        if (placemarks.isNotEmpty) {
+          setState(() {
+            cityName = placemarks.first.locality ?? "Kota tidak diketahui";
+          });
+        } else {
+          setState(() {
+            cityName = "Kota tidak ditemukan";
+          });
+        }
+      } else {
+        setState(() {
+          cityName = "Lokasi tidak tersedia";
+        });
+      }
+    } catch (e) {
+      setState(() {
+        cityName = "Error fetching kota: $e";
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,15 +93,10 @@ class _HomePageState extends State<HomePage> {
                       color: Color(0xFF7AAB8D),
                     ),
                     const SizedBox(width: 5),
-                    Obx(() {
-                      return Text(
-                        homeController.cityName.value,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFFDAF1DD),
-                        ),
-                      );
-                    }),
+                    Text(
+                      cityName,
+                      style: TextStyle(fontSize: 14, color: Color(0xFFDAF1DD)),
+                    ),
                     const Spacer(),
                     Image.asset(
                       'assets/weather/6.png',
@@ -88,16 +118,13 @@ class _HomePageState extends State<HomePage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Obx(() {
-                        return Text(
-                          homeController.getGreeting(),
-                          style: const TextStyle(
+                      Text(
+                        'Selamat Siang,',
+                        style: TextStyle(
                             fontSize: 23,
                             fontWeight: FontWeight.w600,
-                            color: Color(0xFFD9DADA),
-                          ),
-                        );
-                      }),
+                            color: Color(0xFFD9DADA)),
+                      ),
                       Obx(() {
                         if (userController.isLoading.value) {
                           return Text(
