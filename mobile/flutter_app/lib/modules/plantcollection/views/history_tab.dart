@@ -41,13 +41,14 @@ class HistoryTab extends StatelessWidget {
                     ? const Color(0xFF0B2B26)
                     : const Color(0x745E1C1C),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          HistoryDetailScreen(history: history),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) =>
+                  //         HistoryDetailScreen(history: history),
+                  //   ),
+                  // );
+                  Get.toNamed('/historyDetail', arguments: history);
                 },
               );
             },

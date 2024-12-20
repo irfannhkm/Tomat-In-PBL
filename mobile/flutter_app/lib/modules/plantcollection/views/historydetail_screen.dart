@@ -6,9 +6,12 @@ import 'package:tomatin/data/models/detection_history.dart';
 import 'package:tomatin/modules/detect/controllers/detect_controller.dart';
 
 class HistoryDetailScreen extends StatelessWidget {
-  final DetectionHistory history;
+  // final DetectionHistory history;
+   HistoryDetailScreen({super.key});
 
-  const HistoryDetailScreen({super.key, required this.history});
+
+  // const HistoryDetailScreen({super.key, required this.history});
+  final DetectionHistory history = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class HistoryDetailScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.pop(context);
+            Get.back();
           },
         ),
         title: const Text('Detail Riwayat Deteksi'),

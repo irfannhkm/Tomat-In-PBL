@@ -12,6 +12,7 @@ import 'package:tomatin/modules/auth/views/forgotpass_screen.dart';
 import 'package:tomatin/modules/auth/views/login_screen.dart';
 import 'package:tomatin/modules/home/views/main_screen.dart';
 import 'package:tomatin/modules/auth/views/otp_screen.dart';
+import 'package:tomatin/modules/plantcollection/views/historydetail_screen.dart';
 import 'package:tomatin/modules/plantcollection/views/plantcollection_screen.dart';
 import 'package:tomatin/modules/plantcollection/views/plantdetail_screen.dart';
 import 'package:tomatin/modules/auth/views/profile_screen.dart';
@@ -88,6 +89,11 @@ class AppPages {
     GetPage(
       name: '/article',
       page: () => const ArticleScreen(),
+    ),
+    GetPage(
+      name: '/historyDetail',
+      page: () => HistoryDetailScreen(),
+      binding: DetectBinding(),
     ),
   ];
 }
