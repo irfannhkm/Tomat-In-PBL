@@ -18,12 +18,6 @@ class Article extends Model
         'disease_id',
         'image_cover'
     ];
-    protected $appends = ['image_cover_url'];
-
-    public function getImageCoverUrlAttribute()
-    {
-        return asset('storage/'. $this->image_cover);
-    }
 
     // Relasi satu Article dimiliki oleh satu Disease
     public function disease()
@@ -36,6 +30,5 @@ class Article extends Model
     {
         return $this->belongsTo(AppUser::class, 'user_id');
     }
-    
 }
 

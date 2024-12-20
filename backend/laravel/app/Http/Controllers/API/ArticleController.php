@@ -14,7 +14,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::with('disease:id,disease_name') // Include related disease data
+        $articles = Article::select('id', 'article_title', 'article_content', 'article_url', 'disease_id', 'image_cover', 'created_at', 'updated_at')
+            ->with('disease:id,disease_name') // Include related disease data
             ->latest('created_at') // Order by creation date
             ->get();
 

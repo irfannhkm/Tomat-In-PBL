@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tomatin/modules/detect/controllers/detect_controller.dart';
+import 'package:camera/camera.dart';
 
 class ScanScreen extends StatelessWidget {
   const ScanScreen({super.key, required this.camera});
@@ -154,7 +155,7 @@ class _CameraScanScreenState extends State<CameraScanScreen>
                     } else {
                       Get.snackbar(
                         'Error',
-                        'Tidak terdeteksi daun tomat dalam gambar.',
+                        'Failed to process the image.',
                         backgroundColor: Colors.red,
                         colorText: Colors.white,
                       );
@@ -206,7 +207,7 @@ class _CameraScanScreenState extends State<CameraScanScreen>
           } else {
             Get.snackbar(
               'Error',
-              'Tidak ada daun tomat yang terdeteksi dalam gambar.',
+              'Failed to detect',
               backgroundColor: Colors.red,
               colorText: Colors.white,
             );
