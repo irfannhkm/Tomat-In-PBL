@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:camera/camera.dart';
+import 'package:flutter/src/material/theme_data.dart';
 import 'package:get/get.dart';
 import 'package:tomatin/data/models/detect_response.dart';
 import 'package:tomatin/data/models/detection_history.dart';
@@ -13,7 +13,6 @@ class DetectController extends GetxController {
   late XFile scanResult;
   late Disease disease;
   late Classification top1;
-  late List<Classification> top5 = [];
 
   Future<bool> detect() async {
     final Completer<bool> completer = Completer<bool>();
@@ -23,9 +22,14 @@ class DetectController extends GetxController {
 
     final req = await detectRepository.detect(scanResult.path);
 
-    if (req.statusCode == 200) {
-      final detectRes = detectFromJson(req.bodyString!);
+    // print(req.bodyString);
 
+    if (req.statusCode == 200) {
+      final detectRes = detectResponseFromJson(req.bodyString!);
+      if (!detectRes.success!) {
+        completer.complete(false);
+        return completer.future;
+      }
       // Simpan top 1 dan top 5 klasifikasi
       top1 = detectRes.classifications![0];
 
@@ -35,6 +39,7 @@ class DetectController extends GetxController {
       final diseaseRes = diseaseFromJson(diseaseReq.bodyString!);
       disease = diseaseRes.data!;
 
+      // Simpan ke riwayat deteksi
       final history = DetectionHistory(
         plantName: disease.diseaseName!,
         status:
@@ -44,7 +49,6 @@ class DetectController extends GetxController {
         detectionDate: DateTime.now(),
       );
       await DatabaseHelper().insertDetectionHistory(history);
-
       completer.complete(true);
     } else {
       completer.complete(false);
@@ -65,4 +69,8 @@ class DetectController extends GetxController {
     );
     await DatabaseHelper().insertDetectionHistory(updatedHistory);
   }
+}
+
+extension on ThemeData {
+  get errorColor => null;
 }

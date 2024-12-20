@@ -1,91 +1,65 @@
 // To parse this JSON data, do
 //
-//     final detect = detectFromJson(jsonString);
+//     final detectResponse = detectResponseFromJson(jsonString);
 
 import 'dart:convert';
 
-DetectResponse detectFromJson(String str) =>
-    DetectResponse.fromJson(json.decode(str));
+DetectResponse detectResponseFromJson(String str) => DetectResponse.fromJson(json.decode(str));
 
-String detectToJson(DetectResponse data) => json.encode(data.toJson());
+String detectResponseToJson(DetectResponse data) => json.encode(data.toJson());
 
 class DetectResponse {
-  final bool? success;
-  final List<Classification>? classifications;
+    final bool? success;
+    final String? message;
+    final List<Classification>? classifications;
 
-  DetectResponse({
-    this.success,
-    this.classifications,
-  });
+    DetectResponse({
+        this.success,
+        this.message,
+        this.classifications,
+    });
 
-  factory DetectResponse.fromJson(Map<String, dynamic> json) => DetectResponse(
+    factory DetectResponse.fromJson(Map<String, dynamic> json) => DetectResponse(
         success: json["success"],
-        classifications: json["classifications"] == null
-            ? []
-            : List<Classification>.from(json["classifications"]!
-                .map((x) => Classification.fromJson(x))),
-      );
+        message: json["message"],
+        classifications: json["classifications"] == null ? [] : List<Classification>.from(json["classifications"]!.map((x) => Classification.fromJson(x))),
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "success": success,
-        "classifications": classifications == null
-            ? []
-            : List<dynamic>.from(classifications!.map((x) => x.toJson())),
-      };
+        "message": message,
+        "classifications": classifications == null ? [] : List<dynamic>.from(classifications!.map((x) => x.toJson())),
+    };
 }
 
 class Classification {
-  final String? top1Label;
-  final int? classId;
-  final double? top1Confidence;
-  final List<Top5>? top5;
+    final List<int>? boundingBox;
+    final double? detectionConfidence;
+    final int? classId;
+    final String? top1Label;
+    final double? top1Confidence;
 
-  Classification({
-    this.top1Label,
-    this.classId,
-    this.top1Confidence,
-    this.top5,
-  });
+    Classification({
+        this.boundingBox,
+        this.detectionConfidence,
+        this.classId,
+        this.top1Label,
+        this.top1Confidence,
+    });
 
-  factory Classification.fromJson(Map<String, dynamic> json) => Classification(
+    factory Classification.fromJson(Map<String, dynamic> json) => Classification(
+        boundingBox: json["bounding box"] == null ? [] : List<int>.from(json["bounding box"]!.map((x) => x)),
+        detectionConfidence: json["detection_confidence"]?.toDouble(),
+        classId: json["class_id"],
         top1Label: json["top1_label"],
-        classId: json["class_id"],
         top1Confidence: json["top1_confidence"]?.toDouble(),
-        top5: json["top5"] == null
-            ? []
-            : List<Top5>.from(json["top5"]!.map((x) => Top5.fromJson(x))),
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
+        "bounding box": boundingBox == null ? [] : List<dynamic>.from(boundingBox!.map((x) => x)),
+        "detection_confidence": detectionConfidence,
+        "class_id": classId,
         "top1_label": top1Label,
-        "class_id": classId,
         "top1_confidence": top1Confidence,
-        "top5": top5 == null
-            ? []
-            : List<dynamic>.from(top5!.map((x) => x.toJson())),
-      };
-}
-
-class Top5 {
-  final String? label;
-  final int? classId;
-  final double? confidence;
-
-  Top5({
-    this.label,
-    this.classId,
-    this.confidence,
-  });
-
-  factory Top5.fromJson(Map<String, dynamic> json) => Top5(
-        label: json["label"],
-        classId: json["class_id"],
-        confidence: json["confidence"]?.toDouble(),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "label": label,
-        "class_id": classId,
-        "confidence": confidence,
-      };
+    };
 }
